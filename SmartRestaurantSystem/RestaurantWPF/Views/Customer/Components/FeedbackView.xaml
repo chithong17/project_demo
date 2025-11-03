@@ -1,0 +1,222 @@
+﻿<UserControl x:Class="RestaurantWPF.Views.Customer.Components.FeedbackView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:RestaurantWPF.Converters">
+
+    <UserControl.Resources>
+        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
+        <local:RatingToColorConverter x:Key="RatingToColorConverter"/>
+
+        <!-- 🌟 Hiệu ứng bóng nhẹ -->
+        <DropShadowEffect x:Key="ShadowEffect" BlurRadius="6" ShadowDepth="2" Color="#66000000"/>
+
+        <!-- ⭐ Style nút chọn sao -->
+        <Style x:Key="StarButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Path Data="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.46,13.97L5.82,21L12,17.27Z"
+                              Fill="{TemplateBinding Tag}"
+                              Stretch="Uniform"
+                              Width="32" Height="32"
+                              Cursor="Hand"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Margin="30">
+            <Border Background="#FFF8E1" Padding="25" CornerRadius="10" BorderBrush="#FFD54F" BorderThickness="1">
+                <StackPanel>
+
+                    <!-- Tiêu đề -->
+                    <TextBlock Text="⭐ Đánh giá món ăn"
+                               FontSize="20"
+                               FontWeight="Bold"
+                               Foreground="#4E342E"
+                               Margin="0,0,0,20"/>
+
+                    <!-- Chọn món -->
+                    <TextBlock Text="🍽️ Chọn món ăn:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                    <ComboBox ItemsSource="{Binding CompletedFoods}"
+                              DisplayMemberPath="Name"
+                              SelectedItem="{Binding SelectedFood}"
+                              Width="250"
+                              Margin="0,0,0,10"/>
+
+                    <!-- Thông tin món ăn -->
+                    <Border Background="#FFFFFF"
+                            BorderBrush="#FFECB3"
+                            BorderThickness="1"
+                            CornerRadius="10"
+                            Padding="10"
+                            Margin="0,0,0,20"
+                            Visibility="{Binding SelectedFood, Converter={StaticResource NullToVisibilityConverter}}">
+                        <DockPanel>
+                            <Image Source="{Binding SelectedFood.ImageUrl}"
+                                   Width="120"
+                                   Height="120"
+                                   Stretch="UniformToFill"
+                                   Margin="0,0,15,0"
+                                   DockPanel.Dock="Left"/>
+
+                            <StackPanel>
+                                <TextBlock Text="{Binding SelectedFood.Name}"
+                                           FontSize="16"
+                                           FontWeight="Bold"
+                                           Foreground="#5D4037"/>
+                                <TextBlock Text="{Binding SelectedFood.Description}"
+                                           TextWrapping="Wrap"
+                                           Width="350"
+                                           Foreground="#6D4C41"/>
+                                <TextBlock Text="{Binding SelectedFood.Price, StringFormat='Giá: {0:N0}đ'}"
+                                           Margin="0,8,0,0"
+                                           FontWeight="SemiBold"
+                                           Foreground="#BF360C"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </Border>
+
+                    <!-- Chọn sao -->
+                    <TextBlock Text="⭐ Đánh giá:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                        <ItemsControl ItemsSource="{Binding Ratings}" Margin="0,0,0,15">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource StarButtonStyle}"
+                                            Command="{Binding DataContext.SelectRatingCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                            CommandParameter="{Binding}">
+                                        <Button.Tag>
+                                            <MultiBinding Converter="{StaticResource RatingToColorConverter}">
+                                                <Binding Path="DataContext.SelectedRating" RelativeSource="{RelativeSource AncestorType=UserControl}"/>
+                                                <Binding/>
+                                            </MultiBinding>
+                                        </Button.Tag>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+
+                    <!-- Nhận xét -->
+                    <TextBlock Text="✍️ Nhận xét:" FontWeight="SemiBold"/>
+                    <TextBox Text="{Binding Comment}"
+                             AcceptsReturn="True"
+                             Height="80"
+                             TextWrapping="Wrap"
+                             Margin="0,5,0,20"/>
+
+                    <!-- Gửi -->
+                    <Button Content="Gửi đánh giá"
+                            Command="{Binding SubmitFeedbackCommand}"
+                            Background="#FFA000"
+                            Foreground="White"
+                            FontWeight="Bold"
+                            Width="150"
+                            Height="40"
+                            Cursor="Hand"
+                            HorizontalAlignment="Left">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <!-- 🕓 Lịch sử đánh giá -->
+                    <TextBlock Text="🕓 Lịch sử đánh giá của bạn"
+                               FontSize="18"
+                               FontWeight="Bold"
+                               Foreground="#4E342E"
+                               Margin="0,25,0,10"/>
+
+                    <ItemsControl ItemsSource="{Binding FeedbackHistory}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="White"
+                                        BorderBrush="#FFECB3"
+                                        BorderThickness="1"
+                                        CornerRadius="10"
+                                        Padding="10"
+                                        Margin="0,0,0,15"
+                                        Effect="{StaticResource ShadowEffect}">
+                                    <DockPanel>
+                                        <!-- Ảnh món -->
+                                        <Image Source="{Binding Food.ImageUrl}"
+                                               Width="80"
+                                               Height="80"
+                                               Stretch="UniformToFill"
+                                               Margin="0,0,10,0"
+                                               DockPanel.Dock="Left"/>
+
+                                        <!-- Nội dung -->
+                                        <StackPanel>
+                                            <!-- Tên món -->
+                                            <TextBlock Text="{Binding Food.Name}"
+                                                       FontWeight="Bold"
+                                                       FontSize="15"
+                                                       Foreground="#5D4037"/>
+
+                                            <!-- Mô tả -->
+                                            <TextBlock Text="{Binding Food.Description}"
+                                                       TextWrapping="Wrap"
+                                                       Foreground="#6D4C41"
+                                                       FontSize="13"
+                                                       Margin="0,2,0,4"
+                                                       MaxHeight="40"
+                                                       TextTrimming="CharacterEllipsis"/>
+
+                                            <!-- Số sao -->
+                                            <StackPanel Orientation="Horizontal" Margin="0,4,0,4">
+                                                <ItemsControl ItemsSource="{Binding RatingStars}">
+                                                    <ItemsControl.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <StackPanel Orientation="Horizontal"/>
+                                                        </ItemsPanelTemplate>
+                                                    </ItemsControl.ItemsPanel>
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Path Data="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.63L12,2L9.19,8.63L2,9.24L7.46,13.97L5.82,21L12,17.27Z"
+                                                                  Fill="{Binding}"
+                                                                  Width="20" Height="20"
+                                                                  Stretch="Uniform"/>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+                                            </StackPanel>
+
+                                            <!-- Nhận xét -->
+                                            <TextBlock Text="{Binding Comment}"
+                                                       TextWrapping="Wrap"
+                                                       Foreground="#4E342E"
+                                                       FontStyle="Italic"/>
+
+                                            <!-- Ngày -->
+                                            <TextBlock Text="{Binding CreatedAt, StringFormat='Ngày {0:dd/MM/yyyy HH:mm}'}"
+                                                       FontSize="12"
+                                                       Foreground="#9E9E9E"
+                                                       Margin="0,5,0,0"/>
+                                        </StackPanel>
+                                    </DockPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </StackPanel>
+            </Border>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,149 @@
+﻿<UserControl x:Class="RestaurantWPF.Views.Staff.Components.TablesView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:RestaurantWPF.Converters"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <local:TableStatusTextConverter  x:Key="TableStatusTextConverter"/>
+        <local:TableStatusBrushConverter x:Key="TableStatusBrushConverter"/>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+        <Style x:Key="StatusChip" TargetType="Border">
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Padding" Value="6,2"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Background" Value="#EEE"/>
+        </Style>
+
+        <QuadraticEase x:Key="EaseOut" EasingMode="EaseOut"/>
+    </UserControl.Resources>
+
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2.8*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- DANH SÁCH BÀN -->
+        <StackPanel>
+            <TextBlock Text="🪑 Danh sách bàn"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Foreground="#1B5E20"
+                       Margin="0,0,0,10"/>
+
+            <Button Content="🔄 Tải lại"
+                    Command="{Binding RefreshCommand}"
+                    HorizontalAlignment="Left"
+                    Width="100"
+                    Margin="0,0,0,10"
+                    Background="#81C784"
+                    Foreground="White"/>
+
+            <ListView ItemsSource="{Binding Tables}"
+                      SelectedItem="{Binding SelectedTable, Mode=TwoWay}"
+                      BorderThickness="0"
+                      Margin="0,5,0,0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding TableId}"/>
+                        <GridViewColumn Header="Tên bàn" Width="120" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Sức chứa" Width="80" DisplayMemberBinding="{Binding Capacity}"/>
+                        <GridViewColumn Header="Khu vực" Width="120" DisplayMemberBinding="{Binding Location}"/>
+                        <GridViewColumn Header="Trạng thái" Width="180">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Border Style="{StaticResource StatusChip}"
+                                            Background="{Binding Status, Converter={StaticResource TableStatusBrushConverter}}">
+                                        <TextBlock Text="{Binding Status, Converter={StaticResource TableStatusTextConverter}}"
+                                                   Foreground="White"
+                                                   FontWeight="SemiBold"
+                                                   Margin="4,0,4,0"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+
+        <!-- CHI TIẾT BÀN -->
+        <Border Grid.Column="1"
+                Margin="20,0,0,0"
+                Background="#FAFAFA"
+                Padding="20"
+                CornerRadius="10"
+                BorderBrush="#C8E6C9"
+                BorderThickness="1"
+                Visibility="{Binding IsTableSelected, Converter={StaticResource BoolToVisibilityConverter}}"
+                RenderTransformOrigin="1,0.5">
+
+            <Border.RenderTransform>
+                <TranslateTransform X="300"/>
+            </Border.RenderTransform>
+
+            <Border.Triggers>
+                <EventTrigger RoutedEvent="Border.Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
+                                             From="300" To="0"
+                                             Duration="0:0:0.35"
+                                             EasingFunction="{StaticResource EaseOut}"/>
+                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                             From="0" To="1"
+                                             Duration="0:0:0.35"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Border.Triggers>
+
+            <StackPanel>
+                <TextBlock Text="📋 Chi tiết bàn"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="#1B5E20"
+                           Margin="0,0,0,10"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                    <TextBlock Text="Tên bàn: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SelectedTable.Name}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                    <TextBlock Text="Sức chứa: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SelectedTable.Capacity}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                    <TextBlock Text="Khu vực: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SelectedTable.Location}" />
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
+                    <TextBlock Text="Trạng thái: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SelectedTable.Status, Converter={StaticResource TableStatusTextConverter}}" 
+                               Foreground="#2E7D32"
+                               FontWeight="SemiBold"/>
+                </StackPanel>
+
+                <Separator Margin="0,10,0,10"/>
+
+                <Button Content="🔁 Đổi trạng thái"
+                        Command="{Binding ChangeStatusCommand}"
+                        CommandParameter="{Binding SelectedTable}"
+                        Width="180"
+                        Height="35"
+                        HorizontalAlignment="Center"
+                        Background="#64B5F6"
+                        Foreground="White"
+                        FontWeight="Bold"
+                        Margin="0,10,0,0"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

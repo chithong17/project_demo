@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="RestaurantWPF.Views.Admin.Components.TableManagement"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+
+    <Grid Margin="10">
+        <StackPanel>
+            <TextBlock Text="🪑 Table Management"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Margin="0,0,0,20"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
+                <Button Content="Add Table" Command="{Binding AddCommand}" Margin="5"/>
+                <Button Content="Edit Table" Command="{Binding EditCommand}" Margin="5"/>
+                <Button Content="Delete Table" Command="{Binding DeleteCommand}" Margin="5"/>
+            </StackPanel>
+
+            <DataGrid ItemsSource="{Binding Tables}"
+                      SelectedItem="{Binding SelectedTable}"
+                      AutoGenerateColumns="False"
+                      CanUserAddRows="False"
+                      IsReadOnly="False"
+                      HeadersVisibility="Column">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding TableId}" Width="Auto"/>
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                    <DataGridTextColumn Header="Capacity" Binding="{Binding Capacity}" Width="*"/>
+                    <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="*"/>
+                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</UserControl>

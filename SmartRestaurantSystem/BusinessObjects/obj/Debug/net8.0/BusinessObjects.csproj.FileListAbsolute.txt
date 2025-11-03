@@ -1,0 +1,14 @@
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\bin\Debug\net8.0\BusinessObjects.deps.json
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\bin\Debug\net8.0\BusinessObjects.runtimeconfig.json
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\bin\Debug\net8.0\BusinessObjects.dll
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\bin\Debug\net8.0\BusinessObjects.pdb
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\obj\Debug\net8.0\BusinessObjects.csproj.AssemblyReference.cache
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\obj\Debug\net8.0\BusinessObjects.GeneratedMSBuildEditorConfig.editorconfig
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\obj\Debug\net8.0\BusinessObjects.AssemblyInfoInputs.cache
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\obj\Debug\net8.0\BusinessObjects.AssemblyInfo.cs
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\obj\Debug\net8.0\BusinessObjects.csproj.CoreCompileInputs.cache
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\obj\Debug\net8.0\BusinessObjects.dll
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\obj\Debug\net8.0\refint\BusinessObjects.dll
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\obj\Debug\net8.0\BusinessObjects.pdb
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\obj\Debug\net8.0\BusinessObjects.genruntimeconfig.cache
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\obj\Debug\net8.0\ref\BusinessObjects.dll

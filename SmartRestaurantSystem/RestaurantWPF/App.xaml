@@ -1,0 +1,105 @@
+﻿<Application x:Class="RestaurantWPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:conv="clr-namespace:RestaurantWPF.Converters"
+             xmlns:local="clr-namespace:RestaurantWPF"
+             StartupUri="Views/LoginWindow.xaml">
+    <Application.Resources>
+
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <conv:OrderStatusConverter x:Key="OrderStatusConverter"/>
+        <conv:StatusToServeVisibilityConverter x:Key="StatusToServeVisibilityConverter"/>
+        <conv:StatusToCompleteVisibilityConverter x:Key="StatusToCompleteVisibilityConverter"/>
+
+        <!-- 🔘 Style cho nút bo góc -->
+        <Style x:Key="RoundedButton" TargetType="Button">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="#4CA1AF"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#388E8E"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#2C3E50"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- 📦 Style cho TextBox bo tròn -->
+        <Style x:Key="RoundedTextBox" TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="#4CA1AF"/>
+            <Setter Property="BorderThickness" Value="1.2"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Padding" Value="6"/>
+            <Setter Property="Background" Value="#FFF"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border" 
+                        Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}" 
+                        CornerRadius="6">
+                            <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#388E8E"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="1.6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- 🔒 Style cho PasswordBox bo tròn -->
+        <Style x:Key="RoundedPasswordBox" TargetType="PasswordBox">
+            <Setter Property="BorderBrush" Value="#4CA1AF"/>
+            <Setter Property="BorderThickness" Value="1.2"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Padding" Value="6"/>
+            <Setter Property="Background" Value="#FFF"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="PasswordBox">
+                        <Border x:Name="border"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6">
+                            <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#388E8E"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="1.6"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
+        <DropShadowEffect x:Key="DropShadowEffect"
+                      Color="Black"
+                      Opacity="0.3"
+                      ShadowDepth="4"
+                      BlurRadius="10"/>
+
+    </Application.Resources>
+</Application>

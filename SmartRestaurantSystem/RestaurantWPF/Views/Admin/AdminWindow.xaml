@@ -1,0 +1,178 @@
+﻿<Window x:Class="RestaurantWPF.Views.Admin.AdminWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:RestaurantWPF.ViewModels.Admin"
+        xmlns:v="clr-namespace:RestaurantWPF.Views.Admin.Components"
+        Title="Smart Restaurant - Admin Dashboard"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="CanResize"
+        Background="#F7F9FC">
+
+    <Window.Resources>
+
+        <DataTemplate DataType="{x:Type vm:DashboardViewModel}">
+            <v:DashboardView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:FoodViewModel}">
+            <v:FoodManagement/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:TableViewModel}">
+            <v:TableManagement/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:OrderViewModel}">
+            <v:OrderManagement/>
+        </DataTemplate>
+
+
+        <DataTemplate DataType="{x:Type vm:UserManagementViewModel}">
+            <v:UserManagement/>
+        </DataTemplate>
+    </Window.Resources>
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- 🌈 Sidebar -->
+        <Border Grid.RowSpan="2">
+            <Border.Background>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                    <GradientStop Color="#E0F7FA" Offset="0"/>
+                    <GradientStop Color="#80DEEA" Offset="1"/>
+                </LinearGradientBrush>
+            </Border.Background>
+
+            <StackPanel Margin="25,60,25,0">
+                <TextBlock Text="Smart Restaurant"
+                           Foreground="#004D40"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Margin="0,0,0,50"/>
+
+                <Button Content="🏠  Dashboard"
+        FontSize="16"
+        Background="Transparent"
+        Foreground="#004D40"
+        BorderThickness="0"
+        Margin="0,8"
+        Cursor="Hand"
+        HorizontalContentAlignment="Left"
+        Command="{Binding ShowDashboardCommand}" />
+
+                <Button Content="🍽️  Foods"
+        FontSize="16"
+        Background="Transparent"
+        Foreground="#004D40"
+        BorderThickness="0"
+        Margin="0,8"
+        Cursor="Hand"
+        HorizontalContentAlignment="Left"
+        Command="{Binding ShowFoodsCommand}" />
+
+                <Button Content="🪑  Tables"
+        FontSize="16"
+        Background="Transparent"
+        Foreground="#004D40"
+        BorderThickness="0"
+        Margin="0,8"
+        Cursor="Hand"
+        HorizontalContentAlignment="Left"
+        Command="{Binding ShowTablesCommand}" />
+
+                <Button Content="📦  Orders"
+        FontSize="16"
+        Background="Transparent"
+        Foreground="#004D40"
+        BorderThickness="0"
+        Margin="0,8"
+        Cursor="Hand"
+        HorizontalContentAlignment="Left"
+        Command="{Binding ShowOrdersCommand}" />
+
+                <Button Content="👥  Users"
+        FontSize="16"
+        Background="Transparent"
+        Foreground="#004D40"
+        BorderThickness="0"
+        Margin="0,8"
+        Cursor="Hand"
+        HorizontalContentAlignment="Left"
+        Command="{Binding ShowUsersCommand}" />
+
+                <Button Content="🚪  Logout"
+        Command="{Binding LogoutCommand}"
+        Foreground="White"
+        Background="#4CA1AF"
+        FontSize="15"
+        BorderThickness="0"
+        FontWeight="Bold"
+        Margin="0,50,0,0"
+        Height="40"
+        Cursor="Hand"
+        HorizontalContentAlignment="Center">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border CornerRadius="6" Background="{TemplateBinding Background}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+            </StackPanel>
+        </Border>
+
+        <!-- 👉 Cột phải -->
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Header -->
+                <RowDefinition Height="*"/>
+                <!-- Main content -->
+            </Grid.RowDefinitions>
+
+            <!-- 🔷 Header -->
+            <Border Background="White"
+                    Height="70"
+                    VerticalAlignment="Top"
+                    Margin="0,0,0,1"
+                    Padding="20,0">
+                <DockPanel LastChildFill="False">
+                    <TextBlock Text="{Binding Greeting}"
+                               FontSize="24"
+                               FontWeight="Bold"
+                               Foreground="#2C3E50"
+                               VerticalAlignment="Center"
+                               DockPanel.Dock="Left"/>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
+                        <Ellipse Width="42" Height="42" Fill="#4CA1AF"/>
+                        <TextBlock Text="{Binding AdminName}"
+                                   Margin="12,0,0,0"
+                                   FontSize="16"
+                                   VerticalAlignment="Center"
+                                   Foreground="#2C3E50"
+                                   FontWeight="Medium"/>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
+
+            <!-- 🧩 Nội dung chính -->
+            <Border Grid.Row="1"
+                Background="White"
+                CornerRadius="10"
+                Margin="25"
+                Padding="20">
+                <ContentControl Content="{Binding CurrentView}" />
+            </Border>
+
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,129 @@
+﻿<UserControl x:Class="RestaurantWPF.Views.Staff.Components.ReservationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:RestaurantWPF.Converters"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <QuadraticEase x:Key="EaseOut" EasingMode="EaseOut"/>
+    </UserControl.Resources>
+
+    <Grid Margin="20">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2.8*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Danh sách -->
+        <StackPanel>
+            <TextBlock Text="📅 Danh sách đặt bàn"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Foreground="#1B5E20"
+                       Margin="0,0,0,10"/>
+
+            <ListView ItemsSource="{Binding Reservations}"
+                      SelectedItem="{Binding SelectedReservation, Mode=TwoWay}"
+                      Margin="5"
+                      BorderThickness="0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Mã" Width="60" DisplayMemberBinding="{Binding ReservationId}"/>
+                        <GridViewColumn Header="Khách hàng" Width="140" DisplayMemberBinding="{Binding CustomerName}"/>
+                        <GridViewColumn Header="Số người" Width="80" DisplayMemberBinding="{Binding NumberOfPeople}"/>
+                        <GridViewColumn Header="Giờ bắt đầu" Width="140" DisplayMemberBinding="{Binding StartTime}"/>
+                        <GridViewColumn Header="Trạng thái" Width="120" DisplayMemberBinding="{Binding Status}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </StackPanel>
+
+        <!-- Panel chi tiết -->
+        <Border Grid.Column="1"
+                Margin="20,0,0,0"
+                Background="#FAFAFA"
+                Padding="20"
+                CornerRadius="10"
+                BorderBrush="#C8E6C9"
+                BorderThickness="1"
+                Visibility="{Binding IsReservationSelected, Converter={StaticResource BoolToVisibilityConverter}}">
+
+            <StackPanel>
+                <TextBlock Text="📋 Chi tiết đặt bàn"
+                           FontSize="22"
+                           FontWeight="Bold"
+                           Foreground="#1B5E20"
+                           Margin="0,0,0,15"/>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Khách hàng: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SelectedReservation.CustomerName}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="SĐT: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SelectedReservation.Phone}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Số người: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SelectedReservation.NumberOfPeople}"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <TextBlock Text="Giờ đặt: " FontWeight="Bold"/>
+                    <TextBlock Text="{Binding SelectedReservation.StartTime, StringFormat={}{0:HH:mm dd/MM/yyyy}}"/>
+                </StackPanel>
+
+                <TextBlock Text="Ghi chú:" FontWeight="Bold" Margin="0,10,0,5"/>
+                <TextBlock Text="{Binding SelectedReservation.Note}" TextWrapping="Wrap" />
+
+                <Separator Margin="0,10,0,10"/>
+
+                <!-- Phần chọn bàn -->
+                <TextBlock Text="Chọn bàn để gán:" FontWeight="Bold" Margin="0,0,0,5"/>
+                <ComboBox ItemsSource="{Binding AvailableTables}"
+                          SelectedItem="{Binding SelectedTable, Mode=TwoWay}"
+                          DisplayMemberPath="Name"
+                          Width="200"
+                          Margin="0,0,0,10"/>
+
+                <Button Content="Gán bàn"
+                        Command="{Binding AssignTableCommand}"
+                        Background="#64B5F6"
+                        Foreground="White"
+                        Width="150" Height="35" Margin="0,0,0,10"
+                        HorizontalAlignment="Left"/>
+
+                <Separator Margin="0,10,0,10"/>
+
+                <!-- Nút xử lý -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Content="Xác nhận"
+                            Command="{Binding ConfirmCommand}"
+                            CommandParameter="{Binding SelectedReservation}"
+                            Background="#FBC02D"
+                            Foreground="White"
+                            Width="110" Height="35" Margin="5"/>
+
+                    <Button Content="Chuyển sang Order"
+                            Command="{Binding ConvertToOrderCommand}"
+                            CommandParameter="{Binding SelectedReservation}"
+                            Background="#4CAF50"
+                            Foreground="White"
+                            Width="150" Height="35" Margin="5"/>
+
+                    <Button Content="Hủy"
+                            Command="{Binding CancelCommand}"
+                            CommandParameter="{Binding SelectedReservation}"
+                            Background="#E53935"
+                            Foreground="White"
+                            Width="90" Height="35" Margin="5"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,85 @@
+﻿<Window x:Class="RestaurantWPF.Views.Customer.Dialogs.EditReservationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Chỉnh sửa đặt bàn"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight"
+        ResizeMode="NoResize"
+        Background="#FFF8E1"
+        WindowStyle="ToolWindow"
+        FontFamily="Segoe UI">
+
+    <Border CornerRadius="10" BorderBrush="#FFD54F" BorderThickness="1" Padding="25" Background="White">
+        <StackPanel>
+            <TextBlock Text="✏️ Cập nhật thông tin đặt bàn"
+                       FontSize="20"
+                       FontWeight="Bold"
+                       Foreground="#4E342E"
+                       Margin="0,0,0,15"/>
+
+            <!-- Thời gian -->
+            <TextBlock Text="🕒 Thời gian:" Margin="0,5"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <DatePicker SelectedDate="{Binding StartTime}" Width="160"/>
+                <TextBlock Text="Giờ:" VerticalAlignment="Center" Margin="10,0,5,0"/>
+                <TextBox Text="{Binding TimeString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+         Width="60" VerticalContentAlignment="Center"/>
+            </StackPanel>
+
+            <!-- Số người -->
+            <TextBlock Text="👥 Số người:" Margin="0,5"/>
+            <TextBox Text="{Binding NumberOfPeople, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+         Width="100" Margin="0,0,0,10"/>
+
+
+            <!-- Ghi chú -->
+            <TextBlock Text="📝 Ghi chú:" Margin="0,5"/>
+            <TextBox Text="{Binding Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+         AcceptsReturn="True"
+         Height="70"
+         TextWrapping="Wrap"
+         BorderBrush="#FFD54F"
+         BorderThickness="1"
+         Padding="6"
+         Margin="0,0,0,10"/>
+
+
+            <!-- Nút -->
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right"
+                        Margin="0,20,0,0">
+                <Button Content="💾 Lưu"
+                        Width="100" Height="36" Margin="5,0,0,0"
+                        Background="#FFA000"
+                        Foreground="White"
+                        FontWeight="Bold"
+                        Cursor="Hand"
+                        Command="{Binding SaveCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button Content="❌ Hủy"
+                        Width="90" Height="36" Margin="5,0,0,0"
+                        Background="#E53935"
+                        Foreground="White"
+                        FontWeight="Bold"
+                        Cursor="Hand"
+                        Command="{Binding CancelCommand}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="8">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>

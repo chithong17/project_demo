@@ -1,0 +1,15 @@
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\bin\Debug\net8.0\DataAccessLayer.deps.json
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\bin\Debug\net8.0\DataAccessLayer.dll
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\bin\Debug\net8.0\DataAccessLayer.pdb
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\bin\Debug\net8.0\BusinessObjects.dll
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\bin\Debug\net8.0\BusinessObjects.pdb
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.csproj.AssemblyReference.cache
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.GeneratedMSBuildEditorConfig.editorconfig
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.AssemblyInfoInputs.cache
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.AssemblyInfo.cs
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\obj\Debug\net8.0\DataAcce.E67BD773.Up2Date
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.dll
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\obj\Debug\net8.0\refint\DataAccessLayer.dll
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.pdb
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\obj\Debug\net8.0\ref\DataAccessLayer.dll
