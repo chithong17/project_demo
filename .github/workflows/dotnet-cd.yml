@@ -1,86 +1,49 @@
-name: .NET Build + Publish (CI/CD)
+name: CD - Publish & Installer
 
 on:
   push:
     branches: ["main"]
-  pull_request:
-    branches: ["main"]
 
 jobs:
-  build:
+  release:
     runs-on: windows-latest
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup .NET 8
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: "8.0.x"
 
-    - name: Restore dependencies
-      run: dotnet restore SmartRestaurantSystem/SmartRestaurantSystem.sln
+    - name: Install Windows Desktop workload
+      run: dotnet workload install microsoft-net-sdk-windowsdesktop
 
-    - name: Build solution
-      run: dotnet build SmartRestaurantSystem/SmartRestaurantSystem.sln --configuration Release --no-restore
-
-    - name: Run tests
-      run: dotnet test SmartRestaurantSystem/SmartRestaurantSystem.sln --no-build --configuration Release
-
-    # --- Publish WPF app ---
     - name: Publish WPF
-      run: dotnet publish SmartRestaurantSystem/RestaurantWPF/RestaurantWPF.csproj `
-            -c Release `
-            -o publish/wpf `
-            -r win-x64 `
-            --self-contained true `
-            /p:PublishSingleFile=true /p:IncludeAllContentForSelfExtract=true
+      working-directory: SmartRestaurantSystem
+      run: dotnet publish RestaurantWPF/RestaurantWPF.csproj `
+              -c Release `
+              -o ../publish `
+              -r win-x64 `
+              --self-contained true `
+              /p:PublishSingleFile=true
 
-    # --- Build Setup.exe bằng Inno Setup ---
-    - name: Install Inno Setup
+    - name: Build Setup.exe with Inno Setup
       uses: Minionguyjpro/InnoSetup-Action@v1.0.3
       with:
         path: SmartRestaurantSystem/Installer/installer.iss
 
-    - name: Copy setup output
-      run: |
-        mkdir Output
-        copy SmartRestaurantSystem/Installer/Output/*.exe Output/SmartRestaurant_Setup.exe
-
-    # --- Upload artifact lên GitHub (CI) ---
-    - name: Upload published ZIP
-      uses: actions/upload-artifact@v3
-      with:
-        name: SmartRestaurant-Zip
-        path: publish/wpf
-
     - name: Upload installer
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: SmartRestaurant-Setup
-        path: Output/SmartRestaurant_Setup.exe
+        path: SmartRestaurantSystem/Installer/Output/*.exe
 
-  release:
-    needs: build
-    runs-on: windows-latest
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-    - name: Download artifacts
-      uses: actions/download-artifact@v3
-      with:
-        path: release
-
-    - name: Create GitHub Release
+    - name: Create Release
       uses: softprops/action-gh-release@v2
       with:
         tag_name: latest
-        name: "SmartRestaurant – Latest Build"
-        body: |
-          ✔ Build tự động từ branch main  
-          ✔ Bao gồm Setup.exe + thư mục publish  
-      files: |
-        release/SmartRestaurant-Setup/SmartRestaurant_Setup.exe
-        release/SmartRestaurant-Zip/**
-      token: ${{ secrets.GITHUB_TOKEN }}
+        files: SmartRestaurantSystem/Installer/Output/*.exe
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
