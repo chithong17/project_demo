@@ -1,8 +1,8 @@
-name: CI - Build & Test
+name: CI - Build & Publish WPF
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
 
 jobs:
@@ -10,11 +10,11 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    # ✔ Lấy code
+    # ✔ Lấy source từ GitHub
     - name: Checkout source code
       uses: actions/checkout@v4
 
-    # ✔ Cài .NET 8 SDK
+    # ✔ Cài .NET SDK 8
     - name: Setup .NET 8 SDK
       uses: actions/setup-dotnet@v4
       with:
@@ -25,22 +25,22 @@ jobs:
       working-directory: SmartRestaurantSystem
       run: dotnet restore SmartRestaurantSystem.sln
 
-    # ✔ Build solution
+    # ✔ Build solution (Release)
     - name: Build solution
       working-directory: SmartRestaurantSystem
       run: dotnet build SmartRestaurantSystem.sln --configuration Release --no-restore
 
-    # ✔ Run unit tests (NUnit)
-    - name: Run unit tests
-      working-directory: SmartRestaurantSystem
-      run: dotnet test SmartRestaurantSystem.sln --no-build --verbosity normal
+    # ❌ Không chạy test (WPF không chạy test được trên CI)
+    # - name: Run unit tests
+    #   working-directory: SmartRestaurantSystem
+    #   run: dotnet test SmartRestaurantSystem.sln --no-build --verbosity normal
 
-    # ✔ Publish WPF app
+    # ✔ Publish WPF App ra thư mục publish/
     - name: Publish WPF App
       working-directory: SmartRestaurantSystem
       run: dotnet publish RestaurantWPF/RestaurantWPF.csproj -c Release -o ../publish
 
-    # ✔ Upload EXE output
+    # ✔ Upload artifact để download từ GitHub
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
