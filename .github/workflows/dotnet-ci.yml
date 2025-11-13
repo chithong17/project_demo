@@ -4,35 +4,45 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: windows-latest
 
     steps:
+    # ✔ Lấy code
     - name: Checkout source code
       uses: actions/checkout@v4
 
+    # ✔ Cài .NET 8 SDK
     - name: Setup .NET 8 SDK
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
 
+    # ✔ Restore dependencies
     - name: Restore dependencies
+      working-directory: SmartRestaurantSystem
       run: dotnet restore SmartRestaurantSystem.sln
 
+    # ✔ Build solution
     - name: Build solution
+      working-directory: SmartRestaurantSystem
       run: dotnet build SmartRestaurantSystem.sln --configuration Release --no-restore
 
-    - name: Run unit tests with NUnit
+    # ✔ Run unit tests (NUnit)
+    - name: Run unit tests
+      working-directory: SmartRestaurantSystem
       run: dotnet test SmartRestaurantSystem.sln --no-build --verbosity normal
 
+    # ✔ Publish WPF app
     - name: Publish WPF App
-      run: dotnet publish RestaurantWPF/RestaurantWPF.csproj -c Release -o published
+      working-directory: SmartRestaurantSystem
+      run: dotnet publish RestaurantWPF/RestaurantWPF.csproj -c Release -o ../publish
 
-    - name: Upload artifact (WPF exe)
+    # ✔ Upload EXE output
+    - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: wpf-build
-        path: published
+        name: SmartRestaurantWPF
+        path: publish
