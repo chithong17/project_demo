@@ -52,7 +52,8 @@ namespace RestaurantWPF.Views.Customer.Dialogs {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/RestaurantWPF;component/views/customer/dialogs/editreservationwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/RestaurantWPF;V1.0.0.0;component/views/customer/dialogs/editreservationwindow.xa" +
+                    "ml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\Views\Customer\Dialogs\EditReservationWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

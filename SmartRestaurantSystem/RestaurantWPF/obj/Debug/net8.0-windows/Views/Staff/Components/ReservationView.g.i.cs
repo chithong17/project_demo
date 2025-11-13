@@ -53,7 +53,7 @@ namespace RestaurantWPF.Views.Staff.Components {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/RestaurantWPF;component/views/staff/components/reservationview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/RestaurantWPF;V1.0.0.0;component/views/staff/components/reservationview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\Views\Staff\Components\ReservationView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

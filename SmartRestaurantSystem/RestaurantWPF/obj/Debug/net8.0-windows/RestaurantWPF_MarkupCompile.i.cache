@@ -16,5 +16,5 @@ D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\RestaurantWPF\Ap
 244957892464
 MainWindow.xaml;Views\Admin\AdminWindow.xaml;Views\Admin\Components\DashboardView.xaml;Views\Admin\Components\FeedbackStatisticsView.xaml;Views\Admin\Components\FoodManagement.xaml;Views\Admin\Components\OrderManagement.xaml;Views\Admin\Components\TableManagement.xaml;Views\Admin\Components\UserManagement.xaml;Views\Admin\Dialogs\FoodDialog.xaml;Views\Admin\Dialogs\OrderDialog.xaml;Views\Admin\Dialogs\TableDialog.xaml;Views\Admin\Dialogs\UserDialog.xaml;Views\Customer\Components\CartDetailWindow.xaml;Views\Customer\Components\FeedbackView.xaml;Views\Customer\Components\MenuView.xaml;Views\Customer\Components\ProfileView.xaml;Views\Customer\Components\ReservationView.xaml;Views\Customer\CustomerWindow.xaml;Views\Customer\Dialogs\EditReservationWindow.xaml;Views\LoginWindow.xaml;Views\Staff\Components\OrdersView.xaml;Views\Staff\Components\PaymentView.xaml;Views\Staff\Components\PosView.xaml;Views\Staff\Components\ReservationView.xaml;Views\Staff\Components\TablesView.xaml;Views\Staff\Dialogs\TableSelectionDialog.xaml;Views\Staff\StaffWindow.xaml;
 
-True
+False
 

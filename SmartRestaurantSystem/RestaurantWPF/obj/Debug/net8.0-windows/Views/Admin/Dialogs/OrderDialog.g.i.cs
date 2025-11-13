@@ -53,7 +53,7 @@ namespace RestaurantWPF.Views.Admin.Dialogs {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/RestaurantWPF;component/views/admin/dialogs/orderdialog.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/RestaurantWPF;V1.0.0.0;component/views/admin/dialogs/orderdialog.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\Views\Admin\Dialogs\OrderDialog.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

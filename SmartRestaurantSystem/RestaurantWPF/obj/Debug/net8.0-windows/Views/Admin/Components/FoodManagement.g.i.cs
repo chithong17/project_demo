@@ -53,7 +53,7 @@ namespace RestaurantWPF.Views.Admin.Components {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/RestaurantWPF;component/views/admin/components/foodmanagement.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/RestaurantWPF;V1.0.0.0;component/views/admin/components/foodmanagement.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\..\Views\Admin\Components\FoodManagement.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

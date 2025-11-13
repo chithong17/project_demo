@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36414.22 d17.14
+VisualStudioVersion = 17.14.36414.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantWPF", "RestaurantWPF\RestaurantWPF.csproj", "{87D00EB3-7BF9-4A59-A767-AE7621F4C7EB}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{9EAE5787-BCAD-4368-9847-02E022BC74CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogicLayer", "BusinessLogicLayer\BusinessLogicLayer.csproj", "{E0FA6F75-D3F6-4476-8B11-3B07CA33D0A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantWPF.Tests", "RestaurantWPF.Tests\RestaurantWPF.Tests.csproj", "{21F09A40-F91D-4EB9-92A4-4326B2748A0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E0FA6F75-D3F6-4476-8B11-3B07CA33D0A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0FA6F75-D3F6-4476-8B11-3B07CA33D0A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0FA6F75-D3F6-4476-8B11-3B07CA33D0A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{21F09A40-F91D-4EB9-92A4-4326B2748A0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21F09A40-F91D-4EB9-92A4-4326B2748A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21F09A40-F91D-4EB9-92A4-4326B2748A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21F09A40-F91D-4EB9-92A4-4326B2748A0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

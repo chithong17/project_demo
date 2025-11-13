@@ -3,6 +3,18 @@
   "WorkspaceRootPath": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{87D00EB3-7BF9-4A59-A767-AE7621F4C7EB}|RestaurantWPF\\RestaurantWPF.csproj|d:\\fptdocuments\\semester_5\\prn212\\project\\smartrestaurantsystem\\restaurantwpf\\installer\\installer.iss||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{87D00EB3-7BF9-4A59-A767-AE7621F4C7EB}|RestaurantWPF\\RestaurantWPF.csproj|solutionrelative:restaurantwpf\\installer\\installer.iss||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21F09A40-F91D-4EB9-92A4-4326B2748A0C}|RestaurantWPF.Tests\\RestaurantWPF.Tests.csproj|d:\\fptdocuments\\semester_5\\prn212\\project\\smartrestaurantsystem\\restaurantwpf.tests\\foodservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21F09A40-F91D-4EB9-92A4-4326B2748A0C}|RestaurantWPF.Tests\\RestaurantWPF.Tests.csproj|solutionrelative:restaurantwpf.tests\\foodservicetests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21F09A40-F91D-4EB9-92A4-4326B2748A0C}|RestaurantWPF.Tests\\RestaurantWPF.Tests.csproj|d:\\fptdocuments\\semester_5\\prn212\\project\\smartrestaurantsystem\\restaurantwpf.tests\\restaurantwpf.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{21F09A40-F91D-4EB9-92A4-4326B2748A0C}|RestaurantWPF.Tests\\RestaurantWPF.Tests.csproj|solutionrelative:restaurantwpf.tests\\restaurantwpf.tests.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{87D00EB3-7BF9-4A59-A767-AE7621F4C7EB}|RestaurantWPF\\RestaurantWPF.csproj|d:\\fptdocuments\\semester_5\\prn212\\project\\smartrestaurantsystem\\restaurantwpf\\views\\admin\\components\\ordermanagement.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{87D00EB3-7BF9-4A59-A767-AE7621F4C7EB}|RestaurantWPF\\RestaurantWPF.csproj|solutionrelative:restaurantwpf\\views\\admin\\components\\ordermanagement.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
@@ -316,47 +328,82 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "installer.iss",
+              "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Installer\\installer.iss",
+              "RelativeDocumentMoniker": "RestaurantWPF\\Installer\\installer.iss",
+              "ToolTip": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Installer\\installer.iss",
+              "RelativeToolTip": "RestaurantWPF\\Installer\\installer.iss",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-11-13T04:08:46.814Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FoodServiceTests.cs",
+              "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF.Tests\\FoodServiceTests.cs",
+              "RelativeDocumentMoniker": "RestaurantWPF.Tests\\FoodServiceTests.cs",
+              "ToolTip": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF.Tests\\FoodServiceTests.cs",
+              "RelativeToolTip": "RestaurantWPF.Tests\\FoodServiceTests.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-13T03:43:00.786Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "RestaurantWPF.Tests.csproj",
+              "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF.Tests\\RestaurantWPF.Tests.csproj",
+              "RelativeDocumentMoniker": "RestaurantWPF.Tests\\RestaurantWPF.Tests.csproj",
+              "ToolTip": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF.Tests\\RestaurantWPF.Tests.csproj",
+              "RelativeToolTip": "RestaurantWPF.Tests\\RestaurantWPF.Tests.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-11-13T03:41:34.867Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "FeedbackStatisticsView.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Admin\\Components\\FeedbackStatisticsView.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Admin\\Components\\FeedbackStatisticsView.xaml",
               "ToolTip": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Admin\\Components\\FeedbackStatisticsView.xaml",
               "RelativeToolTip": "RestaurantWPF\\Views\\Admin\\Components\\FeedbackStatisticsView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-13T01:58:17.253Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-13T01:58:17.253Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "OrderManagement.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Admin\\Components\\OrderManagement.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Admin\\Components\\OrderManagement.xaml",
               "ToolTip": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Admin\\Components\\OrderManagement.xaml",
               "RelativeToolTip": "RestaurantWPF\\Views\\Admin\\Components\\OrderManagement.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-12T05:06:40.217Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T05:06:40.217Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 10,
               "Title": "PosView.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Staff\\Components\\PosView.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Staff\\Components\\PosView.xaml",
               "ToolTip": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Staff\\Components\\PosView.xaml",
               "RelativeToolTip": "RestaurantWPF\\Views\\Staff\\Components\\PosView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-12T03:17:56.967Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T03:17:56.967Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "OrderViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Admin\\OrderViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Admin\\OrderViewModel.cs",
@@ -364,72 +411,66 @@
               "RelativeToolTip": "RestaurantWPF\\ViewModels\\Admin\\OrderViewModel.cs",
               "ViewState": "AgIAAHEAAAAAAAAAAAAswIAAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T16:20:11.504Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T16:20:11.504Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
               "Title": "TablesView.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Staff\\Components\\TablesView.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Staff\\Components\\TablesView.xaml",
               "ToolTip": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Staff\\Components\\TablesView.xaml",
               "RelativeToolTip": "RestaurantWPF\\Views\\Staff\\Components\\TablesView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-12T17:47:25.581Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T17:47:25.581Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "FeedbackView.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Customer\\Components\\FeedbackView.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Customer\\Components\\FeedbackView.xaml",
               "ToolTip": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Customer\\Components\\FeedbackView.xaml",
               "RelativeToolTip": "RestaurantWPF\\Views\\Customer\\Components\\FeedbackView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-12T12:35:47.901Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T12:35:47.901Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "TableSelectionDialog.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Staff\\Dialogs\\TableSelectionDialog.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Staff\\Dialogs\\TableSelectionDialog.xaml",
               "ToolTip": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Staff\\Dialogs\\TableSelectionDialog.xaml",
               "RelativeToolTip": "RestaurantWPF\\Views\\Staff\\Dialogs\\TableSelectionDialog.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-12T09:33:26.543Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T09:33:26.543Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 9,
               "Title": "OrdersView.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Staff\\Components\\OrdersView.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Staff\\Components\\OrdersView.xaml",
               "ToolTip": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Staff\\Components\\OrdersView.xaml",
               "RelativeToolTip": "RestaurantWPF\\Views\\Staff\\Components\\OrdersView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-12T02:39:43.446Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T02:39:43.446Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 11,
               "Title": "PaymentView.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Staff\\Components\\PaymentView.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Staff\\Components\\PaymentView.xaml",
               "ToolTip": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Staff\\Components\\PaymentView.xaml",
               "RelativeToolTip": "RestaurantWPF\\Views\\Staff\\Components\\PaymentView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-12T06:36:25.815Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T06:36:25.815Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 12,
               "Title": "PosViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Staff\\PosViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Staff\\PosViewModel.cs",
@@ -437,36 +478,33 @@
               "RelativeToolTip": "RestaurantWPF\\ViewModels\\Staff\\PosViewModel.cs",
               "ViewState": "AgIAAFoBAAAAAAAAAAAowGgBAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T03:59:34.944Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T03:59:34.944Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "MenuView.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Customer\\Components\\MenuView.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Customer\\Components\\MenuView.xaml",
               "ToolTip": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Customer\\Components\\MenuView.xaml",
               "RelativeToolTip": "RestaurantWPF\\Views\\Customer\\Components\\MenuView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-12T02:12:07.144Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T02:12:07.144Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "ProfileView.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Customer\\Components\\ProfileView.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Customer\\Components\\ProfileView.xaml",
               "ToolTip": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Customer\\Components\\ProfileView.xaml",
               "RelativeToolTip": "RestaurantWPF\\Views\\Customer\\Components\\ProfileView.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-12T06:18:26.205Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T06:18:26.205Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "PaymentViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Staff\\PaymentViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Staff\\PaymentViewModel.cs",
@@ -474,12 +512,11 @@
               "RelativeToolTip": "RestaurantWPF\\ViewModels\\Staff\\PaymentViewModel.cs",
               "ViewState": "AgIAAKEAAAAAAAAAAAAowLAAAABXAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T06:38:00.758Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T06:38:00.758Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 14,
               "Title": "PaymentRepository.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\DataAccessLayer\\Repositories\\Implementations\\PaymentRepository.cs",
               "RelativeDocumentMoniker": "DataAccessLayer\\Repositories\\Implementations\\PaymentRepository.cs",
@@ -487,36 +524,33 @@
               "RelativeToolTip": "DataAccessLayer\\Repositories\\Implementations\\PaymentRepository.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T02:53:03.283Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-13T02:53:03.283Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "EditReservationWindow.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Customer\\Dialogs\\EditReservationWindow.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Customer\\Dialogs\\EditReservationWindow.xaml",
               "ToolTip": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Customer\\Dialogs\\EditReservationWindow.xaml",
               "RelativeToolTip": "RestaurantWPF\\Views\\Customer\\Dialogs\\EditReservationWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-13T02:48:42.884Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-13T02:48:42.884Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 20,
               "Title": "FoodDialog.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Admin\\Dialogs\\FoodDialog.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Admin\\Dialogs\\FoodDialog.xaml",
               "ToolTip": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Admin\\Dialogs\\FoodDialog.xaml",
               "RelativeToolTip": "RestaurantWPF\\Views\\Admin\\Dialogs\\FoodDialog.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-13T02:41:06.973Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-13T02:41:06.973Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "OrderStatusConverter.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Converters\\OrderStatusConverter.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\Converters\\OrderStatusConverter.cs",
@@ -524,12 +558,11 @@
               "RelativeToolTip": "RestaurantWPF\\Converters\\OrderStatusConverter.cs",
               "ViewState": "AgIAAAYAAAAAAAAAAAAgwCIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T02:42:35.525Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-13T02:42:35.525Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 19,
               "Title": "OrderStatusColorConverter.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Converters\\OrderStatusColorConverter.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\Converters\\OrderStatusColorConverter.cs",
@@ -537,12 +570,11 @@
               "RelativeToolTip": "RestaurantWPF\\Converters\\OrderStatusColorConverter.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-12T04:04:06.345Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-12T04:04:06.345Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 21,
               "Title": "FeedbackStatisticsViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Admin\\FeedbackStatisticsViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Admin\\FeedbackStatisticsViewModel.cs",
@@ -550,12 +582,11 @@
               "RelativeToolTip": "RestaurantWPF\\ViewModels\\Admin\\FeedbackStatisticsViewModel.cs",
               "ViewState": "AgIAAHwAAAAAAAAAAAAowJwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T02:05:06.099Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-13T02:05:06.099Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 23,
               "Title": "IFeedbackService.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\BusinessLogicLayer\\Services\\Interfaces\\IFeedbackService.cs",
               "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\Interfaces\\IFeedbackService.cs",
@@ -567,7 +598,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 25,
               "Title": "AdminWindow.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Admin\\AdminWindow.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Admin\\AdminWindow.xaml",
@@ -578,7 +609,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 22,
               "Title": "FeedbackService.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\BusinessLogicLayer\\Services\\Implementations\\FeedbackService.cs",
               "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\Implementations\\FeedbackService.cs",
@@ -590,7 +621,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 24,
               "Title": "AdminViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Admin\\AdminViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Admin\\AdminViewModel.cs",
@@ -602,7 +633,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 27,
               "Title": "FoodViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Admin\\FoodViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Admin\\FoodViewModel.cs",
@@ -614,7 +645,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 26,
               "Title": "FoodService.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\BusinessLogicLayer\\Services\\Implementations\\FoodService.cs",
               "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\Implementations\\FoodService.cs",
@@ -626,7 +657,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 28,
               "Title": "FoodManagement.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Admin\\Components\\FoodManagement.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Admin\\Components\\FoodManagement.xaml",
@@ -637,7 +668,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 29,
               "Title": "FoodRepository.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\DataAccessLayer\\Repositories\\Implementations\\FoodRepository.cs",
               "RelativeDocumentMoniker": "DataAccessLayer\\Repositories\\Implementations\\FoodRepository.cs",
@@ -649,7 +680,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 31,
               "Title": "TablesViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Staff\\TablesViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Staff\\TablesViewModel.cs",
@@ -661,7 +692,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 30,
               "Title": "MenuViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Customer\\MenuViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Customer\\MenuViewModel.cs",
@@ -673,7 +704,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 39,
               "Title": "ITableService.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\BusinessLogicLayer\\Services\\Interfaces\\ITableService.cs",
               "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\Interfaces\\ITableService.cs",
@@ -685,7 +716,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 32,
               "Title": "DependencyObject.cs",
               "DocumentMoniker": "C:\\Users\\ACER\\AppData\\Local\\Temp\\.vsdbgsrc\\2be6f58c7d199001219eee0ed4f8c60905fd331037c8600ebb281cdc5b6d96fa\\DependencyObject.cs",
               "ToolTip": "C:\\Users\\ACER\\AppData\\Local\\Temp\\.vsdbgsrc\\2be6f58c7d199001219eee0ed4f8c60905fd331037c8600ebb281cdc5b6d96fa\\DependencyObject.cs [Read Only]",
@@ -696,7 +727,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 34,
               "Title": "TableManagement.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Admin\\Components\\TableManagement.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Admin\\Components\\TableManagement.xaml",
@@ -707,7 +738,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 35,
               "Title": "TableViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Admin\\TableViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Admin\\TableViewModel.cs",
@@ -719,7 +750,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 33,
               "Title": "DashboardView.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Admin\\Components\\DashboardView.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Admin\\Components\\DashboardView.xaml",
@@ -730,7 +761,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 43,
               "Title": "UserService.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\BusinessLogicLayer\\Services\\Implementations\\UserService.cs",
               "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\Implementations\\UserService.cs",
@@ -742,7 +773,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 42,
               "Title": "IUserService.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\BusinessLogicLayer\\Services\\Interfaces\\IUserService.cs",
               "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\Interfaces\\IUserService.cs",
@@ -754,7 +785,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 37,
               "Title": "TableRepository.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\DataAccessLayer\\Repositories\\Implementations\\TableRepository.cs",
               "RelativeDocumentMoniker": "DataAccessLayer\\Repositories\\Implementations\\TableRepository.cs",
@@ -766,7 +797,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 36,
               "Title": "IUserRepository.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\DataAccessLayer\\Repositories\\Interfaces\\IUserRepository.cs",
               "RelativeDocumentMoniker": "DataAccessLayer\\Repositories\\Interfaces\\IUserRepository.cs",
@@ -778,7 +809,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 45,
               "Title": "User.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\BusinessObjects\\Models\\User.cs",
               "RelativeDocumentMoniker": "BusinessObjects\\Models\\User.cs",
@@ -790,7 +821,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 40,
               "Title": "Table.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\BusinessObjects\\Models\\Table.cs",
               "RelativeDocumentMoniker": "BusinessObjects\\Models\\Table.cs",
@@ -802,7 +833,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 38,
               "Title": "TableService.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\BusinessLogicLayer\\Services\\Implementations\\TableService.cs",
               "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\Implementations\\TableService.cs",
@@ -814,7 +845,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 44,
               "Title": "UserManagement.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Admin\\Components\\UserManagement.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Admin\\Components\\UserManagement.xaml",
@@ -825,7 +856,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 41,
               "Title": "UserManagementViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Admin\\UserManagementViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Admin\\UserManagementViewModel.cs",
@@ -837,7 +868,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 49,
               "Title": "ReservationViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Staff\\ReservationViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Staff\\ReservationViewModel.cs",
@@ -849,7 +880,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 46,
               "Title": "DashboardViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Admin\\DashboardViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Admin\\DashboardViewModel.cs",
@@ -861,7 +892,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 48,
               "Title": "BoolToBrushConverter.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Converters\\BoolToBrushConverter.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\Converters\\BoolToBrushConverter.cs",
@@ -873,7 +904,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 47,
               "Title": "ReservationView.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Staff\\Components\\ReservationView.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Staff\\Components\\ReservationView.xaml",
@@ -884,7 +915,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 50,
               "Title": "StaffWindow.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Staff\\StaffWindow.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Staff\\StaffWindow.xaml",
@@ -895,7 +926,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 51,
               "Title": "OrdersViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Staff\\OrdersViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Staff\\OrdersViewModel.cs",
@@ -907,7 +938,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 49,
+              "DocumentIndex": 52,
               "Title": "ProfileViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Customer\\ProfileViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Customer\\ProfileViewModel.cs",
@@ -919,7 +950,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 51,
+              "DocumentIndex": 54,
               "Title": "EditReservationViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Customer\\EditReservationViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Customer\\EditReservationViewModel.cs",
@@ -931,7 +962,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 50,
+              "DocumentIndex": 53,
               "Title": "ReservationViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Customer\\ReservationViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Customer\\ReservationViewModel.cs",
@@ -943,7 +974,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 53,
+              "DocumentIndex": 56,
               "Title": "XamlReader.cs",
               "DocumentMoniker": "C:\\Users\\ACER\\AppData\\Local\\Temp\\.vsdbgsrc\\aad6be2495d0a786b94b3514a5b6903407fe2d6a75ad7e505df6a9d895927867\\XamlReader.cs",
               "ToolTip": "C:\\Users\\ACER\\AppData\\Local\\Temp\\.vsdbgsrc\\aad6be2495d0a786b94b3514a5b6903407fe2d6a75ad7e505df6a9d895927867\\XamlReader.cs [Read Only]",
@@ -954,7 +985,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 52,
+              "DocumentIndex": 55,
               "Title": "ReservationView.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Customer\\Components\\ReservationView.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Customer\\Components\\ReservationView.xaml",
@@ -965,7 +996,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 55,
+              "DocumentIndex": 58,
               "Title": "RestaurantWPF.csproj",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\RestaurantWPF.csproj",
               "RelativeDocumentMoniker": "RestaurantWPF\\RestaurantWPF.csproj",
@@ -977,7 +1008,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 54,
+              "DocumentIndex": 57,
               "Title": "CustomerWindow.xaml",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Customer\\CustomerWindow.xaml",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Customer\\CustomerWindow.xaml",
@@ -988,7 +1019,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 59,
+              "DocumentIndex": 62,
               "Title": "TableSelectionDialogViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Staff\\TableSelectionDialogViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Staff\\TableSelectionDialogViewModel.cs",
@@ -1000,7 +1031,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 56,
+              "DocumentIndex": 59,
               "Title": "OrderDetailViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Staff\\OrderDetailViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Staff\\OrderDetailViewModel.cs",
@@ -1012,7 +1043,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 58,
+              "DocumentIndex": 61,
               "Title": "OrderService.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\BusinessLogicLayer\\Services\\Implementations\\OrderService.cs",
               "RelativeDocumentMoniker": "BusinessLogicLayer\\Services\\Implementations\\OrderService.cs",
@@ -1024,7 +1055,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 57,
+              "DocumentIndex": 60,
               "Title": "OrderRepository.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\DataAccessLayer\\Repositories\\Implementations\\OrderRepository.cs",
               "RelativeDocumentMoniker": "DataAccessLayer\\Repositories\\Implementations\\OrderRepository.cs",
@@ -1036,7 +1067,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 62,
+              "DocumentIndex": 65,
               "Title": "TableSelectionDialog.xaml.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Staff\\Dialogs\\TableSelectionDialog.xaml.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Staff\\Dialogs\\TableSelectionDialog.xaml.cs",
@@ -1048,7 +1079,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 60,
+              "DocumentIndex": 63,
               "Title": "TableStatusColorConverter.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Converters\\TableStatusColorConverter.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\Converters\\TableStatusColorConverter.cs",
@@ -1060,7 +1091,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 63,
+              "DocumentIndex": 66,
               "Title": "SelectableTable.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Staff\\SelectableTable.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Staff\\SelectableTable.cs",
@@ -1072,7 +1103,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 61,
+              "DocumentIndex": 64,
               "Title": "TableStatusTextConverter.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Converters\\TableStatusTextConverter.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\Converters\\TableStatusTextConverter.cs",
@@ -1084,7 +1115,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 64,
+              "DocumentIndex": 67,
               "Title": "RelayCommandGeneric.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Commands\\RelayCommandGeneric.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\Commands\\RelayCommandGeneric.cs",
@@ -1096,7 +1127,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 65,
+              "DocumentIndex": 68,
               "Title": "RelayCommand.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Commands\\RelayCommand.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\Commands\\RelayCommand.cs",
@@ -1108,7 +1139,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 68,
+              "DocumentIndex": 71,
               "Title": "SmartRestaurantDbContext.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\DataAccessLayer\\DataContext\\SmartRestaurantDbContext.cs",
               "RelativeDocumentMoniker": "DataAccessLayer\\DataContext\\SmartRestaurantDbContext.cs",
@@ -1120,7 +1151,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 69,
+              "DocumentIndex": 72,
               "Title": "PosView.xaml.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Views\\Staff\\Components\\PosView.xaml.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\Views\\Staff\\Components\\PosView.xaml.cs",
@@ -1132,7 +1163,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 67,
+              "DocumentIndex": 70,
               "Title": "NotBooleanConverter.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Converters\\NotBooleanConverter.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\Converters\\NotBooleanConverter.cs",
@@ -1144,7 +1175,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 66,
+              "DocumentIndex": 69,
               "Title": "StaffViewModel.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\ViewModels\\Staff\\StaffViewModel.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\ViewModels\\Staff\\StaffViewModel.cs",
@@ -1156,7 +1187,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 71,
+              "DocumentIndex": 74,
               "Title": "Order.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\BusinessObjects\\Models\\Order.cs",
               "RelativeDocumentMoniker": "BusinessObjects\\Models\\Order.cs",
@@ -1168,7 +1199,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 70,
+              "DocumentIndex": 73,
               "Title": "UserSession.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Session\\UserSession.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\Session\\UserSession.cs",
@@ -1180,7 +1211,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 72,
+              "DocumentIndex": 75,
               "Title": "OrderDetail.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\BusinessObjects\\Models\\OrderDetail.cs",
               "RelativeDocumentMoniker": "BusinessObjects\\Models\\OrderDetail.cs",
@@ -1192,7 +1223,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 73,
+              "DocumentIndex": 76,
               "Title": "StepOpacityConverter.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Converters\\StepOpacityConverter.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\Converters\\StepOpacityConverter.cs",
@@ -1204,7 +1235,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 74,
+              "DocumentIndex": 77,
               "Title": "BoolToVisibilityInverseConverter.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Converters\\BoolToVisibilityInverseConverter.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\Converters\\BoolToVisibilityInverseConverter.cs",
@@ -1216,7 +1247,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 75,
+              "DocumentIndex": 78,
               "Title": "HideLastConnectorConverter.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Converters\\HideLastConnectorConverter.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\Converters\\HideLastConnectorConverter.cs",
@@ -1228,7 +1259,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 76,
+              "DocumentIndex": 79,
               "Title": "NullToVisibilityConverter.cs",
               "DocumentMoniker": "D:\\FPTDocuments\\Semester_5\\PRN212\\Project\\SmartRestaurantSystem\\RestaurantWPF\\Converters\\NullToVisibilityConverter.cs",
               "RelativeDocumentMoniker": "RestaurantWPF\\Converters\\NullToVisibilityConverter.cs",

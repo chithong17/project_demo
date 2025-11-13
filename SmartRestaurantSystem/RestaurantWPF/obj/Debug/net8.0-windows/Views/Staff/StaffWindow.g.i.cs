@@ -54,7 +54,7 @@ namespace RestaurantWPF.Views.Staff {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/RestaurantWPF;component/views/staff/staffwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/RestaurantWPF;V1.0.0.0;component/views/staff/staffwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\Staff\StaffWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

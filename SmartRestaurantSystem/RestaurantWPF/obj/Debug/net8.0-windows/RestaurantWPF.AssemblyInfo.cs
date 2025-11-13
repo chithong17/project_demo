@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RestaurantWPF")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c737c3348c1b85d0625b32296a2140dedfe28fb7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d421fbb35881b5d0e85b37bd12b4324019f13578")]
 [assembly: System.Reflection.AssemblyProductAttribute("RestaurantWPF")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RestaurantWPF")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
