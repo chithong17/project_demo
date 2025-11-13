@@ -2,7 +2,7 @@ name: CI - Build & Test
 
 on:
   push:
-    branches: ["main"]
+    branches: [ "main" ]
   pull_request:
 
 jobs:
@@ -10,25 +10,39 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    # ✔ Lấy code
     - name: Checkout source code
       uses: actions/checkout@v4
 
+    # ✔ Cài .NET 8 SDK
     - name: Setup .NET 8 SDK
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: "8.0.x"
+        dotnet-version: '8.0.x'
 
-    - name: Install Windows Desktop workload
-      run: dotnet workload install microsoft-net-sdk-windowsdesktop
-
+    # ✔ Restore dependencies
     - name: Restore dependencies
       working-directory: SmartRestaurantSystem
       run: dotnet restore SmartRestaurantSystem.sln
 
+    # ✔ Build solution
     - name: Build solution
       working-directory: SmartRestaurantSystem
       run: dotnet build SmartRestaurantSystem.sln --configuration Release --no-restore
 
+    # ✔ Run unit tests (NUnit)
     - name: Run unit tests
       working-directory: SmartRestaurantSystem
       run: dotnet test SmartRestaurantSystem.sln --no-build --verbosity normal
+
+    # ✔ Publish WPF app
+    - name: Publish WPF App
+      working-directory: SmartRestaurantSystem
+      run: dotnet publish RestaurantWPF/RestaurantWPF.csproj -c Release -o ../publish
+
+    # ✔ Upload EXE output
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: SmartRestaurantWPF
+        path: publish
