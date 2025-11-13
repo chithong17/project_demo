@@ -3,71 +3,303 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:RestaurantWPF.Converters"
              mc:Ignorable="d"
-             d:DesignHeight="600" d:DesignWidth="900">
+             d:DesignHeight="768" d:DesignWidth="1024"
+             Background="#F2F3F5"
+             FontFamily="Segoe UI">
 
-    <Grid Margin="0">
+    <UserControl.Resources>
+        <local:BoolToTextConverter x:Key="BoolToTextConverter"/>
+        <local:BoolToColorConverter x:Key="BoolToColorConverter"/>
+
+        <FontFamily x:Key="IconFont">Segoe MDL2 Assets</FontFamily>
+        <SolidColorBrush x:Key="AppBackground" Color="#F2F3F5"/>
+        <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="BorderBrushLight" Color="#EAEAEA"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#222222"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#555555"/>
+        <SolidColorBrush x:Key="TextMuted" Color="#888888"/>
+
+        <SolidColorBrush x:Key="StatusPendingBrush" Color="#FF9E40"/>
+        <SolidColorBrush x:Key="StatusInProgressBrush" Color="#007BFF"/>
+        <SolidColorBrush x:Key="StatusReadyBrush" Color="#28A745"/>
+        <SolidColorBrush x:Key="StatusCancelledBrush" Color="#DC3545"/>
+        <SolidColorBrush x:Key="HeaderAccentBrush" Color="#1565C0"/>
+        <SolidColorBrush x:Key="RowAlternateBackground" Color="#F8F9FA"/>
+        <SolidColorBrush x:Key="RowSelectedBackground" Color="#E3F2FD"/>
+        <SolidColorBrush x:Key="RowSelectedForeground" Color="#005A9E"/>
+        <SolidColorBrush x:Key="RowHoverBackground" Color="#F1F1F1"/>
+
+        <DropShadowEffect x:Key="CardShadow"
+                          BlurRadius="15"
+                          ShadowDepth="2"
+                          Opacity="0.08"
+                          Color="#000000"/>
+
+        <Style x:Key="BaseActionButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.9"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.75"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BaseOutlineActionButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.75"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ConfirmActionButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource StatusReadyBrush}"/>
+        </Style>
+        <Style x:Key="CancelActionButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource StatusCancelledBrush}"/>
+        </Style>
+        <Style x:Key="OutlinePrimaryStyle" TargetType="Button" BasedOn="{StaticResource BaseOutlineActionButtonStyle}">
+            <Setter Property="BorderBrush" Value="{StaticResource StatusPendingBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource StatusPendingBrush}"/>
+        </Style>
+        <Style x:Key="OutlineSecondaryStyle" TargetType="Button" BasedOn="{StaticResource BaseOutlineActionButtonStyle}">
+            <Setter Property="BorderBrush" Value="{StaticResource StatusInProgressBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource StatusInProgressBrush}"/>
+        </Style>
+
+        <Style x:Key="FlatGridView" TargetType="ListView">
+            <Setter Property="Background" Value="{StaticResource CardBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
+
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="Background" Value="#F8F9FA"/>
+            <Setter Property="Foreground" Value="{StaticResource HeaderAccentBrush}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="Padding" Value="8,12"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style>
+
+        <Style x:Key="ProListViewItemStyle" TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0,0,0,0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border x:Name="Bd"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="8,6"
+                                SnapsToDevicePixels="True">
+                            <GridViewRowPresenter HorizontalAlignment="Stretch"
+                                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  Content="{TemplateBinding Content}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource RowAlternateBackground}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource RowHoverBackground}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{StaticResource RowSelectedBackground}"/>
+                                <Setter Property="Foreground" Value="{StaticResource RowSelectedForeground}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource CardBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="CaretBrush" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="0" Focusable="False" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource StatusPendingBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+
+    <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="🍽️ Food Management"
-                   FontSize="22"
-                   FontWeight="Bold"
-                   Foreground="#2C3E50"
+        <TextBlock Grid.Row="0" Text="🍽️ Quản lý Món ăn"
+                   FontSize="22" FontWeight="Bold"
+                   Foreground="{StaticResource StatusPendingBrush}"
                    Margin="0,0,0,15"/>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,15">
-            <Button Content="Add"
-                    Width="90" Height="32"
-                    Margin="0,0,10,0"
-                    Background="#4CA1AF" Foreground="White" FontWeight="Bold"
-                    Command="{Binding AddCommand}"/>
-            <Button Content="Edit"
-                    Width="90" Height="32"
-                    Margin="0,0,10,0"
-                    Background="#FFA726" Foreground="White" FontWeight="Bold"
-                    Command="{Binding EditCommand}"/>
-            <Button Content="Delete"
-                    Width="90" Height="32"
-                    Margin="0,0,10,0"
-                    Background="#EF5350" Foreground="White" FontWeight="Bold"
-                    Command="{Binding DeleteCommand}"/>
-            <Button Content="Refresh"
-                    Width="90" Height="32"
-                    Background="#78909C" Foreground="White" FontWeight="Bold"
-                    Command="{Binding LoadCommand}"/>
-        </StackPanel>
 
-        <DataGrid Grid.Row="2" ItemsSource="{Binding Foods}"
-                  SelectedItem="{Binding SelectedFood, Mode=TwoWay}"
-                  AutoGenerateColumns="False"
-                  CanUserAddRows="False"
-                  IsReadOnly="True" RowHeight="40"
-                  HeadersVisibility="Column"
-                  BorderThickness="1"
-                  BorderBrush="#E0E0E0"
-                  AlternatingRowBackground="#F9F9F9">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding FoodId}" Width="60"/>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
-                <DataGridTextColumn Header="Price" Width="120">
-                    <DataGridTextColumn.Binding>
-                        <Binding Path="Price" StringFormat="{}{0:N0} đ" />
-                    </DataGridTextColumn.Binding>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="300">
-                    <DataGridTextColumn.CellStyle>
-                        <Style TargetType="DataGridCell">
-                            <Setter Property="TextBlock.TextTrimming" Value="CharacterEllipsis"/>
-                            <Setter Property="ToolTip" Value="{Binding Description}"/>
-                        </Style>
-                    </DataGridTextColumn.CellStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Category" Binding="{Binding Category.Name}" Width="150"/>
-                <DataGridCheckBoxColumn Header="Available" Binding="{Binding IsAvailable}" Width="100"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Border Grid.Row="1" Margin="0,0,0,15"
+                Background="#FAFAFA"
+                BorderBrush="{StaticResource BorderBrushLight}"
+                BorderThickness="1"
+                CornerRadius="8"
+                Padding="10">
+            <DockPanel LastChildFill="False">
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="&#xE721;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center"
+                               Foreground="{StaticResource TextSecondary}" FontSize="16" Margin="0,0,5,0"/>
+                    <TextBox Width="200" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+
+                <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Command="{Binding AddCommand}" Style="{StaticResource ConfirmActionButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE710;" FontFamily="{StaticResource IconFont}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Thêm" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Command="{Binding EditCommand}" Style="{StaticResource OutlinePrimaryStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE70F;" FontFamily="{StaticResource IconFont}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Sửa" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Command="{Binding DeleteCommand}" Style="{StaticResource CancelActionButtonStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE74D;" FontFamily="{StaticResource IconFont}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Ẩn" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button Command="{Binding RestoreCommand}" Style="{StaticResource OutlinePrimaryStyle}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE777;" FontFamily="{StaticResource IconFont}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                            <TextBlock Text="Khôi phục" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+
+                </StackPanel>
+            </DockPanel>
+        </Border>
+
+        <Border Grid.Row="2" Background="{StaticResource CardBackground}"
+                BorderBrush="{StaticResource BorderBrushLight}"
+                BorderThickness="1" CornerRadius="8"
+                Effect="{StaticResource CardShadow}" ClipToBounds="True">
+
+            <ListView ItemsSource="{Binding Foods}"
+                      SelectedItem="{Binding SelectedFood, Mode=TwoWay}"
+                      Style="{StaticResource FlatGridView}"
+                      ItemContainerStyle="{StaticResource ProListViewItemStyle}"
+                      AlternationCount="2" BorderThickness="0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding FoodId}" Width="60"/>
+                        <GridViewColumn Header="Tên món ăn" DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Giá" DisplayMemberBinding="{Binding Price, StringFormat={}{0:N0} đ}" Width="120"/>
+
+                        <GridViewColumn Header="Mô tả" Width="300">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Description}" TextTrimming="CharacterEllipsis" ToolTip="{Binding Description}" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+
+                        <GridViewColumn Header="Phân loại" DisplayMemberBinding="{Binding Category.Name}" Width="150"/>
+
+                        <GridViewColumn Header="Trạng thái" Width="120">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding IsAvailable, Converter={StaticResource BoolToTextConverter}}"
+                                               Foreground="{Binding IsAvailable, Converter={StaticResource BoolToColorConverter}}"
+                                               FontWeight="SemiBold"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Border>
     </Grid>
 </UserControl>

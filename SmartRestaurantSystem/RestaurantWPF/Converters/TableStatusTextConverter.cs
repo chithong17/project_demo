@@ -9,7 +9,6 @@ using System.Windows.Media;
 
 namespace RestaurantWPF.Converters
 {
-    // 0 Available, 1 Occupied, 2 Reserved, 3 Cleaning, 4 Inactive
     public class TableStatusTextConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -17,12 +16,12 @@ namespace RestaurantWPF.Converters
             var s = System.Convert.ToInt32(value);
             return s switch
             {
-                0 => "Available (Trống)",
-                1 => "Occupied (Có khách)",
-                2 => "Reserved (Đặt trước)",
-                3 => "Cleaning (Đang dọn)",
-                4 => "Inactive (Khóa)",
-                _ => "Unknown"
+                0 => "Trống",
+                1 => "Đang sử dụng",
+                2 => "Đã đặt trước",
+                3 => "Đang dọn dẹp",
+                4 => "Không hoạt động",
+                _ => "Không xác định"
             };
         }
 

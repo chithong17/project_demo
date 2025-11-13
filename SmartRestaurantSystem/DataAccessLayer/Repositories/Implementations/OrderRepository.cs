@@ -54,9 +54,25 @@ namespace DataAccessLayer.Repositories.Implementations
         public void Add(Order order)
         {
             using var context = new SmartRestaurantDbContext();
+
+            // ⚙️ Gắn entity có sẵn để EF không insert lại
+            if (order.Table != null)
+                context.Attach(order.Table);
+
+            if (order.Customer != null)
+                context.Attach(order.Customer);
+
+            if (order.Staff != null)
+                context.Attach(order.Staff);
+
+            // ✅ Nếu bạn có Reservation hoặc các quan hệ khác
+            if (order.Reservation != null)
+                context.Attach(order.Reservation);
+
             context.Orders.Add(order);
             context.SaveChanges();
         }
+
 
         public void Update(Order order)
         {

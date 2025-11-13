@@ -1,5 +1,6 @@
 ﻿using BusinessLogicLayer.DTOs;
 using BusinessLogicLayer.Services.Interfaces;
+using DataAccessLayer.DataContext;
 using DataAccessLayer.Repositories.Implementations;
 using DataAccessLayer.Repositories.Interfaces;
 using System;
@@ -77,5 +78,55 @@ namespace BusinessLogicLayer.Services.Implementations
 
             return summary;
         }
+
+        public List<DailyRevenueDTO> GetRevenueByLast7Days()
+        {
+            using var context = new SmartRestaurantDbContext();
+            var today = DateTime.Now.Date;
+
+            var result = Enumerable.Range(0, 7)
+                .Select(i => today.AddDays(-i))
+                .OrderBy(x => x)
+                .Select(date =>
+                {
+                    var paidRevenue = context.Payments
+                        .Where(p => p.PaidAt.Date == date)
+                        .Sum(p => (decimal?)p.PaidAmount) ?? 0;
+
+                    if (paidRevenue == 0)
+                    {
+                        paidRevenue = context.Orders
+                            .Where(o => o.OrderTime.Date == date)
+                            .SelectMany(o => o.OrderDetails)
+                            .Sum(od => (decimal?)(od.UnitPrice * od.Quantity)) ?? 0;
+                    }
+
+                    return new DailyRevenueDTO
+                    {
+                        Date = date,
+                        Total = paidRevenue
+                    };
+                })
+                .ToList();
+
+            return result;
+        }
+
+
+        public List<TopFoodDTO> GetTopSellingFoods(int count)
+        {
+            using var context = new SmartRestaurantDbContext();
+            return context.OrderDetails
+                .GroupBy(od => od.Food.Name)
+                .Select(g => new TopFoodDTO
+                {
+                    FoodName = g.Key,
+                    QuantitySold = g.Sum(x => x.Quantity)
+                })
+                .OrderByDescending(x => x.QuantitySold)
+                .Take(count)
+                .ToList();
+        }
+
     }
 }

@@ -11,5 +11,6 @@ namespace BusinessLogicLayer.Services.Interfaces
     {
         List<Feedback> GetAll();
         void Add(Feedback f);
+        List<Feedback> GetAllWithIncludes();
     }
 }

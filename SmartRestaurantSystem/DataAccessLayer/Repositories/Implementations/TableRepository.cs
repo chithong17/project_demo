@@ -17,8 +17,7 @@ namespace DataAccessLayer.Repositories.Implementations
         {
             using var context = new SmartRestaurantDbContext();
             return context.Tables
-                .AsNoTracking() 
-                .OrderBy(t => t.TableId)
+                .Where(t => !t.IsDeleted)
                 .ToList();
         }
 

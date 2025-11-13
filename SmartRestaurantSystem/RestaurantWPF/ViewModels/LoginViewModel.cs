@@ -71,6 +71,8 @@ namespace RestaurantWPF.ViewModels
                     return;
                 }
 
+                
+
                 // ✅ Lưu session
                 UserSession.UserId = user.UserId;
                 UserSession.FullName = user.FullName;

@@ -4,238 +4,576 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:RestaurantWPF.Converters"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             Background="#F2F3F5"
+             FontFamily="Segoe UI"
+             d:DesignHeight="768" d:DesignWidth="1024">
 
     <UserControl.Resources>
-        <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
         <local:OrderStatusConverter x:Key="OrderStatusConverter"/>
-        <local:PreOrderVisibilityConverter x:Key="PreOrderVisibilityConverter"/>
-        <QuadraticEase x:Key="EaseOut" EasingMode="EaseOut"/>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <local:OrderStatusColorConverter x:Key="OrderStatusColorConverter"/>
+        <local:BoolToBrushConverter x:Key="BoolToBrushConverter"/>
+        <local:HideLastConnectorConverter x:Key="HideLastConnectorConverter"/>
+
+        <SolidColorBrush x:Key="AppBackground" Color="#F2F3F5"/>
+        <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="BorderBrushLight" Color="#EAEAEA"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#222222"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#555555"/>
+        <SolidColorBrush x:Key="TextMuted" Color="#888888"/>
+        <SolidColorBrush x:Key="ControlBarBackground" Color="#FAFAFA"/>
+        <SolidColorBrush x:Key="HeaderAccentBrush" Color="#1565C0"/>
+
+        <SolidColorBrush x:Key="StatusPendingBrush" Color="#FF9E40"/>
+        <SolidColorBrush x:Key="StatusInProgressBrush" Color="#007BFF"/>
+        <SolidColorBrush x:Key="StatusReadyBrush" Color="#28A745"/>
+        <SolidColorBrush x:Key="StatusCancelledBrush" Color="#DC3545"/>
+
+        <DropShadowEffect x:Key="CardShadow"
+                          BlurRadius="15"
+                          ShadowDepth="2"
+                          Opacity="0.08"
+                          Color="#000000"/>
+
+        <FontFamily x:Key="IconFont">Segoe MDL2 Assets</FontFamily>
+
+        <Style x:Key="BaseActionButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.9"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.75"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#B0B0B0"/>
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ConfirmActionButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource StatusReadyBrush}"/>
+        </Style>
+        <Style x:Key="ServeActionButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource StatusInProgressBrush}"/>
+        </Style>
+        <Style x:Key="CancelActionButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource StatusCancelledBrush}"/>
+        </Style>
+        <Style x:Key="PrimaryActionButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource StatusPendingBrush}"/>
+        </Style>
+        <Style x:Key="BaseOutlineActionButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.75"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="OutlineSecondaryStyle" TargetType="Button" BasedOn="{StaticResource BaseOutlineActionButtonStyle}">
+            <Setter Property="BorderBrush" Value="{StaticResource StatusInProgressBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource StatusInProgressBrush}"/>
+        </Style>
+
+        <SolidColorBrush x:Key="RowAlternateBackground" Color="#F8F9FA"/>
+        <SolidColorBrush x:Key="RowSelectedBackground" Color="#E3F2FD"/>
+        <SolidColorBrush x:Key="RowSelectedForeground" Color="#005A9E"/>
+        <SolidColorBrush x:Key="RowHoverBackground" Color="#F1F1F1"/>
+
+        <Style x:Key="ProDataGridStyle" TargetType="DataGrid">
+            <Setter Property="Background" Value="{StaticResource CardBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="VerticalGridLinesBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="RowHeight" Value="45"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGrid">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}" 
+                                Padding="{TemplateBinding Padding}" 
+                                CornerRadius="8"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="DG_ScrollViewer" Focusable="False">
+                                <ScrollViewer.Template>
+                                    <ControlTemplate TargetType="ScrollViewer">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" 
+                                                                            Grid.Column="1" 
+                                                                            Visibility="Visible"/>
+                                            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" 
+                                                                    Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                                                                    CanContentScroll="{TemplateBinding CanContentScroll}"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ScrollViewer.Template>
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#F8F9FA"/>
+            <Setter Property="Foreground" Value="{StaticResource HeaderAccentBrush}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="Padding" Value="8,12"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="{StaticResource CardBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Style.Triggers>
+                <Trigger Property="AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="{StaticResource RowAlternateBackground}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource RowHoverBackground}"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource RowSelectedBackground}"/>
+                    <Setter Property="Foreground" Value="{StaticResource RowSelectedForeground}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        </Style>
+
+        <Style x:Key="RadioButtonTabStyle" TargetType="RadioButton">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="TabBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent"
+                                BorderThickness="0,0,0,3"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter ContentSource="Content"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="TabBorder" Property="BorderBrush" Value="{StaticResource StatusPendingBrush}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TabBorder" Property="BorderBrush" Value="#FFD49B"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </UserControl.Resources>
 
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2.8*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="20"/>
+            <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
 
-        <!-- 🧾 DANH SÁCH ĐƠN HÀNG -->
-        <StackPanel>
-            <TextBlock Text="📋 Danh sách đơn hàng"
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="📜 Danh sách đơn hàng"
+                       Grid.Row="0"
                        FontSize="22"
                        FontWeight="Bold"
-                       Foreground="#1B5E20"
+                       Foreground="{StaticResource StatusPendingBrush}"
                        Margin="0,0,0,10"/>
 
-            <TabControl>
-                <!-- Ăn tại chỗ -->
-                <TabItem Header="🏠 Ăn tại chỗ">
-                    <ListView ItemsSource="{Binding OnsiteOrders}"
-                              SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
-                              Margin="5"
-                              BorderThickness="0">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Mã đơn" Width="80" DisplayMemberBinding="{Binding OrderId}"/>
-                                <GridViewColumn Header="Bàn" Width="80" DisplayMemberBinding="{Binding Table.Name}"/>
-                                <GridViewColumn Header="Giờ đặt" Width="150" DisplayMemberBinding="{Binding OrderTime, StringFormat={}{0:HH:mm dd/MM}}"/>
-                                <GridViewColumn Header="Trạng thái" Width="160">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Status, Converter={StaticResource OrderStatusConverter}}"
-                                                       Foreground="#2E7D32"
-                                                       FontWeight="Bold"
-                                                       HorizontalAlignment="Center"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </TabItem>
+            <Border Grid.Row="1"
+                    Background="{StaticResource ControlBarBackground}"
+                    BorderBrush="{StaticResource BorderBrushLight}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="10, 5"
+                    Margin="0,0,0,10">
+                <DockPanel LastChildFill="False">
+                   
 
-                <!-- Đặt trước -->
-                <TabItem Header="📅 Đặt trước">
-                    <ListView ItemsSource="{Binding PreOrders}"
-                              SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
-                              Margin="5"
-                              BorderThickness="0">
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="Mã đơn" Width="80" DisplayMemberBinding="{Binding OrderId}"/>
-                                <GridViewColumn Header="Khách hàng" Width="150" DisplayMemberBinding="{Binding Customer.FullName}"/>
-                                <GridViewColumn Header="Giờ đặt" Width="150" DisplayMemberBinding="{Binding OrderTime, StringFormat={}{0:HH:mm dd/MM}}"/>
-                                <GridViewColumn Header="Trạng thái" Width="160">
-                                    <GridViewColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBlock Text="{Binding Status, Converter={StaticResource OrderStatusConverter}}"
-                                                       Foreground="#2E7D32"
-                                                       FontWeight="Bold"
-                                                       HorizontalAlignment="Center"/>
-                                        </DataTemplate>
-                                    </GridViewColumn.CellTemplate>
-                                </GridViewColumn>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
-                </TabItem>
-            </TabControl>
-        </StackPanel>
+                    <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
+                        <RadioButton x:Name="RbOnsite" 
+                                     Content="🏠 Ăn tại chỗ" 
+                                     Style="{StaticResource RadioButtonTabStyle}"
+                                     IsChecked="True"
+                                     GroupName="OrderTabs"/>
+                        <RadioButton x:Name="RbPreOrder" 
+                                     Content="📅 Đặt trước" 
+                                     Style="{StaticResource RadioButtonTabStyle}"
+                                     GroupName="OrderTabs"/>
+                    </StackPanel>
+                </DockPanel>
+            </Border>
 
-        <!-- 🍽️ PANEL CHI TIẾT -->
-        <Border Grid.Column="1"
-                Margin="20,0,0,0"
-                Background="#FAFAFA"
-                Padding="20"
-                CornerRadius="10"
-                BorderBrush="#C8E6C9"
+            <Grid Grid.Row="2">
+                <DataGrid ItemsSource="{Binding OnsiteOrders}"
+                          SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
+                          Style="{StaticResource ProDataGridStyle}"
+                          AlternationCount="2"
+                          Visibility="{Binding IsChecked, ElementName=RbOnsite, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Mã đơn" Binding="{Binding OrderId}" Width="80"/>
+                        <DataGridTextColumn Header="Khách" Binding="{Binding Customer.FullName}" Width="*"/>
+                        <DataGridTextColumn Header="Giờ" Binding="{Binding OrderTime, StringFormat='HH:mm dd/MM'}" Width="1.2*"/>
+                        <DataGridTemplateColumn Header="Trạng thái" Width="120">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Status, Converter={StaticResource OrderStatusConverter}}"
+                                               Foreground="{Binding Status, Converter={StaticResource OrderStatusColorConverter}}"
+                                               FontWeight="SemiBold" FontSize="13"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <DataGrid ItemsSource="{Binding PreOrders}"
+                          SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
+                          Style="{StaticResource ProDataGridStyle}"
+                          AlternationCount="2"
+                          Visibility="{Binding IsChecked, ElementName=RbPreOrder, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Mã đơn" Binding="{Binding OrderId}" Width="80"/>
+                        <DataGridTextColumn Header="Khách" Binding="{Binding Customer.FullName}" Width="*"/>
+                        <DataGridTextColumn Header="Giờ" Binding="{Binding OrderTime, StringFormat='HH:mm dd/MM'}" Width="1.2*"/>
+                        <DataGridTemplateColumn Header="Trạng thái" Width="120">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Status, Converter={StaticResource OrderStatusConverter}}"
+                                               Foreground="{Binding Status, Converter={StaticResource OrderStatusColorConverter}}"
+                                               FontWeight="SemiBold" FontSize="13"
+                                               HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+
+        </Grid>
+
+        <Border Grid.Column="2"
+                Background="{StaticResource CardBackground}"
+                CornerRadius="12"
+                Padding="25"
+                BorderBrush="{StaticResource BorderBrushLight}"
                 BorderThickness="1"
-                Visibility="{Binding IsOrderSelected, Converter={StaticResource BoolToVisibilityConverter}}"
-                RenderTransformOrigin="1,0.5">
+                Effect="{StaticResource CardShadow}"
+                Visibility="{Binding SelectedOrder, Converter={StaticResource NullToVisibilityConverter}}">
 
-            <Border.RenderTransform>
-                <TranslateTransform X="300"/>
-            </Border.RenderTransform>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <StackPanel>
+                    <TextBlock Text="🍽️ Chi tiết đơn hàng"
+                               FontSize="22"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource StatusPendingBrush}"
+                               Margin="0,0,0,15"/>
+                    <!-- 🧭 Thanh tiến trình trạng thái -->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,15">
+                        <ItemsControl ItemsSource="{Binding OrderSteps}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
 
-            <Border.Triggers>
-                <EventTrigger RoutedEvent="Border.Loaded">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                             From="300" To="0"
-                                             Duration="0:0:0.35"
-                                             EasingFunction="{StaticResource EaseOut}"/>
-                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                             From="0" To="1"
-                                             Duration="0:0:0.35"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </Border.Triggers>
-
-            <!-- Nội dung chi tiết -->
-            <StackPanel>
-                <TextBlock Text="🍽️ Chi tiết đơn hàng"
-                           FontSize="22"
-                           FontWeight="Bold"
-                           Foreground="#1B5E20"
-                           Margin="0,0,0,10"/>
-
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                    <TextBlock Text="Mã đơn: " FontWeight="Bold"/>
-                    <TextBlock Text="{Binding SelectedOrder.OrderId}" />
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                    <TextBlock Text="Khách hàng: " FontWeight="Bold"/>
-                    <TextBlock Text="{Binding SelectedOrder.Customer.FullName}" />
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                    <TextBlock Text="Bàn: " FontWeight="Bold"/>
-                    <TextBlock Text="{Binding SelectedOrder.Table.Name}" />
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                    <TextBlock Text="Giờ đặt: " FontWeight="Bold"/>
-                    <TextBlock Text="{Binding SelectedOrder.OrderTime, StringFormat={}{0:HH:mm dd/MM/yyyy}}" />
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
-                    <TextBlock Text="Trạng thái: " FontWeight="Bold"/>
-                    <TextBlock Text="{Binding SelectedOrder.Status, Converter={StaticResource OrderStatusConverter}}"
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <Ellipse Width="16" Height="16"
+                             Fill="{Binding IsCompleted, Converter={StaticResource BoolToBrushConverter}}"
+                             Stroke="#DDD" StrokeThickness="1"/>
+                                        <TextBlock Text="{Binding StepName}"
+                               Margin="6,0,12,0"
                                FontWeight="SemiBold"
-                               Foreground="#2E7D32"/>
+                               Foreground="{StaticResource TextPrimary}" />
+                                        <Rectangle Width="40" Height="2" VerticalAlignment="Center"
+                               Fill="#DDD"
+                               Visibility="{Binding StepValue, ConverterParameter=3, Converter={StaticResource HideLastConnectorConverter}}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+
+                    <Border Background="#FAFAFA"
+                            CornerRadius="10"
+                            Padding="20"
+                            BorderBrush="{StaticResource BorderBrushLight}"
+                            BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Text="{Binding SelectedOrder.OrderId, StringFormat='Mã đơn: {0}'}"
+                                       FontSize="16" FontWeight="Bold" 
+                                       Foreground="{StaticResource TextPrimary}"/>
+
+                            <TextBlock Text="{Binding SelectedOrder.Customer.FullName, StringFormat='Khách hàng: {0}'}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}" 
+                                       Margin="0,4,0,0"/>
+
+                            <TextBlock Text="{Binding SelectedOrder.OrderTime, StringFormat='Thời gian: {0:HH:mm dd/MM/yyyy}'}"
+                                       FontSize="14" Foreground="{StaticResource TextSecondary}"
+                                       Margin="0,2,0,0"/>
+
+                            <Separator Margin="0,10,0,10"/>
+
+                            <TextBlock FontWeight="Bold" FontSize="15">
+                                <Run Text="Trạng thái: "/>
+                                <Run Text="{Binding SelectedOrder.Status, Converter={StaticResource OrderStatusConverter}}">
+                                    <Run.Style>
+                                        <Style TargetType="Run">
+                                            <Setter Property="Foreground" Value="{StaticResource StatusPendingBrush}"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding SelectedOrder.Status}" Value="3">
+                                                    <Setter Property="Foreground" Value="{StaticResource StatusInProgressBrush}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding SelectedOrder.Status}" Value="2">
+                                                    <Setter Property="Foreground" Value="{StaticResource StatusReadyBrush}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding SelectedOrder.Status}" Value="1">
+                                                    <Setter Property="Foreground" Value="{StaticResource StatusCancelledBrush}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Run.Style>
+                                </Run>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock Text="Danh sách món ăn"
+                               FontWeight="Bold"
+                               FontSize="17"
+                               Foreground="{StaticResource TextPrimary}"
+                               Margin="0,20,0,8"/>
+
+                    <ItemsControl ItemsSource="{Binding SelectedOrder.OrderDetails}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Border Background="#FAFAFA" CornerRadius="6" Padding="12" Margin="0,4">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Grid.Column="0"
+                                                   Text="{Binding Food.Name}" 
+                                                   FontWeight="SemiBold" 
+                                                   Foreground="{StaticResource TextPrimary}"/>
+
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding Quantity, StringFormat='x{0}'}" 
+                                                   Width="40" TextAlignment="Right" 
+                                                   FontWeight="Bold"
+                                                   Foreground="{StaticResource StatusPendingBrush}"
+                                                   Margin="10,0"/>
+
+                                        <TextBlock Grid.Column="2"
+                                                   Text="{Binding UnitPrice, StringFormat={}{0:N0} đ}" 
+                                                   MinWidth="80" TextAlignment="Right" 
+                                                   Foreground="{StaticResource TextSecondary}"/>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <Separator Margin="0,20,0,10" Height="1" Background="{StaticResource BorderBrushLight}"/>
+
+                    <WrapPanel HorizontalAlignment="Center">
+
+                        <!-- ✅ Xác nhận (hiện nếu là đơn đặt trước - status 0) -->
+                        <Button Content="Xác nhận" 
+            Command="{Binding ConfirmPreOrderCommand}" 
+            CommandParameter="{Binding SelectedOrder}">
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource ConfirmActionButtonStyle}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedOrder.Status}" Value="0">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <!-- 🍽️ Phục vụ (hiện nếu là đơn đã xác nhận - status 1) -->
+                        <Button Content="Phục vụ" 
+            Command="{Binding ServeCommand}" 
+            CommandParameter="{Binding SelectedOrder}">
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource ServeActionButtonStyle}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedOrder.Status}" Value="1">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <!-- 🏁 Hoàn tất (hiện nếu đang phục vụ - status 2) -->
+                        <Button Content="Hoàn tất" 
+            Command="{Binding CompleteCommand}" 
+            CommandParameter="{Binding SelectedOrder}">
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource PrimaryActionButtonStyle}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedOrder.Status}" Value="2">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                        <!-- ❌ Hủy đơn (ẩn nếu hoàn tất hoặc đã hủy) -->
+                        <Button Content="Hủy đơn" 
+            Command="{Binding CancelCommand}" 
+            CommandParameter="{Binding SelectedOrder}">
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource CancelActionButtonStyle}">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding SelectedOrder.Status}" Value="3">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding SelectedOrder.Status}" Value="4">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+
+                    </WrapPanel>
                 </StackPanel>
-
-                <Separator Margin="0,5,0,5"/>
-
-                <TextBlock Text="Danh sách món ăn:"
-                           FontWeight="SemiBold"
-                           Foreground="#2E7D32"
-                           Margin="0,0,0,5"/>
-                <ItemsControl ItemsSource="{Binding SelectedOrder.OrderDetails}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border Background="#FFFFFF"
-                                    BorderBrush="#E0E0E0"
-                                    BorderThickness="1"
-                                    CornerRadius="5"
-                                    Padding="8"
-                                    Margin="0,5,0,0">
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                                    <TextBlock Text="{Binding Food.Name}" Width="200" FontWeight="SemiBold"/>
-                                    <TextBlock Text="{Binding Quantity}" Width="40" HorizontalAlignment="Right"/>
-                                    <TextBlock Text="{Binding UnitPrice, StringFormat={}{0:N0} đ}" Width="100" HorizontalAlignment="Right"/>
-                                </StackPanel>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-
-                <Separator Margin="0,10,0,10"/>
-
-                <!-- ✅ THÊM MÓN ĂN -->
-                <TextBlock Text="➕ Thêm món ăn vào đơn:"
-                           FontSize="16"
-                           FontWeight="Bold"
-                           Foreground="#1B5E20"
-                           Margin="0,5,0,5"/>
-
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                    <ComboBox ItemsSource="{Binding AvailableFoods}"
-                              DisplayMemberPath="Name"
-                              SelectedItem="{Binding SelectedFood}"
-                              Width="220"
-                              Margin="0,0,10,0"/>
-
-                    <TextBox Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}"
-                             Width="60"
-                             HorizontalContentAlignment="Center"
-                             Margin="0,0,10,0"/>
-
-                    <Button Content="Thêm món"
-                            Command="{Binding AddFoodCommand}"
-                            Background="#81C784"
-                            Foreground="White"
-                            Width="110"
-                            Height="35"/>
-                </StackPanel>
-
-                <Separator Margin="0,10,0,10"/>
-
-                <!-- Nút thao tác -->
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                    <Button Content="Xác nhận"
-                            Command="{Binding ConfirmPreOrderCommand}"
-                            CommandParameter="{Binding SelectedOrder}"
-                            Background="#FBC02D"
-                            Foreground="White"
-                            Width="100" Height="35" Margin="5"
-                            Visibility="{Binding SelectedOrder.Status, Converter={StaticResource PreOrderVisibilityConverter}}"/>
-
-                    <Button Content="Phục vụ"
-                            Command="{Binding ServeCommand}"
-                            CommandParameter="{Binding SelectedOrder}"
-                            Background="#81C784"
-                            Foreground="White"
-                            Width="100" Height="35" Margin="5"/>
-
-                    <Button Content="Hoàn tất"
-                            Command="{Binding CompleteCommand}"
-                            CommandParameter="{Binding SelectedOrder}"
-                            Background="#4CAF50"
-                            Foreground="White"
-                            Width="100" Height="35" Margin="5"/>
-
-                    <Button Content="Hủy đơn"
-                            Command="{Binding CancelCommand}"
-                            CommandParameter="{Binding SelectedOrder}"
-                            Background="#E53935"
-                            Foreground="White"
-                            Width="100" Height="35" Margin="5"/>
-                </StackPanel>
-            </StackPanel>
+            </ScrollViewer>
         </Border>
+
+        <Border Grid.Column="2"
+                Background="#FCFCFC"
+                CornerRadius="12"
+                Effect="{StaticResource CardShadow}">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="✨" FontSize="48" HorizontalAlignment="Center"/>
+                <TextBlock Text="Vui lòng chọn một đơn hàng"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           Foreground="{StaticResource TextSecondary}"
+                           Margin="0,10,0,0"/>
+                <TextBlock Text="Chi tiết sẽ được hiển thị tại đây."
+                           FontSize="14"
+                           Foreground="{StaticResource TextMuted}"/>
+            </StackPanel>
+
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="Visibility" Value="Visible"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedOrder, Converter={StaticResource NullToVisibilityConverter}}" Value="Visible">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+        </Border>
+
     </Grid>
 </UserControl>

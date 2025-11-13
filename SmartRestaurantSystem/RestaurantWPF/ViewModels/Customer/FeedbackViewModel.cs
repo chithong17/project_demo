@@ -72,7 +72,7 @@ namespace RestaurantWPF.ViewModels.Customer
             CompletedFoods.Clear();
 
             var completedOrders = _orderService.GetAll()
-                .Where(o => o.CustomerId == UserSession.UserId && o.Status == 2)
+                .Where(o => o.CustomerId == UserSession.UserId && o.Status == 3)
                 .ToList();
 
             var allFoods = completedOrders
@@ -83,6 +83,8 @@ namespace RestaurantWPF.ViewModels.Customer
 
             foreach (var f in allFoods)
                 CompletedFoods.Add(f);
+
+
         }
 
         // 🕒 Lịch sử đánh giá trước đó
@@ -126,7 +128,7 @@ namespace RestaurantWPF.ViewModels.Customer
             var relatedOrder = _orderService.GetAll()
                 .FirstOrDefault(o =>
                     o.CustomerId == UserSession.UserId &&
-                    o.Status == 2 &&
+                    o.Status == 3 &&
                     o.OrderDetails.Any(d => d.FoodId == SelectedFood.FoodId));
 
             if (relatedOrder == null)

@@ -4,146 +4,367 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:RestaurantWPF.Converters"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             Background="#F2F3F5"
+             FontFamily="Segoe UI"
+             d:DesignHeight="768" d:DesignWidth="1024">
 
     <UserControl.Resources>
         <local:TableStatusTextConverter  x:Key="TableStatusTextConverter"/>
         <local:TableStatusBrushConverter x:Key="TableStatusBrushConverter"/>
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
 
-        <Style x:Key="StatusChip" TargetType="Border">
-            <Setter Property="CornerRadius" Value="10"/>
-            <Setter Property="Padding" Value="6,2"/>
-            <Setter Property="Margin" Value="0"/>
-            <Setter Property="Background" Value="#EEE"/>
+        <FontFamily x:Key="IconFont">Segoe MDL2 Assets</FontFamily>
+
+        <SolidColorBrush x:Key="AppBackground" Color="#F2F3F5"/>
+        <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="BorderBrushLight" Color="#EAEAEA"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#222222"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#555555"/>
+        <SolidColorBrush x:Key="TextMuted" Color="#888888"/>
+        <SolidColorBrush x:Key="ControlBarBackground" Color="#FAFAFA"/>
+
+        <SolidColorBrush x:Key="StatusPendingBrush" Color="#FF9E40"/>
+        <SolidColorBrush x:Key="StatusInProgressBrush" Color="#007BFF"/>
+        <SolidColorBrush x:Key="StatusReadyBrush" Color="#28A745"/>
+        <SolidColorBrush x:Key="StatusCancelledBrush" Color="#DC3545"/>
+
+        <DropShadowEffect x:Key="CardShadow"
+                          BlurRadius="15"
+                          ShadowDepth="2"
+                          Opacity="0.08"
+                          Color="#000000"/>
+
+        <Style x:Key="BaseActionButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.9"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.75"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="BaseOutlineActionButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.75"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ConfirmActionButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource StatusReadyBrush}"/>
+        </Style>
+        <Style x:Key="PrimaryActionButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource StatusPendingBrush}"/>
+        </Style>
+        <Style x:Key="SecondaryActionButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource StatusInProgressBrush}"/>
+        </Style>
+        <Style x:Key="CancelActionButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource StatusCancelledBrush}"/>
+        </Style>
+        <Style x:Key="OutlinePrimaryStyle" TargetType="Button" BasedOn="{StaticResource BaseOutlineActionButtonStyle}">
+            <Setter Property="BorderBrush" Value="{StaticResource StatusPendingBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource StatusPendingBrush}"/>
+        </Style>
+        <Style x:Key="OutlineSecondaryStyle" TargetType="Button" BasedOn="{StaticResource BaseOutlineActionButtonStyle}">
+            <Setter Property="BorderBrush" Value="{StaticResource StatusInProgressBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource StatusInProgressBrush}"/>
         </Style>
 
-        <QuadraticEase x:Key="EaseOut" EasingMode="EaseOut"/>
+        <Style x:Key="IconStyle" TargetType="Path">
+            <Setter Property="Fill" Value="White"/>
+            <Setter Property="Width" Value="14"/>
+            <Setter Property="Height" Value="14"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+            <Setter Property="Stretch" Value="Uniform"/>
+        </Style>
+        <Geometry x:Key="IconTable">M4,2H20C21.1,2 22,2.9 22,4V16C22,17.1 21.1,18 20,18H4C2.9,18 2,17.1 2,16V4C2,2.9 2.9,2 4,2M4,4V16H11V11C11,10.45 11.45,10 12,10C12.55,10 13,10.45 13,11V16H20V4H4Z</Geometry>
+        <Geometry x:Key="IconRefresh">M17.65,6.35C16.2,4.9 14.21,4 12,4C7.58,4 4.01,7.58 4.01,12C4.01,16.42 7.58,20 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18C8.69,18 6,15.31 6,12C6,8.69 8.69,6 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z</Geometry>
+        <Geometry x:Key="IconAdd">M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z</Geometry>
+        <Geometry x:Key="IconSync">M12,18C15.31,18 18,15.31 18,12C18,8.69 15.31,6 12,6V2L8,6L12,10V7C14.21,7 16,8.79 16,11V12C16,13.05 15.6,14.05 15,14.8L16.42,16.22C17.39,15.13 18,13.66 18,12C18,8.68 15.31,6 12,6M12,18C8.69,18 6,15.31 6,12C6,10.34 6.61,8.87 7.58,7.78L9,9.2C8.4,9.95 8,10.95 8,12V13C8,14.21 8.79,16 11,16V20L15,16L11,12V15C9.79,15 9,14.21 9,13V12C9,11.71 9.03,11.41 9.08,11.12L7.66,9.7C6.69,10.59 6,11.73 6,13Z</Geometry>
+        <Geometry x:Key="IconClear">M19.36,2.72L20.78,4.14L15.06,9.85L20.78,15.56L19.36,16.97L13.65,11.26L7.94,16.97L6.53,15.56L12.24,9.85L6.53,4.14L7.94,2.72L13.65,8.44L19.36,2.72M3,4H11V6H3V4M3,8H9V10H3V8M3,12H9V14H3V12Z</Geometry>
+        <Geometry x:Key="IconLocation">M12,2C8.13,2 5,5.13 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9C19,5.13 15.87,2 12,2M12,11.5C10.62,11.5 9.5,10.38 9.5,9C9.5,7.62 10.62,6.5 12,6.5C13.38,6.5 14.5,7.62 14.5,9C14.5,10.38 13.38,11.5 12,11.5Z</Geometry>
+        <Geometry x:Key="IconCapacity">M12,12C14.21,12 16,10.21 16,8C16,5.79 14.21,4 12,4C9.79,4 8,5.79 8,8C8,10.21 9.79,12 12,12M12,14C9.33,14 4,15.33 4,18V20H20V18C20,15.33 14.67,14 12,14Z</Geometry>
+
+        <Style x:Key="DetailIconStyle" TargetType="Path">
+            <Setter Property="Fill" Value="{StaticResource TextMuted}"/>
+            <Setter Property="Width" Value="12"/>
+            <Setter Property="Height" Value="12"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,8,0"/>
+            <Setter Property="Stretch" Value="Uniform"/>
+        </Style>
+
+        <Style x:Key="TableCardStyle" TargetType="ListViewItem">
+            <Setter Property="Width" Value="230"/>
+            <Setter Property="Height" Value="Auto"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0,0,15,15"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                        <Border x:Name="ItemBox"
+                                Background="{StaticResource CardBackground}"
+                                CornerRadius="8"
+                                BorderBrush="{StaticResource BorderBrushLight}"
+                                BorderThickness="1"
+                                Effect="{StaticResource CardShadow}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Grid.Row="0" Margin="15,15,15,12">
+
+                                    <DockPanel LastChildFill="False" Margin="0,0,0,10">
+                                        <TextBlock x:Name="TableName" Text="{Binding Name}"
+                                                   FontWeight="Bold" FontSize="20"
+                                                   Foreground="{StaticResource TextPrimary}"
+                                                   DockPanel.Dock="Left"
+                                                   TextTrimming="CharacterEllipsis"/>
+
+                                        <Border x:Name="StatusBadge"
+                                                Background="{Binding Status, Converter={StaticResource TableStatusBrushConverter}, FallbackValue={StaticResource StatusReadyBrush}}"
+                                                CornerRadius="10"
+                                                DockPanel.Dock="Right"
+                                                HorizontalAlignment="Right"
+                                                Padding="10,4"
+                                                VerticalAlignment="Center">
+                                            <TextBlock x:Name="StatusText"
+                                                       Text="{Binding Status, Converter={StaticResource TableStatusTextConverter}}"
+                                                       FontWeight="Bold" FontSize="12"
+                                                       Foreground="White"/>
+                                        </Border>
+                                    </DockPanel>
+
+                                    <Separator Margin="0,0,0,10"/>
+
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <Path Grid.Row="0" Grid.Column="0" 
+                                              Data="{StaticResource IconLocation}" 
+                                              Style="{StaticResource DetailIconStyle}"/>
+                                        <TextBlock Grid.Row="0" Grid.Column="1"
+                                                   Text="{Binding Location, StringFormat='Khu vực: {0}'}"
+                                                   Foreground="{StaticResource TextSecondary}"
+                                                   FontSize="13" TextTrimming="CharacterEllipsis"
+                                                   VerticalAlignment="Center"/>
+
+                                        <Path Grid.Row="1" Grid.Column="0" 
+                                              Data="{StaticResource IconCapacity}" 
+                                              Style="{StaticResource DetailIconStyle}"
+                                              Margin="0,6,8,0"/>
+                                        <TextBlock Grid.Row="1" Grid.Column="1"
+                                                   Text="{Binding Capacity, StringFormat='Sức chứa: {0}'}"
+                                                   Foreground="{StaticResource TextMuted}" 
+                                                   FontSize="12"
+                                                   Margin="0,6,0,0"
+                                                   VerticalAlignment="Center"/>
+                                    </Grid>
+                                </StackPanel>
+
+                                <Border Grid.Row="1"
+                                        Background="{StaticResource ControlBarBackground}"
+                                        CornerRadius="0,0,8,8"
+                                        BorderBrush="{StaticResource BorderBrushLight}"
+                                        BorderThickness="0,1,0,0">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,8">
+
+                                        <Button Command="{Binding DataContext.ChangeStatusCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                CommandParameter="{Binding}"
+                                                Height="32" MinWidth="80" Padding="10,0" Margin="4,0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Data="{StaticResource IconSync}" Fill="{StaticResource StatusPendingBrush}" Width="12" Height="12" Margin="0,0,6,0"/>
+                                                <TextBlock Text="Đổi" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <Button.Style>
+                                                <Style TargetType="Button" BasedOn="{StaticResource OutlinePrimaryStyle}">
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Foreground" Value="White"/>
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+
+                                        <Button Command="{Binding DataContext.ClearTableCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                                CommandParameter="{Binding}"
+                                                Height="32" MinWidth="80" Padding="10,0" Margin="4,0">
+                                            <StackPanel Orientation="Horizontal">
+                                                <Path Data="{StaticResource IconClear}" Style="{StaticResource IconStyle}" Width="12" Height="12"/>
+                                                <TextBlock Text="Dọn" VerticalAlignment="Center"/>
+                                            </StackPanel>
+                                            <Button.Style>
+                                                <Style TargetType="Button" BasedOn="{StaticResource CancelActionButtonStyle}">
+                                                    <Setter Property="Visibility" Value="Visible"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding Status}" Value="0">
+                                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                        </Button>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="ItemBox" Property="BorderBrush" Value="{StaticResource StatusInProgressBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ItemBox" Property="Background" Value="#F9F9F9"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource CardBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="CaretBrush" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="0" Focusable="False" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource StatusPendingBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </UserControl.Resources>
 
     <Grid Margin="20">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2.8*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <!-- DANH SÁCH BÀN -->
-        <StackPanel>
-            <TextBlock Text="🪑 Danh sách bàn"
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+            <Path Data="{StaticResource IconTable}" Width="24" Height="24" Fill="{StaticResource StatusPendingBrush}" Margin="0,0,10,0"/>
+            <TextBlock Text="Quản lý Bàn ăn"
                        FontSize="22"
                        FontWeight="Bold"
-                       Foreground="#1B5E20"
-                       Margin="0,0,0,10"/>
-
-            <Button Content="🔄 Tải lại"
-                    Command="{Binding RefreshCommand}"
-                    HorizontalAlignment="Left"
-                    Width="100"
-                    Margin="0,0,0,10"
-                    Background="#81C784"
-                    Foreground="White"/>
-
-            <ListView ItemsSource="{Binding Tables}"
-                      SelectedItem="{Binding SelectedTable, Mode=TwoWay}"
-                      BorderThickness="0"
-                      Margin="0,5,0,0">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding TableId}"/>
-                        <GridViewColumn Header="Tên bàn" Width="120" DisplayMemberBinding="{Binding Name}"/>
-                        <GridViewColumn Header="Sức chứa" Width="80" DisplayMemberBinding="{Binding Capacity}"/>
-                        <GridViewColumn Header="Khu vực" Width="120" DisplayMemberBinding="{Binding Location}"/>
-                        <GridViewColumn Header="Trạng thái" Width="180">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Border Style="{StaticResource StatusChip}"
-                                            Background="{Binding Status, Converter={StaticResource TableStatusBrushConverter}}">
-                                        <TextBlock Text="{Binding Status, Converter={StaticResource TableStatusTextConverter}}"
-                                                   Foreground="White"
-                                                   FontWeight="SemiBold"
-                                                   Margin="4,0,4,0"/>
-                                    </Border>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                       Foreground="{StaticResource StatusPendingBrush}"
+                       VerticalAlignment="Center"/>
         </StackPanel>
 
-        <!-- CHI TIẾT BÀN -->
-        <Border Grid.Column="1"
-                Margin="20,0,0,0"
-                Background="#FAFAFA"
-                Padding="20"
-                CornerRadius="10"
-                BorderBrush="#C8E6C9"
+        <Border Grid.Row="1"
+                Background="{StaticResource ControlBarBackground}"
+                BorderBrush="{StaticResource BorderBrushLight}"
                 BorderThickness="1"
-                Visibility="{Binding IsTableSelected, Converter={StaticResource BoolToVisibilityConverter}}"
-                RenderTransformOrigin="1,0.5">
-
-            <Border.RenderTransform>
-                <TranslateTransform X="300"/>
-            </Border.RenderTransform>
-
-            <Border.Triggers>
-                <EventTrigger RoutedEvent="Border.Loaded">
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(TranslateTransform.X)"
-                                             From="300" To="0"
-                                             Duration="0:0:0.35"
-                                             EasingFunction="{StaticResource EaseOut}"/>
-                            <DoubleAnimation Storyboard.TargetProperty="Opacity"
-                                             From="0" To="1"
-                                             Duration="0:0:0.35"/>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger>
-            </Border.Triggers>
-
-            <StackPanel>
-                <TextBlock Text="📋 Chi tiết bàn"
-                           FontSize="22"
-                           FontWeight="Bold"
-                           Foreground="#1B5E20"
-                           Margin="0,0,0,10"/>
-
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                    <TextBlock Text="Tên bàn: " FontWeight="Bold"/>
-                    <TextBlock Text="{Binding SelectedTable.Name}" />
+                CornerRadius="8"
+                Padding="10, 5"
+                Margin="0,0,0,10">
+            <DockPanel LastChildFill="False">
+                <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="&#xE721;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center" 
+                               Foreground="{StaticResource TextSecondary}" FontSize="16" Margin="0,0,5,0"/>
+                    <TextBox Width="200" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                    <TextBlock Text="Sức chứa: " FontWeight="Bold"/>
-                    <TextBlock Text="{Binding SelectedTable.Capacity}" />
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                    <TextBlock Text="Khu vực: " FontWeight="Bold"/>
-                    <TextBlock Text="{Binding SelectedTable.Location}" />
-                </StackPanel>
-
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,8">
-                    <TextBlock Text="Trạng thái: " FontWeight="Bold"/>
-                    <TextBlock Text="{Binding SelectedTable.Status, Converter={StaticResource TableStatusTextConverter}}" 
-                               Foreground="#2E7D32"
-                               FontWeight="SemiBold"/>
-                </StackPanel>
-
-                <Separator Margin="0,10,0,10"/>
-
-                <Button Content="🔁 Đổi trạng thái"
-                        Command="{Binding ChangeStatusCommand}"
-                        CommandParameter="{Binding SelectedTable}"
-                        Width="180"
-                        Height="35"
-                        HorizontalAlignment="Center"
-                        Background="#64B5F6"
-                        Foreground="White"
-                        FontWeight="Bold"
-                        Margin="0,10,0,0"/>
-            </StackPanel>
+               
+            </DockPanel>
         </Border>
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <ListView ItemsSource="{Binding Tables}"
+                      SelectedItem="{Binding SelectedTable, Mode=TwoWay}"
+                      SelectionMode="Single"
+                      ItemContainerStyle="{StaticResource TableCardStyle}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      Background="Transparent"
+                      BorderThickness="0">
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Margin="0,10,0,0"/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </ScrollViewer>
+
     </Grid>
 </UserControl>

@@ -8,6 +8,7 @@ D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.AssemblyInfoInputs.cache
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.AssemblyInfo.cs
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.csproj.CoreCompileInputs.cache
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.sourcelink.json
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\obj\Debug\net8.0\DataAcce.E67BD773.Up2Date
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\obj\Debug\net8.0\DataAccessLayer.dll
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\DataAccessLayer\obj\Debug\net8.0\refint\DataAccessLayer.dll

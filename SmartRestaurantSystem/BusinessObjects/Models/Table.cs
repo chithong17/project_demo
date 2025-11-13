@@ -14,6 +14,7 @@ public partial class Table
     public byte Status { get; set; }
 
     public string? Location { get; set; }
+    public bool IsDeleted { get; set; } = false;
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 

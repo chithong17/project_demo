@@ -10,5 +10,7 @@ namespace BusinessLogicLayer.Services.Interfaces
     public interface IDashboardService
     {
         DashboardSummary GetDashboardSummary();
+        List<TopFoodDTO> GetTopSellingFoods(int count);
+        List<DailyRevenueDTO> GetRevenueByLast7Days();
     }
 }

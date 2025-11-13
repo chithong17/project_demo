@@ -15,7 +15,8 @@ namespace BusinessLogicLayer.Services.Interfaces
         void Add(User u);
         void Update(User u);
         void Delete(int id);
-
+        void SoftDeleteCustomer(int customerId);
+        List<User> GetAllActiveCustomers();
         List<User> GetCustomers();
         List<User> GetStaffs();
     }

@@ -31,6 +31,20 @@ namespace RestaurantWPF.ViewModels.Admin
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
 
+        private List<User> _allUsers; // ✅ Danh sách gốc
+
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged();
+                ApplyFilter(); // Tự động lọc mỗi khi gõ
+            }
+        }
+
         public UserManagementViewModel()
         {
             _userService = new UserService();
@@ -44,13 +58,33 @@ namespace RestaurantWPF.ViewModels.Admin
             LoadUsers();
         }
 
-        private void LoadUsers()
+        private void ApplyFilter()
         {
+            if (_allUsers == null) return;
+
             Users.Clear();
-            var list = _userService.GetAll();
-            foreach (var user in list)
+
+            var filtered = string.IsNullOrWhiteSpace(SearchText)
+                ? _allUsers
+                : _allUsers.Where(u =>
+                    (u.Username != null && u.Username.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                    (u.FullName != null && u.FullName.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                    (u.Email != null && u.Email.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                    (u.Phone != null && u.Phone.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                    (u.Role != null && u.Role.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                ).ToList();
+
+            foreach (var user in filtered)
                 Users.Add(user);
         }
+
+
+        private void LoadUsers()
+        {
+            _allUsers = _userService.GetAllActiveCustomers();
+            ApplyFilter(); 
+        }
+
 
         private void AddUser()
         {
@@ -82,11 +116,13 @@ namespace RestaurantWPF.ViewModels.Admin
         {
             if (SelectedUser == null) return;
 
-            if (MessageBox.Show("Delete this user?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBox.Show("Bạn có chắc muốn xóa người dùng này không?",
+                                "Xác nhận", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
             {
-                _userService.Delete(SelectedUser.UserId);
+                _userService.SoftDeleteCustomer(SelectedUser.UserId);
                 LoadUsers();
-                MessageBox.Show("User deleted successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Người dùng đã được ẩn (xóa mềm) khỏi hệ thống.",
+                                "Đã xóa", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }

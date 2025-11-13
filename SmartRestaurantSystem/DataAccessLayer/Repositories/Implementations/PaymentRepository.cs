@@ -1,6 +1,7 @@
 ﻿using BusinessObjects.Models;
 using DataAccessLayer.DataContext;
 using DataAccessLayer.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,14 @@ namespace DataAccessLayer.Repositories.Implementations
     {
         private readonly SmartRestaurantDbContext _context = new();
 
-        public List<Payment> GetAll() => _context.Payments.ToList();
+        public List<Payment> GetAll()
+        {
+            return _context.Payments
+                .Include(p => p.Order)
+                    .ThenInclude(o => o.Customer)
+                .ToList();
+        }
+
 
         public Payment GetByOrderId(int orderId) => _context.Payments.FirstOrDefault(p => p.OrderId == orderId);
 

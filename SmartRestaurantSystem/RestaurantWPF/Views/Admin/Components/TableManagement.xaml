@@ -3,35 +3,323 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d">
+             xmlns:local="clr-namespace:RestaurantWPF.Converters"
+             mc:Ignorable="d"
+             d:DesignHeight="768" d:DesignWidth="1024"
+             Background="#F2F3F5"
+             FontFamily="Segoe UI">
 
-    <Grid Margin="10">
-        <StackPanel>
-            <TextBlock Text="🪑 Table Management"
-                       FontSize="22"
-                       FontWeight="Bold"
-                       Margin="0,0,0,20"/>
+    <UserControl.Resources>
+        <FontFamily x:Key="IconFont">Segoe MDL2 Assets</FontFamily>
 
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
-                <Button Content="Add Table" Command="{Binding AddCommand}" Margin="5"/>
-                <Button Content="Edit Table" Command="{Binding EditCommand}" Margin="5"/>
-                <Button Content="Delete Table" Command="{Binding DeleteCommand}" Margin="5"/>
+        <SolidColorBrush x:Key="AppBackground" Color="#F2F3F5"/>
+        <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="BorderBrushLight" Color="#EAEAEA"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#222222"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#555555"/>
+        <SolidColorBrush x:Key="TextMuted" Color="#888888"/>
+
+        <SolidColorBrush x:Key="StatusPendingBrush" Color="#FF9E40"/>
+        <SolidColorBrush x:Key="StatusInProgressBrush" Color="#007BFF"/>
+        <SolidColorBrush x:Key="StatusReadyBrush" Color="#28A745"/>
+        <SolidColorBrush x:Key="StatusCancelledBrush" Color="#DC3545"/>
+
+        <SolidColorBrush x:Key="HeaderAccentBrush" Color="#1565C0"/>
+
+        <SolidColorBrush x:Key="RowAlternateBackground" Color="#F8F9FA"/>
+        <SolidColorBrush x:Key="RowSelectedBackground" Color="#E3F2FD"/>
+        <SolidColorBrush x:Key="RowSelectedForeground" Color="#005A9E"/>
+        <SolidColorBrush x:Key="RowHoverBackground" Color="#F1F1F1"/>
+
+        <DropShadowEffect x:Key="CardShadow"
+                          BlurRadius="15"
+                          ShadowDepth="2"
+                          Opacity="0.08"
+                          Color="#000000"/>
+
+        <Style x:Key="BaseActionButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.9"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.75"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="BaseOutlineActionButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderThickness" Value="1.5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder" 
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=BorderBrush}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.75"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ConfirmActionButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource StatusReadyBrush}"/>
+        </Style>
+        <Style x:Key="CancelActionButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource StatusCancelledBrush}"/>
+        </Style>
+
+        <Style x:Key="OutlinePrimaryStyle" TargetType="Button" BasedOn="{StaticResource BaseOutlineActionButtonStyle}">
+            <Setter Property="BorderBrush" Value="{StaticResource StatusPendingBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource StatusPendingBrush}"/>
+        </Style>
+        <Style x:Key="OutlineSecondaryStyle" TargetType="Button" BasedOn="{StaticResource BaseOutlineActionButtonStyle}">
+            <Setter Property="BorderBrush" Value="{StaticResource StatusInProgressBrush}"/>
+            <Setter Property="Foreground" Value="{StaticResource StatusInProgressBrush}"/>
+        </Style>
+
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="{StaticResource CardBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="VerticalGridLinesBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="RowHeight" Value="45"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGrid">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}" 
+                                Padding="{TemplateBinding Padding}" 
+                                CornerRadius="8"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="DG_ScrollViewer" Focusable="False">
+                                <ScrollViewer.Template>
+                                    <ControlTemplate TargetType="ScrollViewer">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" 
+                                                                            Grid.Column="1" 
+                                                                            Visibility="Visible"/>
+                                            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" 
+                                                                    Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" 
+                                                                    CanContentScroll="{TemplateBinding CanContentScroll}"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ScrollViewer.Template>
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#F8F9FA"/>
+            <Setter Property="Foreground" Value="{StaticResource HeaderAccentBrush}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="Padding" Value="8,12"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="{StaticResource CardBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Style.Triggers>
+                <Trigger Property="AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="{StaticResource RowAlternateBackground}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource RowHoverBackground}"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource RowSelectedBackground}"/>
+                    <Setter Property="Foreground" Value="{StaticResource RowSelectedForeground}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="DataGridCell">
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource CardBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,6"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="CaretBrush" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="0" Focusable="False" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource StatusPendingBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <local:TableStatusTextConverter x:Key="TableStatusTextConverter"/>
+        <local:TableStatusBrushConverter x:Key="TableStatusBrushConverter"/>
+
+    </UserControl.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="🪑 Quản lý Bàn ăn"
+                   FontSize="22"
+                   FontWeight="Bold"
+                   Foreground="{StaticResource StatusPendingBrush}"
+                   Margin="0,0,0,15"/>
+
+        <DockPanel Grid.Row="1" Margin="0,0,0,15" LastChildFill="False">
+            <StackPanel DockPanel.Dock="Left" Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="&#xE721;" FontFamily="{StaticResource IconFont}" VerticalAlignment="Center" 
+                           Foreground="{StaticResource TextSecondary}" FontSize="16" Margin="0,0,5,0"/>
+                <TextBox Width="200" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
 
-            <DataGrid ItemsSource="{Binding Tables}"
-                      SelectedItem="{Binding SelectedTable}"
-                      AutoGenerateColumns="False"
-                      CanUserAddRows="False"
-                      IsReadOnly="False"
-                      HeadersVisibility="Column">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding TableId}" Width="Auto"/>
-                    <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
-                    <DataGridTextColumn Header="Capacity" Binding="{Binding Capacity}" Width="*"/>
-                    <DataGridTextColumn Header="Location" Binding="{Binding Location}" Width="*"/>
-                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Command="{Binding AddCommand}"
+                        Style="{StaticResource ConfirmActionButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE710;" FontFamily="{StaticResource IconFont}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Thêm" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Command="{Binding EditCommand}"
+                        Style="{StaticResource OutlinePrimaryStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE70F;" FontFamily="{StaticResource IconFont}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Sửa" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Command="{Binding DeleteCommand}"
+                        Style="{StaticResource CancelActionButtonStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE74D;" FontFamily="{StaticResource IconFont}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Xóa" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+
+                <Button Command="{Binding LoadCommand}"
+                        Style="{StaticResource OutlineSecondaryStyle}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="&#xE72C;" FontFamily="{StaticResource IconFont}" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                        <TextBlock Text="Tải lại" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </DockPanel>
+
+        <DataGrid Grid.Row="2"
+                  ItemsSource="{Binding Tables}"
+                  SelectedItem="{Binding SelectedTable}"
+                  HeadersVisibility="Column"
+                  AlternationCount="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding TableId}" Width="60"/>
+                <DataGridTextColumn Header="Tên bàn" Binding="{Binding Name}" Width="*"/>
+                <DataGridTextColumn Header="Sức chứa" Binding="{Binding Capacity}" Width="100"/>
+                <DataGridTextColumn Header="Khu vực" Binding="{Binding Location}" Width="2*"/>
+
+                <DataGridTemplateColumn Header="Trạng thái" Width="150">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Status, Converter={StaticResource TableStatusTextConverter}}"
+                                       Foreground="{Binding Status, Converter={StaticResource TableStatusBrushConverter}}"
+                                       FontWeight="SemiBold"
+                                       FontSize="13"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </UserControl>

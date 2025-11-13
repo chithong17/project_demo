@@ -3,111 +3,239 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             FontFamily="Segoe UI"
+             Background="#121212">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
-        <Grid Margin="30">
-            <Border Background="#FFF8E1" Padding="25" CornerRadius="12" BorderBrush="#FFD54F" BorderThickness="1">
-                <StackPanel HorizontalAlignment="Center" Width="420">
+    <UserControl.Resources>
+        <SolidColorBrush x:Key="AccentBrush" Color="#FF7A00"/>
+        <SolidColorBrush x:Key="CardBackground" Color="#25221F"/>
+        <SolidColorBrush x:Key="InputBackground" Color="#3B3631"/>
+        <SolidColorBrush x:Key="InputBackgroundHover" Color="#453F3A"/>
+        <SolidColorBrush x:Key="BorderLight" Color="#544E49"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#CFCFCF"/>
+        <SolidColorBrush x:Key="BorderDark" Color="#2E2E2E"/>
 
-                    <!-- Header -->
-                    <TextBlock Text="👤 Hồ sơ cá nhân"
-                               FontSize="24"
+        <DropShadowEffect x:Key="CardShadow"
+                          BlurRadius="20"
+                          ShadowDepth="2"
+                          Opacity="0.25"
+                          Color="Black"/>
+
+        <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Opacity" Value="0.9"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="{StaticResource InputBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderLight}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,0"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="0,0,0,15"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                          Padding="{TemplateBinding Padding}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource InputBackgroundHover}"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+                                <Setter TargetName="border" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="#FF7A00" BlurRadius="8" ShadowDepth="0" Opacity="0.6"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="#121212" Margin="20">
+        <Border Background="{StaticResource CardBackground}"
+                Padding="30"
+                CornerRadius="14"
+                BorderBrush="{StaticResource BorderDark}"
+                BorderThickness="1"
+                Effect="{StaticResource CardShadow}"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                MaxWidth="720"
+                MinHeight="500">
+
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0"
+                        Background="{StaticResource InputBackground}"
+                        CornerRadius="8"
+                        Padding="15"
+                        Margin="0,0,0,20"
+                        BorderBrush="{StaticResource BorderLight}"
+                        BorderThickness="1">
+                    <TextBlock Text="👤 Thông tin cá nhân"
+                               FontSize="22"
                                FontWeight="Bold"
-                               Foreground="#4E342E"
-                               HorizontalAlignment="Center"
-                               Margin="0,0,0,20"/>
+                               Foreground="{StaticResource AccentBrush}"
+                               HorizontalAlignment="Center"/>
+                </Border>
 
-                    <!-- Avatar (bo tròn + chọn ảnh) -->
-                    <Grid HorizontalAlignment="Center" Margin="0,0,0,10">
-                        <Grid.Effect>
-                            <DropShadowEffect Color="#88000000"
-                                              BlurRadius="10"
-                                              ShadowDepth="3"
-                                              Opacity="0.4"/>
-                        </Grid.Effect>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2.2*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
 
-                        <Ellipse Width="130" Height="130"
-                                 Stroke="#FFA000"
-                                 StrokeThickness="3">
-                            <Ellipse.Fill>
-                                <ImageBrush ImageSource="{Binding AvatarUrl}" Stretch="UniformToFill"/>
-                            </Ellipse.Fill>
-                        </Ellipse>
-                    </Grid>
+                    <StackPanel Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
 
-                    <!-- Nút chọn ảnh -->
-                    <Button Content="📁 Chọn ảnh đại diện"
-                            Command="{Binding SelectAvatarCommand}"
-                            Background="#FFD54F"
-                            Foreground="#4E342E"
-                            FontWeight="SemiBold"
-                            Width="200"
-                            Height="36"
-                            HorizontalAlignment="Center"
-                            Margin="0,5,0,15"
-                            Cursor="Hand">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Background="{TemplateBinding Background}" CornerRadius="8">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
+                        <Grid Width="150" Height="150" Margin="0,0,0,15">
+                            <Ellipse Stroke="{StaticResource AccentBrush}"
+                                     StrokeThickness="3"
+                                     Width="150" Height="150">
+                                <Ellipse.Fill>
+                                    <ImageBrush ImageSource="{Binding AvatarUrl}" Stretch="UniformToFill"/>
+                                </Ellipse.Fill>
+                            </Ellipse>
 
-                    <!-- Stats -->
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
-                        <Border Background="#FFE082" Padding="10,5" CornerRadius="8" Margin="5,0">
-                            <StackPanel>
-                                <TextBlock Text="{Binding ReservationCount}" 
-                                           FontSize="18" FontWeight="Bold" 
+                            <Border Background="#80000000"
+                                    CornerRadius="75"
+                                    Opacity="0"
+                                    x:Name="HoverOverlay">
+                                <TextBlock Text="📷"
+                                           FontSize="28"
+                                           Foreground="White"
+                                           VerticalAlignment="Center"
                                            HorizontalAlignment="Center"/>
-                                <TextBlock Text="Lượt đặt bàn" 
-                                           FontSize="12" Foreground="#5D4037" 
-                                           HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Border>
+                            </Border>
 
-                        <Border Background="#FFECB3" Padding="10,5" CornerRadius="8" Margin="5,0">
-                            <StackPanel>
-                                <TextBlock Text="{Binding FeedbackCount}" 
-                                           FontSize="18" FontWeight="Bold"
-                                           HorizontalAlignment="Center"/>
-                                <TextBlock Text="Đánh giá" 
-                                           FontSize="12" Foreground="#5D4037"
-                                           HorizontalAlignment="Center"/>
-                            </StackPanel>
-                        </Border>
+                            <Grid.Triggers>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="HoverOverlay"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="0.8" Duration="0:0:0.2"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseLeave">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="HoverOverlay"
+                                                             Storyboard.TargetProperty="Opacity"
+                                                             To="0" Duration="0:0:0.3"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
+                            </Grid.Triggers>
+                        </Grid>
+
+                        <Button Content="📁 Chọn ảnh"
+                                Command="{Binding SelectAvatarCommand}"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Width="160"
+                                Margin="0,5,0,25"/>
+
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Border Background="{StaticResource InputBackground}"
+                                    Padding="8,5"
+                                    CornerRadius="10"
+                                    Width="110"
+                                    Margin="5,0"
+                                    BorderBrush="{StaticResource BorderLight}"
+                                    BorderThickness="1"
+                                    Effect="{StaticResource CardShadow}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding ReservationCount}"
+                                               FontSize="18" FontWeight="Bold"
+                                               HorizontalAlignment="Center"
+                                               Foreground="{StaticResource AccentBrush}"/>
+                                    <TextBlock Text="Lượt đặt bàn"
+                                               FontSize="12" Foreground="{StaticResource TextSecondary}"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+
+                            <Border Background="{StaticResource InputBackground}"
+                                    Padding="8,5"
+                                    CornerRadius="10"
+                                    Width="110"
+                                    Margin="5,0"
+                                    BorderBrush="{StaticResource BorderLight}"
+                                    BorderThickness="1"
+                                    Effect="{StaticResource CardShadow}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding FeedbackCount}"
+                                               FontSize="18" FontWeight="Bold"
+                                               HorizontalAlignment="Center"
+                                               Foreground="{StaticResource AccentBrush}"/>
+                                    <TextBlock Text="Đánh giá"
+                                               FontSize="12" Foreground="{StaticResource TextSecondary}"
+                                               HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
                     </StackPanel>
 
-                    <!-- Editable fields -->
-                    <TextBlock Text="Họ và tên:" FontWeight="SemiBold" Margin="0,5,0,2"/>
-                    <TextBox Text="{Binding FullName}" Height="30" Margin="0,0,0,10"/>
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="40,0,0,0">
+                        <TextBlock Text="Họ và tên:"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextSecondary}"
+                                   Margin="0,0,0,3"/>
+                        <TextBox Text="{Binding FullName}"/>
 
-                    <TextBlock Text="Số điện thoại:" FontWeight="SemiBold" Margin="0,5,0,2"/>
-                    <TextBox Text="{Binding Phone}" Height="30" Margin="0,0,0,15"/>
+                        <TextBlock Text="Số điện thoại:"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextSecondary}"
+                                   Margin="0,5,0,3"/>
+                        <TextBox Text="{Binding Phone}"/>
 
-                    <!-- Save button -->
-                    <Button Content="💾 Lưu thay đổi"
-                            Command="{Binding SaveCommand}"
-                            Background="#FFA000"
-                            Foreground="White"
-                            FontWeight="Bold"
-                            Width="180"
-                            Height="40"
-                            HorizontalAlignment="Center"
-                            Cursor="Hand">
-                        <Button.Template>
-                            <ControlTemplate TargetType="Button">
-                                <Border Background="{TemplateBinding Background}" CornerRadius="8">
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </ControlTemplate>
-                        </Button.Template>
-                    </Button>
-                </StackPanel>
-            </Border>
-        </Grid>
-    </ScrollViewer>
+                        <Button Content="💾 Lưu thay đổi"
+                                Command="{Binding SaveCommand}"
+                                Style="{StaticResource PrimaryButtonStyle}"
+                                Width="180"
+                                Margin="0,15,0,0"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
 </UserControl>

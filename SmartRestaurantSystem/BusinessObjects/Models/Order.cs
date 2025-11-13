@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace BusinessObjects.Models;
 
+public enum OrderType : byte
+{
+    DineIn = 0,   
+    Takeaway = 1  
+}
 public partial class Order
 {
     public int OrderId { get; set; }
@@ -22,7 +28,7 @@ public partial class Order
     public decimal Discount { get; set; }
 
     public string? Note { get; set; }
-
+    public OrderType Type { get; set; } = OrderType.DineIn;
     public virtual User? Customer { get; set; }
 
     public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();

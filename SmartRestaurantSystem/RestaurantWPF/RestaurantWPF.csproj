@@ -1,42 +1,65 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UseWPF>true</UseWPF>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Assets\restaurant-bg.jpg" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Assets\logo.png" />
+		<None Remove="Assets\reBan.jpg" />
+		<None Remove="Assets\restaurant-bg.png" />
+		<None Remove="Assets\restaurant_banner.jpg" />
+		<None Remove="Assets\restaurant_banner2.jpg" />
+		<None Remove="Assets\table_icon.png" />
+		<None Remove="Views\logo.png" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.20">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<!-- ⚙️ Entity Framework -->
+		<PackageReference Include="Extended.Wpf.Toolkit" Version="5.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.20">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
 
-  <ItemGroup>
-    <None Update="appsettings.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
 
-  <ItemGroup>
-    <ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj">
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
+		<!-- 📊 Biểu đồ OxyPlot -->
+		<PackageReference Include="OxyPlot.Core" Version="2.1.2" />
+		<PackageReference Include="OxyPlot.Wpf" Version="2.1.2" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Resource Include="Assets\restaurant-bg.jpg">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </Resource>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BusinessLogicLayer\BusinessLogicLayer.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Resource Include="Assets\logo.png" />
+		<Resource Include="Assets\restaurant-bg.png" />
+		<Content Include="Assets\reBan.jpg">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\restaurant_banner.jpg">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\restaurant_banner2.jpg">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Assets\table_icon.png">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+		<Resource Include="Views\logo.png" />
+	</ItemGroup>
 
 </Project>

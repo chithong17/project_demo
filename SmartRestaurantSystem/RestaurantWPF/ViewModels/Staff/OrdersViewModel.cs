@@ -36,6 +36,7 @@ namespace RestaurantWPF.ViewModels.Staff
                         LoadFoods(); // ✅ khi chọn đơn, nạp danh sách món
                         Quantity = 1; // reset số lượng
                         SelectedFood = null;
+                        UpdateProgress(); 
                     }
                 }
             }
@@ -71,6 +72,7 @@ namespace RestaurantWPF.ViewModels.Staff
         public ICommand ConfirmPreOrderCommand { get; }
         public ICommand CancelCommand { get; }
         public ICommand AddFoodCommand { get; } // ✅ thêm món
+        public ObservableCollection<OrderStepViewModel> OrderSteps { get; set; }
 
         public OrdersViewModel()
         {
@@ -78,9 +80,23 @@ namespace RestaurantWPF.ViewModels.Staff
             CompleteCommand = new RelayCommand(CompleteOrder);
             ConfirmPreOrderCommand = new RelayCommand(ConfirmPreOrder);
             CancelCommand = new RelayCommand(CancelOrder);
-            AddFoodCommand = new RelayCommand(AddFoodToOrder); // ✅ gán lệnh
-
+            AddFoodCommand = new RelayCommand(AddFoodToOrder);
+            OrderSteps = new ObservableCollection<OrderStepViewModel>
+            {
+                new("Đặt trước", 0),
+                new("Xác nhận", 1),
+                new("Phục vụ", 2),
+                new("Hoàn tất", 3)
+            };
             LoadOrders();
+        }
+
+        private void UpdateProgress()
+        {
+            if (SelectedOrder == null) return;
+
+            foreach (var step in OrderSteps)
+                step.IsCompleted = SelectedOrder.Status >= step.StepValue;
         }
 
         // ===================== LOAD DATA =====================
@@ -176,6 +192,7 @@ namespace RestaurantWPF.ViewModels.Staff
             MessageBox.Show("Đơn đã chuyển sang 'Đang phục vụ'.");
             LoadOrders();
             RefreshSelection(order.OrderId);
+            UpdateProgress();
         }
 
         private void CompleteOrder(object obj)
@@ -193,6 +210,7 @@ namespace RestaurantWPF.ViewModels.Staff
             MessageBox.Show("Đơn đã hoàn tất!");
             LoadOrders();
             RefreshSelection(order.OrderId);
+            UpdateProgress();
         }
 
         private void ConfirmPreOrder(object obj)
@@ -209,17 +227,44 @@ namespace RestaurantWPF.ViewModels.Staff
             MessageBox.Show("Đã xác nhận đơn đặt trước.");
             LoadOrders();
             RefreshSelection(order.OrderId);
+            UpdateProgress();
         }
+
+        private readonly ITableService _tableService = new TableService(); // ⚡ thêm dòng này ở đầu class
 
         private void CancelOrder(object obj)
         {
             if (obj is not Order order) return;
+
+            // Xác nhận trước khi hủy
+            if (MessageBox.Show("Bạn có chắc muốn hủy đơn này không?", "Xác nhận",
+                                MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes)
+                return;
+
+            // Đặt trạng thái đơn hàng = 4 (Hủy)
             order.Status = 4;
             _orderService.Update(order);
-            MessageBox.Show("Đơn đã được hủy.");
+
+            // ✅ Nếu đơn có bàn, thì giải phóng bàn đó (status = 0)
+            if (order.TableId.HasValue)
+            {
+                var table = _tableService.GetById(order.TableId.Value);
+                if (table != null)
+                {
+                    table.Status = 0; // Trả bàn về "trống"
+                    _tableService.Update(table);
+                }
+            }
+
+            MessageBox.Show("Đơn đã được hủy và bàn đã được giải phóng.",
+                            "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            // Refresh lại danh sách đơn
             LoadOrders();
             SelectedOrder = null;
+            UpdateProgress();
         }
+
 
         private void RefreshSelection(int orderId)
         {

@@ -144,6 +144,11 @@ public partial class SmartRestaurantDbContext : DbContext
             entity.Property(e => e.StaffId).HasColumnName("staff_id");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.TableId).HasColumnName("table_id");
+            entity.Property(e => e.Type)
+    .HasColumnName("type")
+    .HasConversion<byte>();
+
+
 
             entity.HasOne(d => d.Customer).WithMany(p => p.OrderCustomers)
                 .HasForeignKey(d => d.CustomerId)

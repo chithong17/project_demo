@@ -34,6 +34,17 @@ namespace RestaurantWPF.ViewModels.Customer
             get => _isCartVisible;
             set { _isCartVisible = value; OnPropertyChanged(); }
         }
+        private Category? _selectedCategory;
+        public Category? SelectedCategory
+        {
+            get => _selectedCategory;
+            set
+            {
+                _selectedCategory = value;
+                SelectedCategoryId = value?.CategoryId;
+                OnPropertyChanged();
+            }
+        }
 
         public int CartCount => CartItems.Sum(i => i.Quantity);
         public decimal TotalPrice => CartItems.Sum(i => i.Price * i.Quantity);
@@ -67,7 +78,7 @@ namespace RestaurantWPF.ViewModels.Customer
             _foodService = new FoodService();
             _categoryService = new CategoryService();
 
-            RefreshCommand = new RelayCommand(_ => LoadData());
+            RefreshCommand = new RelayCommand(_ => ResetAndReload());
             AddToCartCommand = new RelayCommand(AddToCart);
             OpenCartDetailCommand = new RelayCommand(_ => OpenCartDetail());
 
@@ -156,7 +167,8 @@ namespace RestaurantWPF.ViewModels.Customer
                         FoodId = food.FoodId,
                         Name = food.Name,
                         Price = food.Price,
-                        Quantity = 1
+                        Quantity = 1,
+                        ImageUrl = NormalizeImagePath(food.ImageUrl)
                     });
                 }
 
@@ -167,6 +179,27 @@ namespace RestaurantWPF.ViewModels.Customer
         }
 
 
+        private string? NormalizeImagePath(string? url)
+        {
+            if (string.IsNullOrEmpty(url))
+                return null;
+
+            // Nếu ảnh online, giữ nguyên
+            if (url.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+                return url;
+
+            // Nếu là ảnh trong thư mục Assets thì thêm prefix WPF hiểu được
+            return $"pack://siteoforigin:,,,/{url.TrimStart('/')}";
+        }
+
+
+        private void ResetAndReload()
+        {
+            SearchText = string.Empty;
+            SelectedCategory = null;  
+            SelectedCategoryId = null;
+            LoadData();             
+        }
 
 
         private void OpenCartDetail()

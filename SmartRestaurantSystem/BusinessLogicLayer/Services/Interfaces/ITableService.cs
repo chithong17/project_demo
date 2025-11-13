@@ -16,5 +16,7 @@ namespace BusinessLogicLayer.Services.Interfaces
         void Add(Table t);
         void Update(Table t);
         void Delete(int id);
+        void SoftDelete(int tableId);
+
     }
 }

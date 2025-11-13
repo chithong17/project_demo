@@ -27,7 +27,6 @@ namespace RestaurantWPF.ViewModels.Customer
             set { _currentUser = value; OnPropertyChanged(); }
         }
 
-        // Editable fields
         private string _fullName;
         public string FullName
         {

@@ -10,6 +10,7 @@ D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessLogicLay
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessLogicLayer\obj\Debug\net8.0\BusinessLogicLayer.AssemblyInfoInputs.cache
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessLogicLayer\obj\Debug\net8.0\BusinessLogicLayer.AssemblyInfo.cs
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessLogicLayer\obj\Debug\net8.0\BusinessLogicLayer.csproj.CoreCompileInputs.cache
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessLogicLayer\obj\Debug\net8.0\BusinessLogicLayer.sourcelink.json
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessLogicLayer\obj\Debug\net8.0\Business.450209FB.Up2Date
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessLogicLayer\obj\Debug\net8.0\BusinessLogicLayer.dll
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessLogicLayer\obj\Debug\net8.0\refint\BusinessLogicLayer.dll

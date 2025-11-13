@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BusinessObjects.Models;
+using RestaurantWPF.ViewModels.Customer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +26,15 @@ namespace RestaurantWPF.Views.Customer.Components
         {
             InitializeComponent();
         }
+
+        private void OnFoodSelected(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is FrameworkElement fe && fe.DataContext is Food food)
+            {
+                var vm = DataContext as FeedbackViewModel;
+                vm.SelectedFood = food;
+            }
+        }
+
     }
 }

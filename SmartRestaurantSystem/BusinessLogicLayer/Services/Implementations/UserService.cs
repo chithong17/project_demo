@@ -1,7 +1,9 @@
 ﻿using BusinessLogicLayer.Services.Interfaces;
 using BusinessObjects.Models;
+using DataAccessLayer.DataContext;
 using DataAccessLayer.Repositories.Implementations;
 using DataAccessLayer.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,5 +28,26 @@ namespace BusinessLogicLayer.Services.Implementations
 
         public List<User> GetStaffs() =>
             _repo.GetAll().Where(u => u.Role.Name == "Staff").ToList();
+
+        public void SoftDeleteCustomer(int customerId)
+        {
+            using var context = new SmartRestaurantDbContext();
+            var customer = context.Users.FirstOrDefault(c => c.UserId == customerId);
+            if (customer != null)
+            {
+                customer.IsDeleted = true;
+                context.SaveChanges();
+            }
+        }
+
+        public List<User> GetAllActiveCustomers()
+        {
+            using var context = new SmartRestaurantDbContext();
+            return context.Users
+                .Where(c => !c.IsDeleted)
+                .ToList();
+        }
+
+
     }
 }

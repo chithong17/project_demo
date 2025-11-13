@@ -34,6 +34,32 @@ namespace RestaurantWPF.ViewModels.Staff
             }
         }
 
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged();
+                ApplyFilters(); // ✅ tự động lọc khi text thay đổi
+            }
+        }
+        private List<Reservation> _allReservations = new();
+
+        private DateTime? _filterDate;
+        public DateTime? FilterDate
+        {
+            get => _filterDate;
+            set
+            {
+                _filterDate = value;
+                OnPropertyChanged();
+                ApplyFilters(); // ✅ tự động lọc khi chọn ngày
+            }
+        }
+
+
         private Table _selectedTable;
         public Table SelectedTable
         {
@@ -53,26 +79,50 @@ namespace RestaurantWPF.ViewModels.Staff
         public ICommand ConvertToOrderCommand { get; }
         public ICommand AssignTableCommand { get; }
 
+        public ICommand RefreshCommand { get; }
+
         public ReservationViewModel()
         {
             ConfirmCommand = new RelayCommand(ConfirmReservation);
             CancelCommand = new RelayCommand(CancelReservation);
             ConvertToOrderCommand = new RelayCommand(ConvertToOrder);
             AssignTableCommand = new RelayCommand(AssignTable);
-
+            RefreshCommand = new RelayCommand(_ => { SearchText = ""; FilterDate = null; LoadReservations(); });
             LoadReservations();
         }
 
         private void LoadReservations()
         {
             Reservations.Clear();
-            var list = _reservationService.GetAll()
+            _allReservations = _reservationService.GetAll()
                 .OrderByDescending(r => r.StartTime)
                 .ToList();
-            foreach (var r in list)
-                Reservations.Add(r);
 
+            ApplyFilters(); // ✅ áp dụng filter sau khi load
             LoadAvailableTables();
+        }
+        private void ApplyFilters()
+        {
+            var filtered = _allReservations.AsEnumerable();
+
+            if (!string.IsNullOrWhiteSpace(SearchText))
+            {
+                filtered = filtered.Where(r =>
+                    (!string.IsNullOrEmpty(r.CustomerName) && r.CustomerName.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                    (!string.IsNullOrEmpty(r.Phone) && r.Phone.Contains(SearchText))
+                );
+            }
+
+            if (FilterDate.HasValue)
+            {
+                filtered = filtered.Where(r =>
+                    r.StartTime.Date == FilterDate.Value.Date
+                );
+            }
+
+            Reservations.Clear();
+            foreach (var r in filtered)
+                Reservations.Add(r);
         }
 
         private void LoadAvailableTables()

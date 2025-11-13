@@ -47,6 +47,61 @@
           }
         }
       },
+      "Extended.Wpf.Toolkit/5.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/Xceed.Wpf.AvalonDock.Themes.Aero.dll": {},
+          "lib/net5.0/Xceed.Wpf.AvalonDock.Themes.Metro.dll": {},
+          "lib/net5.0/Xceed.Wpf.AvalonDock.Themes.VS2010.dll": {},
+          "lib/net5.0/Xceed.Wpf.AvalonDock.dll": {},
+          "lib/net5.0/Xceed.Wpf.Toolkit.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/Xceed.Wpf.AvalonDock.Themes.Aero.dll": {},
+          "lib/net5.0/Xceed.Wpf.AvalonDock.Themes.Metro.dll": {},
+          "lib/net5.0/Xceed.Wpf.AvalonDock.Themes.VS2010.dll": {},
+          "lib/net5.0/Xceed.Wpf.AvalonDock.dll": {},
+          "lib/net5.0/Xceed.Wpf.Toolkit.dll": {}
+        },
+        "resource": {
+          "lib/net5.0/cs-CZ/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "cs-CZ"
+          },
+          "lib/net5.0/de/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net5.0/es/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net5.0/fr/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net5.0/hu/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "hu"
+          },
+          "lib/net5.0/it/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net5.0/ja-JP/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "ja-JP"
+          },
+          "lib/net5.0/pt-BR/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net5.0/ro/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "ro"
+          },
+          "lib/net5.0/ru/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net5.0/sv/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "sv"
+          },
+          "lib/net5.0/zh-Hans/Xceed.Wpf.AvalonDock.resources.dll": {
+            "locale": "zh-Hans"
+          }
+        }
+      },
       "Humanizer.Core/2.14.1": {
         "type": "package",
         "compile": {
@@ -998,6 +1053,58 @@
           "lib/netstandard2.0/Mono.TextTemplating.dll": {}
         }
       },
+      "OxyPlot.Core/2.1.2": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/OxyPlot.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/OxyPlot.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "OxyPlot.Wpf/2.1.2": {
+        "type": "package",
+        "dependencies": {
+          "OxyPlot.Core": "2.1.2",
+          "OxyPlot.Wpf.Shared": "2.1.2"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/OxyPlot.Wpf.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/OxyPlot.Wpf.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
+      "OxyPlot.Wpf.Shared/2.1.2": {
+        "type": "package",
+        "dependencies": {
+          "OxyPlot.Core": "2.1.2"
+        },
+        "compile": {
+          "lib/netcoreapp3.1/OxyPlot.Wpf.Shared.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.1/OxyPlot.Wpf.Shared.dll": {
+            "related": ".xml"
+          }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WPF"
+        ]
+      },
       "System.ClientModel/1.0.0": {
         "type": "package",
         "dependencies": {
@@ -1689,6 +1796,56 @@
         "azureicon.png",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
+      ]
+    },
+    "Extended.Wpf.Toolkit/5.0.0": {
+      "sha512": "8QStq5cQd+anGBbA5XXSlb/BxEk457xRQ/vraLXNvf5fHG1b4Bu4DOkvSqvvu9MLRUf+q29ceWsLRGtAw3CzDg==",
+      "type": "package",
+      "path": "extended.wpf.toolkit/5.0.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "Xceed_Logo_Retina-400x400.png",
+        "extended.wpf.toolkit.5.0.0.nupkg.sha512",
+        "extended.wpf.toolkit.nuspec",
+        "lib/net40/Xceed.Wpf.AvalonDock.Themes.Aero.dll",
+        "lib/net40/Xceed.Wpf.AvalonDock.Themes.Metro.dll",
+        "lib/net40/Xceed.Wpf.AvalonDock.Themes.VS2010.dll",
+        "lib/net40/Xceed.Wpf.AvalonDock.dll",
+        "lib/net40/Xceed.Wpf.Toolkit.dll",
+        "lib/net40/cs-CZ/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net40/de/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net40/es/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net40/fr/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net40/hu/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net40/it/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net40/ja-JP/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net40/nl-BE/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net40/pt-BR/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net40/ro/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net40/ru/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net40/sv/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net40/zh-Hans/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net5.0/Xceed.Wpf.AvalonDock.Themes.Aero.dll",
+        "lib/net5.0/Xceed.Wpf.AvalonDock.Themes.Metro.dll",
+        "lib/net5.0/Xceed.Wpf.AvalonDock.Themes.VS2010.dll",
+        "lib/net5.0/Xceed.Wpf.AvalonDock.dll",
+        "lib/net5.0/Xceed.Wpf.Toolkit.dll",
+        "lib/net5.0/cs-CZ/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net5.0/de/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net5.0/es/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net5.0/fr/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net5.0/hu/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net5.0/it/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net5.0/ja-JP/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net5.0/pt-BR/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net5.0/ro/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net5.0/ru/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net5.0/sv/Xceed.Wpf.AvalonDock.resources.dll",
+        "lib/net5.0/zh-Hans/Xceed.Wpf.AvalonDock.resources.dll",
+        "tools/install.ps1"
       ]
     },
     "Humanizer.Core/2.14.1": {
@@ -3209,6 +3366,64 @@
         "mono.texttemplating.nuspec"
       ]
     },
+    "OxyPlot.Core/2.1.2": {
+      "sha512": "/BuPL1Wa7ZhpKA2DBe72md+S8PgIHF+UP/NsKfO9BiheXnbns1/tqS7s2MWIR1xFy5i+PWVC67KziGPY48mNgA==",
+      "type": "package",
+      "path": "oxyplot.core/2.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "OxyPlot_128.png",
+        "lib/net40/OxyPlot.dll",
+        "lib/net40/OxyPlot.xml",
+        "lib/net45/OxyPlot.dll",
+        "lib/net45/OxyPlot.xml",
+        "lib/netstandard1.0/OxyPlot.dll",
+        "lib/netstandard1.0/OxyPlot.xml",
+        "lib/netstandard2.0/OxyPlot.dll",
+        "lib/netstandard2.0/OxyPlot.xml",
+        "oxyplot.core.2.1.2.nupkg.sha512",
+        "oxyplot.core.nuspec"
+      ]
+    },
+    "OxyPlot.Wpf/2.1.2": {
+      "sha512": "udX9T1YC5BnnTZkVSNgJqvzXLaBcZDYG32YHWlDELk1UDWQeJi0Z2jBLoIiv4hcW16N4ptYO5cGC3e8m5/z0hw==",
+      "type": "package",
+      "path": "oxyplot.wpf/2.1.2",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "OxyPlot_128.png",
+        "lib/net40/OxyPlot.Wpf.dll",
+        "lib/net40/OxyPlot.Wpf.xml",
+        "lib/net45/OxyPlot.Wpf.dll",
+        "lib/net45/OxyPlot.Wpf.xml",
+        "lib/netcoreapp3.1/OxyPlot.Wpf.dll",
+        "lib/netcoreapp3.1/OxyPlot.Wpf.xml",
+        "oxyplot.wpf.2.1.2.nupkg.sha512",
+        "oxyplot.wpf.nuspec",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "OxyPlot.Wpf.Shared/2.1.2": {
+      "sha512": "6Cj7UET7AS5gVf77+avKG+PzaKQhTdqRYbyBTCPWW9JEbAsojpNdLICjVXO+5o/HP+DjshZJ6oCFw8eyRnHtCA==",
+      "type": "package",
+      "path": "oxyplot.wpf.shared/2.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "OxyPlot_128.png",
+        "lib/net40/OxyPlot.Wpf.Shared.dll",
+        "lib/net40/OxyPlot.Wpf.Shared.xml",
+        "lib/net45/OxyPlot.Wpf.Shared.dll",
+        "lib/net45/OxyPlot.Wpf.Shared.xml",
+        "lib/netcoreapp3.1/OxyPlot.Wpf.Shared.dll",
+        "lib/netcoreapp3.1/OxyPlot.Wpf.Shared.xml",
+        "oxyplot.wpf.shared.2.1.2.nupkg.sha512",
+        "oxyplot.wpf.shared.nuspec"
+      ]
+    },
     "System.ClientModel/1.0.0": {
       "sha512": "I3CVkvxeqFYjIVEP59DnjbeoGNfo/+SZrCLpRz2v/g0gpCHaEMPtWSY0s9k/7jR1rAsLNg2z2u1JRB76tPjnIw==",
       "type": "package",
@@ -4384,9 +4599,12 @@
   "projectFileDependencyGroups": {
     "net8.0-windows7.0": [
       "BusinessLogicLayer >= 1.0.0",
+      "Extended.Wpf.Toolkit >= 5.0.0",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.20",
       "Microsoft.Extensions.Configuration >= 8.0.0",
-      "Microsoft.Extensions.Configuration.Json >= 8.0.0"
+      "Microsoft.Extensions.Configuration.Json >= 8.0.0",
+      "OxyPlot.Core >= 2.1.2",
+      "OxyPlot.Wpf >= 2.1.2"
     ]
   },
   "packageFolders": {
@@ -4443,6 +4661,10 @@
       "net8.0-windows7.0": {
         "targetAlias": "net8.0-windows",
         "dependencies": {
+          "Extended.Wpf.Toolkit": {
+            "target": "Package",
+            "version": "[5.0.0, )"
+          },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
@@ -4456,6 +4678,14 @@
           "Microsoft.Extensions.Configuration.Json": {
             "target": "Package",
             "version": "[8.0.0, )"
+          },
+          "OxyPlot.Core": {
+            "target": "Package",
+            "version": "[2.1.2, )"
+          },
+          "OxyPlot.Wpf": {
+            "target": "Package",
+            "version": "[2.1.2, )"
           }
         },
         "imports": [

@@ -28,7 +28,8 @@ namespace RestaurantWPF.ViewModels.Admin
         public ICommand ShowTablesCommand { get; }
         public ICommand ShowOrdersCommand { get; }
         public ICommand ShowUsersCommand { get; }
-            
+        public ICommand ShowFeedbackStatsCommand { get; }
+
         public ICommand LogoutCommand { get; }
 
         public AdminViewModel()
@@ -40,10 +41,17 @@ namespace RestaurantWPF.ViewModels.Admin
             ShowTablesCommand = new RelayCommand(_ => CurrentView = new TableViewModel());
             ShowOrdersCommand = new RelayCommand(_ => CurrentView = new OrderViewModel());
             ShowUsersCommand = new RelayCommand(_ => CurrentView = new UserManagementViewModel());
+            ShowFeedbackStatsCommand = new RelayCommand(_ => ShowFeedbackStatistics());
 
             // Logout
             LogoutCommand = new RelayCommand(ExecuteLogout);
         }
+
+        private void ShowFeedbackStatistics()
+        {
+            CurrentView = new FeedbackStatisticsViewModel();
+        }
+
 
         private void ExecuteLogout(object obj)
         {

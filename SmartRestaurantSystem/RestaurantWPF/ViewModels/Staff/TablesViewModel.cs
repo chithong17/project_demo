@@ -17,7 +17,7 @@ namespace RestaurantWPF.ViewModels.Staff
         private readonly ITableService _tableService = new TableService();
 
         public ObservableCollection<Table> Tables { get; } = new();
-
+        private List<Table> _allTables;
         private Table _selectedTable;
         public Table SelectedTable
         {
@@ -28,6 +28,7 @@ namespace RestaurantWPF.ViewModels.Staff
                 {
                     _selectedTable = value;
                     OnPropertyChanged();
+                    OnPropertyChanged(nameof(IsTableSelected)); // ✅ thêm dòng này
                     IsTableSelected = _selectedTable != null;
                 }
             }
@@ -40,21 +41,55 @@ namespace RestaurantWPF.ViewModels.Staff
             set { _isTableSelected = value; OnPropertyChanged(); }
         }
 
+
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged();
+                ApplyFilter();
+            }
+        }
         // Command
         public ICommand RefreshCommand { get; }
         public ICommand ChangeStatusCommand { get; }
-
+        public ICommand ClearTableCommand { get; } 
+        public ICommand AddTableCommand { get; }
         public TablesViewModel()
         {
             RefreshCommand = new RelayCommand(_ => LoadTables());
             ChangeStatusCommand = new RelayCommand(ChangeStatus);
+            ClearTableCommand = new RelayCommand(ClearTable); 
+            AddTableCommand = new RelayCommand(AddTable);
             LoadTables();
         }
 
         private void LoadTables()
         {
             Tables.Clear();
-            foreach (var t in _tableService.GetAll())
+            _allTables = _tableService.GetAll()
+                .Where(t => !t.IsDeleted) // ✅ tránh bàn bị xóa mềm
+                .ToList();
+
+            ApplyFilter();
+        }
+
+        private void ApplyFilter()
+        {
+            if (_allTables == null) return;
+
+            Tables.Clear();
+            var filtered = string.IsNullOrWhiteSpace(SearchText)
+                ? _allTables
+                : _allTables.Where(t =>
+                    (t.Name != null && t.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                    (t.Location != null && t.Location.Contains(SearchText, StringComparison.OrdinalIgnoreCase))
+                ).ToList();
+
+            foreach (var t in filtered)
                 Tables.Add(t);
         }
 
@@ -86,6 +121,43 @@ namespace RestaurantWPF.ViewModels.Staff
 
             LoadTables();
             SelectedTable = Tables.FirstOrDefault(t => t.TableId == table.TableId);
+        }
+
+        /// <summary>
+        /// Logic cho nút "Dọn"
+        /// </summary>
+        private void ClearTable(object obj)
+        {
+            if (obj is not Table table) return;
+
+            // XAML đã ẩn nút này nếu Status == 0, nhưng kiểm tra lại cho chắc
+            if (table.Status == 0)
+            {
+                MessageBox.Show("Bàn này đã trống.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            table.Status = 0; // 0 = Trống
+            _tableService.Update(table);
+
+            MessageBox.Show($"Đã dọn và cập nhật bàn '{table.Name}' thành Trống",
+                "Thành công", MessageBoxButton.OK, MessageBoxImage.Information);
+
+            LoadTables(); // Tải lại danh sách
+            SelectedTable = Tables.FirstOrDefault(t => t.TableId == table.TableId);
+        }
+
+        /// <summary>
+        /// Logic cho nút "Thêm Bàn"
+        /// </summary>
+        private void AddTable(object obj)
+        {
+            // TODO: Mở một cửa sổ (Dialog) để thêm bàn mới tại đây
+            MessageBox.Show("Chức năng 'Thêm Bàn' đang được phát triển!", "Thông báo",
+                MessageBoxButton.OK, MessageBoxImage.Information);
+
+            // Sau khi dialog thêm bàn đóng, bạn có thể gọi LoadTables() để cập nhật
+            // LoadTables();
         }
 
         private string GetStatusText(byte s) => s switch

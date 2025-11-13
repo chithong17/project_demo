@@ -31,6 +31,7 @@ namespace RestaurantWPF.ViewModels.Staff
         }
 
         // Commands
+        public ICommand PosCommand { get; }
         public ICommand OrdersCommand { get; }
         public ICommand TablesCommand { get; }
         public ICommand PaymentsCommand { get; }
@@ -41,9 +42,9 @@ namespace RestaurantWPF.ViewModels.Staff
         public StaffViewModel()
         {
             // Giao diện mặc định: Orders
-            CurrentView = new OrdersViewModel();
-
+            CurrentView = new PosViewModel();
             //// Điều hướng
+            PosCommand = new RelayCommand(_ => CurrentView = new PosViewModel());
             OrdersCommand = new RelayCommand(_ => CurrentView = new OrdersViewModel());
             TablesCommand = new RelayCommand(_ => CurrentView = new TablesViewModel());
             PaymentsCommand = new RelayCommand(_ => CurrentView = new PaymentViewModel());

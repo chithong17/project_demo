@@ -20,5 +20,9 @@ namespace BusinessLogicLayer.Services.Implementations
         public void Update(Food f) => _repo.Update(f);
         public void Delete(int id) => _repo.Delete(id);
         public List<Food> GetByCategory(int categoryId) => _repo.GetAll().Where(f => f.CategoryId == categoryId).ToList();
+
+        public List<Food> GetAllIncludingDeleted() => _repo.GetAllIncludingDeleted();
+
+        public void Restore(int id) => _repo.Restore(id);
     }
 }

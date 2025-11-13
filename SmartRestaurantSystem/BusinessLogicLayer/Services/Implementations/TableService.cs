@@ -1,4 +1,6 @@
 ﻿using BusinessLogicLayer.Services.Interfaces;
+using BusinessObjects.Models;
+using DataAccessLayer.DataContext;
 using DataAccessLayer.Repositories.Implementations;
 using DataAccessLayer.Repositories.Interfaces;
 using System;
@@ -6,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BusinessObjects.Models;
 
 
 namespace BusinessLogicLayer.Services.Implementations
@@ -21,5 +22,16 @@ namespace BusinessLogicLayer.Services.Implementations
         public void Add(Table t) => _repo.Add(t);
         public void Update(Table t) => _repo.Update(t);
         public void Delete(int id) => _repo.Delete(id);
+        public void SoftDelete(int tableId)
+        {
+            using var context = new SmartRestaurantDbContext();
+            var table = context.Tables.FirstOrDefault(t => t.TableId == tableId);
+            if (table != null)
+            {
+                table.IsDeleted = true; 
+                context.SaveChanges();
+            }
+        }
+
     }
 }

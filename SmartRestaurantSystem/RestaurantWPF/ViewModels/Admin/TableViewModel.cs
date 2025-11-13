@@ -25,6 +25,19 @@ namespace RestaurantWPF.ViewModels.Admin
             get => _selectedTable;
             set { _selectedTable = value; OnPropertyChanged(); }
         }
+        private List<Table> _allTables;
+
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged();
+                ApplyFilter(); // Gọi lọc lại mỗi khi nhập
+            }
+        }
 
         public ICommand LoadCommand { get; }
         public ICommand AddCommand { get; }
@@ -46,11 +59,25 @@ namespace RestaurantWPF.ViewModels.Admin
 
         private void LoadTables()
         {
-            Tables.Clear();
-            var list = _tableService.GetAll();
-            foreach (var item in list)
-                Tables.Add(item);
+            _allTables = _tableService.GetAll();
+            ApplyFilter();
         }
+        private void ApplyFilter()
+        {
+            Tables.Clear();
+
+            var filtered = string.IsNullOrWhiteSpace(SearchText)
+                ? _allTables
+                : _allTables.Where(t =>
+                    (t.Name != null && t.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                    (t.Location != null && t.Location.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) ||
+                    t.Capacity.ToString().Contains(SearchText)
+                ).ToList();
+
+            foreach (var table in filtered)
+                Tables.Add(table);
+        }
+
 
         private void AddTable()
         {
@@ -84,7 +111,7 @@ namespace RestaurantWPF.ViewModels.Admin
 
             if (MessageBox.Show("Delete this table?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                _tableService.Delete(SelectedTable.TableId);
+                _tableService.SoftDelete(SelectedTable.TableId);
                 LoadTables();
                 MessageBox.Show("Table deleted successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }

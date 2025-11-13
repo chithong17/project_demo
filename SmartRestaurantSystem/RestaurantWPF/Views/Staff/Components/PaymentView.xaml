@@ -4,142 +4,339 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:local="clr-namespace:RestaurantWPF.Converters"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             Background="#F2F3F5"
+             FontFamily="Segoe UI"
+             d:DesignHeight="768" d:DesignWidth="1024">
 
     <UserControl.Resources>
         <local:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <local:PaymentMethodConverter x:Key="PaymentMethodConverter"/>
+
+        <SolidColorBrush x:Key="AppBackground" Color="#F2F3F5"/>
+        <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="BorderBrushLight" Color="#EAEAEA"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#222222"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#555555"/>
+        <SolidColorBrush x:Key="TextMuted" Color="#888888"/>
+
+        <SolidColorBrush x:Key="StatusPendingBrush" Color="#FF9E40"/>
+        <SolidColorBrush x:Key="StatusInProgressBrush" Color="#007BFF"/>
+        <SolidColorBrush x:Key="StatusReadyBrush" Color="#28A745"/>
+        <SolidColorBrush x:Key="StatusCancelledBrush" Color="#DC3545"/>
+
+        <DropShadowEffect x:Key="CardShadow"
+                          BlurRadius="15"
+                          ShadowDepth="2"
+                          Opacity="0.08"
+                          Color="#000000"/>
+
+        <Style x:Key="BaseActionButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="MinWidth" Value="100"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="15,0"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder" 
+                                Background="{TemplateBinding Background}" 
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.9"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.75"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="ButtonBorder" Property="Background" Value="#B0B0B0"/>
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ConfirmActionButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource StatusReadyBrush}"/>
+        </Style>
+        <Style x:Key="PrimaryActionButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource StatusPendingBrush}"/>
+        </Style>
+        <Style x:Key="SecondaryActionButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource StatusInProgressBrush}"/>
+        </Style>
+        <Style x:Key="CancelActionButtonStyle" TargetType="Button" BasedOn="{StaticResource BaseActionButtonStyle}">
+            <Setter Property="Background" Value="{StaticResource StatusCancelledBrush}"/>
+        </Style>
+
+
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#FAFAFA"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="0" Focusable="False"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource StatusPendingBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="TabControl">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+        </Style>
+
+        <Style TargetType="TabItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="{StaticResource TextSecondary}"/>
+            <Setter Property="Padding" Value="12,8"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="0,0,10,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border x:Name="TabBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent"
+                                BorderThickness="0,0,0,3"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter ContentSource="Header"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="TabBorder" Property="BorderBrush" Value="{StaticResource StatusPendingBrush}"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="TabBorder" Property="BorderBrush" Value="#FFD49B"/>
+                                <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="FlatListView" TargetType="ListView">
+            <Setter Property="Background" Value="{StaticResource CardBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        </Style>
+
+        <Style TargetType="GridViewColumnHeader">
+            <Setter Property="Background" Value="#F8F9FA"/>
+            <Setter Property="Foreground" Value="{StaticResource StatusPendingBrush}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="Padding" Value="8,6"/>
+        </Style>
     </UserControl.Resources>
 
     <Grid Margin="20">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2.8*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <TabControl Grid.ColumnSpan="2">
-            <!-- 🧾 TAB 1: Đơn hàng chờ thanh toán -->
+        <TextBlock Grid.Row="0"
+                   Text="💵 QUẢN LÝ THANH TOÁN"
+                   FontSize="22"
+                   FontWeight="Bold"
+                   Foreground="{StaticResource StatusPendingBrush}"
+                   Margin="0,0,0,10"/>
+
+        <TabControl Grid.Row="1" FontSize="15" Foreground="{StaticResource TextPrimary}">
             <TabItem Header="💰 Đơn chờ thanh toán">
-                <Grid>
+                <Grid Margin="0,10,0,0">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2.8*"/>
-                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="4*"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="5*"/>
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel>
-                        <TextBlock Text="💰 Đơn hàng chờ thanh toán"
-                                   FontSize="22"
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="💰 Danh sách đơn chờ"
+                                   FontSize="18"
                                    FontWeight="Bold"
-                                   Foreground="#1B5E20"
+                                   Foreground="{StaticResource StatusPendingBrush}"
                                    Margin="0,0,0,10"/>
-
                         <ListView ItemsSource="{Binding PendingOrders}"
                                   SelectedItem="{Binding SelectedOrder, Mode=TwoWay}"
-                                  Margin="5"
-                                  BorderThickness="0">
+                                  Style="{StaticResource FlatListView}">
                             <ListView.View>
                                 <GridView>
                                     <GridViewColumn Header="Mã đơn" Width="80" DisplayMemberBinding="{Binding OrderId}"/>
-                                    <GridViewColumn Header="Khách hàng" Width="150" DisplayMemberBinding="{Binding Customer.FullName}"/>
-                                    <GridViewColumn Header="Bàn" Width="80" DisplayMemberBinding="{Binding Table.Name}"/>
-                                    <GridViewColumn Header="Giờ đặt" Width="150" DisplayMemberBinding="{Binding OrderTime, StringFormat={}{0:HH:mm dd/MM/yyyy}}"/>
+                                    <GridViewColumn Header="Khách hàng" Width="140" DisplayMemberBinding="{Binding Customer.FullName}"/>
+                                    <GridViewColumn Header="Bàn" Width="70" DisplayMemberBinding="{Binding Table.Name}"/>
+                                    <GridViewColumn Header="Giờ đặt" Width="140" DisplayMemberBinding="{Binding OrderTime, StringFormat={}{0:HH:mm dd/MM/yyyy}}"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
                     </StackPanel>
 
-                    <!-- Panel chi tiết -->
-                    <Border Grid.Column="1"
-                            Margin="20,0,0,0"
-                            Background="#FAFAFA"
-                            Padding="20"
-                            CornerRadius="10"
-                            BorderBrush="#C8E6C9"
+                    <Border Grid.Column="2"
+                            Background="{StaticResource CardBackground}"
+                            Padding="25"
+                            CornerRadius="12"
+                            BorderBrush="{StaticResource BorderBrushLight}"
                             BorderThickness="1"
+                            Effect="{StaticResource CardShadow}"
                             Visibility="{Binding IsOrderSelected, Converter={StaticResource BoolToVisibilityConverter}}">
 
-                        <StackPanel>
-                            <TextBlock Text="📋 Chi tiết thanh toán"
-                                       FontSize="22"
-                                       FontWeight="Bold"
-                                       Foreground="#1B5E20"
-                                       Margin="0,0,0,15"/>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                            <StackPanel>
+                                <TextBlock Text="📋 Chi tiết thanh toán"
+                                           FontSize="18"
+                                           FontWeight="Bold"
+                                           Foreground="{StaticResource StatusPendingBrush}"
+                                           Margin="0,0,0,15"/>
 
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                <TextBlock Text="Mã đơn: " FontWeight="Bold"/>
-                                <TextBlock Text="{Binding SelectedOrder.OrderId}"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                    <TextBlock Text="Mã đơn: " FontWeight="Bold" Foreground="{StaticResource TextPrimary}"/>
+                                    <TextBlock Text="{Binding SelectedOrder.OrderId}" Foreground="{StaticResource TextSecondary}"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                    <TextBlock Text="Khách hàng: " FontWeight="Bold" Foreground="{StaticResource TextPrimary}"/>
+                                    <TextBlock Text="{Binding SelectedOrder.Customer.FullName}" Foreground="{StaticResource TextSecondary}"/>
+                                </StackPanel>
+
+                                <TextBlock Text="Danh sách món:" FontWeight="Bold" Margin="0,10,0,5" Foreground="{StaticResource TextPrimary}"/>
+                                <ItemsControl ItemsSource="{Binding SelectedOrder.OrderDetails}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <DockPanel Margin="0,2,0,2">
+                                                <TextBlock Text="{Binding Food.Name}" Width="200" Foreground="{StaticResource TextPrimary}"/>
+                                                <TextBlock Text="{Binding Quantity, StringFormat='x{0}'}" Width="40" TextAlignment="Right" Foreground="{StaticResource StatusPendingBrush}" FontWeight="Bold"/>
+                                                <TextBlock Text="{Binding UnitPrice, StringFormat={}{0:N0} đ}" MinWidth="90" TextAlignment="Right" Foreground="{StaticResource TextSecondary}"/>
+                                            </DockPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+
+                                <Separator Margin="0,10,0,10" Background="{StaticResource BorderBrushLight}"/>
+
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                    <TextBlock Text="Tổng tiền: " FontSize="16" FontWeight="Bold" Foreground="{StaticResource TextPrimary}"/>
+                                    <TextBlock Text="{Binding PaidAmount, StringFormat={}{0:N0} đ}" Foreground="{StaticResource StatusPendingBrush}" FontSize="16" FontWeight="Bold"/>
+                                </StackPanel>
+
+                                <StackPanel Orientation="Horizontal" Margin="0,5,0,5" VerticalAlignment="Center">
+                                    <TextBlock Text="Phương thức: " FontWeight="Bold" Foreground="{StaticResource TextPrimary}" VerticalAlignment="Center"/>
+                                    <ComboBox Width="180"
+          SelectedValue="{Binding SelectedMethod, Mode=TwoWay}"
+          SelectedValuePath="Content"
+          Foreground="{StaticResource TextPrimary}"
+          Background="{StaticResource CardBackground}"
+          BorderBrush="{StaticResource BorderBrushLight}"
+          BorderThickness="1"
+          Padding="6,3"
+          Margin="4,0,0,0"
+          Cursor="Hand"
+          FontWeight="SemiBold">
+
+                                        <ComboBoxItem Content="Tiền mặt"/>
+                                        <ComboBoxItem Content="Thẻ"/>
+                                        <ComboBoxItem Content="Ví điện tử"/>
+                                    </ComboBox>
+
+                                </StackPanel>
+
+                                <TextBlock Text="Ghi chú:" FontWeight="Bold" Foreground="{StaticResource TextPrimary}" Margin="0,10,0,5"/>
+                                <TextBox Text="{Binding Note}" Height="60" TextWrapping="Wrap" Padding="5" VerticalScrollBarVisibility="Auto" AcceptsReturn="True"/>
+
+                                <Button Content="Xác nhận thanh toán"
+                                        Command="{Binding ConfirmPaymentCommand}"
+                                        Style="{StaticResource ConfirmActionButtonStyle}"
+                                        Margin="0,10,0,0"/>
                             </StackPanel>
-
-                            <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                                <TextBlock Text="Khách hàng: " FontWeight="Bold"/>
-                                <TextBlock Text="{Binding SelectedOrder.Customer.FullName}"/>
-                            </StackPanel>
-
-                            <TextBlock Text="Danh sách món:" FontWeight="Bold" Margin="0,10,0,5"/>
-                            <ItemsControl ItemsSource="{Binding SelectedOrder.OrderDetails}">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal" Margin="0,2,0,2">
-                                            <TextBlock Text="{Binding Food.Name}" Width="200"/>
-                                            <TextBlock Text="{Binding Quantity}" Width="40" HorizontalAlignment="Right"/>
-                                            <TextBlock Text="{Binding UnitPrice, StringFormat={}{0:N0} đ}" Width="100" HorizontalAlignment="Right"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-
-                            <Separator Margin="0,10,0,10"/>
-
-                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                                <TextBlock Text="Tổng tiền: " FontWeight="Bold"/>
-                                <TextBlock Text="{Binding PaidAmount, StringFormat={}{0:N0} đ}" Foreground="#2E7D32" FontWeight="Bold"/>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                                <TextBlock Text="Phương thức: " FontWeight="Bold"/>
-                                <ComboBox Width="150" SelectedIndex="{Binding SelectedMethod}">
-                                    <ComboBoxItem Content="Tiền mặt"/>
-                                    <ComboBoxItem Content="Thẻ"/>
-                                    <ComboBoxItem Content="Ví điện tử"/>
-                                </ComboBox>
-                            </StackPanel>
-
-                            <TextBlock Text="Ghi chú:" FontWeight="Bold" Margin="0,10,0,5"/>
-                            <TextBox Text="{Binding Note}" Height="60" TextWrapping="Wrap"/>
-
-                            <Button Content="Xác nhận thanh toán"
-                                    Command="{Binding ConfirmPaymentCommand}"
-                                    Background="#4CAF50"
-                                    Foreground="White"
-                                    FontWeight="Bold"
-                                    Height="40"
-                                    Margin="0,15,0,0"/>
-                        </StackPanel>
+                        </ScrollViewer>
                     </Border>
+
+                    <Border Grid.Column="2"
+                            Background="#FCFCFC"
+                            CornerRadius="12"
+                            Effect="{StaticResource CardShadow}">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="✨" FontSize="48" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Vui lòng chọn một đơn hàng"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextSecondary}"
+                                       Margin="0,10,0,0"/>
+                            <TextBlock Text="Chi tiết thanh toán sẽ hiện ở đây."
+                                       FontSize="14"
+                                       Foreground="{StaticResource TextMuted}"/>
+                        </StackPanel>
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Visibility" Value="Visible"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding IsOrderSelected}" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+
                 </Grid>
             </TabItem>
 
-            <!-- 📜 TAB 2: Lịch sử thanh toán -->
             <TabItem Header="📜 Lịch sử thanh toán">
-                <StackPanel>
+                <StackPanel Margin="0,10,0,0">
                     <TextBlock Text="📜 Lịch sử thanh toán"
-                               FontSize="22"
+                               FontSize="18"
                                FontWeight="Bold"
-                               Foreground="#1B5E20"
+                               Foreground="{StaticResource StatusPendingBrush}"
                                Margin="0,0,0,10"/>
-
-                    <ListView ItemsSource="{Binding PaymentsHistory}"
-                              Margin="5"
-                              BorderThickness="0">
+                    <ListView ItemsSource="{Binding PaymentsHistory}" Style="{StaticResource FlatListView}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Mã thanh toán" Width="100" DisplayMemberBinding="{Binding PaymentId}"/>
+                                <GridViewColumn Header="Mã thanh toán" Width="110" DisplayMemberBinding="{Binding PaymentId}"/>
                                 <GridViewColumn Header="Đơn hàng" Width="100" DisplayMemberBinding="{Binding OrderId}"/>
+                                <GridViewColumn Header="Khách hàng" Width="150"
+    DisplayMemberBinding="{Binding Order.Customer.FullName}"/>
                                 <GridViewColumn Header="Số tiền" Width="120" DisplayMemberBinding="{Binding PaidAmount, StringFormat={}{0:N0} đ}"/>
                                 <GridViewColumn Header="Phương thức" Width="120">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Method, Converter={StaticResource PaymentMethodConverter}}"/>
+                                            <TextBlock Text="{Binding Method, Converter={StaticResource PaymentMethodConverter}}" Foreground="{StaticResource TextSecondary}"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
                                 </GridViewColumn>

@@ -3,69 +3,240 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d">
+             xmlns:local="clr-namespace:RestaurantWPF.Converters"
+             mc:Ignorable="d"
+             Background="#F2F3F5"
+             FontFamily="Segoe UI"
+             d:DesignHeight="768" d:DesignWidth="1024">
 
-    <Grid Margin="20">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+    <UserControl.Resources>
+        <!-- 🎨 Màu sắc -->
+        <SolidColorBrush x:Key="CardBackground" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="BorderBrushLight" Color="#EAEAEA"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#222222"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#555555"/>
+        <SolidColorBrush x:Key="HeaderAccentBrush" Color="#1565C0"/>
+        <SolidColorBrush x:Key="RowAlternateBackground" Color="#F8F9FA"/>
+        <SolidColorBrush x:Key="RowSelectedBackground" Color="#E3F2FD"/>
+        <SolidColorBrush x:Key="RowSelectedForeground" Color="#005A9E"/>
+        <SolidColorBrush x:Key="RowHoverBackground" Color="#F1F1F1"/>
 
-        <!-- Tiêu đề -->
-        <TextBlock Text="📊 Admin Dashboard"
-                   FontSize="22"
-                   FontWeight="Bold"
-                   Foreground="#2C3E50"
-                   Margin="0,0,0,20"/>
+        <!-- ☁️ Đổ bóng -->
+        <DropShadowEffect x:Key="CardShadow"
+                          BlurRadius="15"
+                          ShadowDepth="2"
+                          Opacity="0.08"
+                          Color="#000000"/>
 
-        <!-- Các chỉ số -->
-        <UniformGrid Grid.Row="1" Columns="4" Margin="0,0,0,20">
-            <Border Background="#E3F2FD" Padding="20" CornerRadius="10" Margin="5">
-                <StackPanel>
-                    <TextBlock Text="Total Foods" FontWeight="Bold" FontSize="14"/>
-                    <TextBlock Text="{Binding TotalFoods}" FontSize="24" FontWeight="Bold" Foreground="#1565C0"/>
-                </StackPanel>
-            </Border>
+        <!-- 
+        ***********************************
+        *** START: STYLE DATAGRID MỚI   ***
+        ***********************************
+        -->
 
-            <Border Background="#E8F5E9" Padding="20" CornerRadius="10" Margin="5">
-                <StackPanel>
-                    <TextBlock Text="Orders Today" FontWeight="Bold" FontSize="14"/>
-                    <TextBlock Text="{Binding OrdersToday}" FontSize="24" FontWeight="Bold" Foreground="#2E7D32"/>
-                </StackPanel>
-            </Border>
+        <!-- Style chính của DataGrid -->
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="{StaticResource CardBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="RowHeight" Value="45"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="GridLinesVisibility" Value="None"/>
+            <Setter Property="RowHeaderWidth" Value="0"/>
+            <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGrid">
+                        <!-- Thêm Border bo tròn -->
+                        <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                Background="{TemplateBinding Background}" 
+                                Padding="{TemplateBinding Padding}" 
+                                CornerRadius="8"
+                                SnapsToDevicePixels="True">
+                            <ScrollViewer x:Name="DG_ScrollViewer" Focusable="False">
+                                <ScrollViewer.Template>
+                                    <ControlTemplate TargetType="ScrollViewer">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
 
-            <Border Background="#FFF3E0" Padding="20" CornerRadius="10" Margin="5">
-                <StackPanel>
-                    <TextBlock Text="Active Customers" FontWeight="Bold" FontSize="14"/>
-                    <TextBlock Text="{Binding ActiveCustomers}" FontSize="24" FontWeight="Bold" Foreground="#EF6C00"/>
-                </StackPanel>
-            </Border>
+                                            <DataGridColumnHeadersPresenter x:Name="PART_ColumnHeadersPresenter" 
+                                                                              Grid.Column="1"
+                                                                              Visibility="{Binding HeadersVisibility, RelativeSource={RelativeSource TemplatedParent}}"/>
 
-            <Border Background="#FCE4EC" Padding="20" CornerRadius="10" Margin="5">
-                <StackPanel>
-                    <TextBlock Text="Revenue Today" FontWeight="Bold" FontSize="14"/>
-                    <TextBlock Text="{Binding RevenueToday, StringFormat=C}" FontSize="24" FontWeight="Bold" Foreground="#AD1457"/>
-                </StackPanel>
-            </Border>
-        </UniformGrid>
+                                            <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" 
+                                                                      Grid.Row="1" Grid.Column="1" 
+                                                                      CanContentScroll="{TemplateBinding CanContentScroll}"/>
 
-        <!-- Bảng đơn hàng gần nhất -->
-        <GroupBox Header="🧾 Recent Orders" Grid.Row="2" Margin="0,10,0,0">
+                                            <ScrollBar x:Name="PART_VerticalScrollBar" 
+                                                       Grid.Row="1" Grid.Column="2" 
+                                                       Value="{TemplateBinding VerticalOffset}" 
+                                                       Maximum="{TemplateBinding ScrollableHeight}" 
+                                                       ViewportSize="{TemplateBinding ViewportHeight}" 
+                                                       Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
+                                            <ScrollBar x:Name="PART_HorizontalScrollBar" 
+                                                       Grid.Row="2" Grid.Column="1" 
+                                                       Orientation="Horizontal" 
+                                                       Value="{TemplateBinding HorizontalOffset}" 
+                                                       Maximum="{TemplateBinding ScrollableWidth}" 
+                                                       ViewportSize="{TemplateBinding ViewportWidth}" 
+                                                       Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}"/>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </ScrollViewer.Template>
+                                <ItemsPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Style cho Header (Tiêu đề cột) -->
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{StaticResource RowAlternateBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource HeaderAccentBrush}"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushLight}"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="Padding" Value="12,12"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        </Style>
+
+        <!-- Style cho Hàng (Row) -->
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="{StaticResource CardBackground}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextPrimary}"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="Margin" Value="0,1,0,1"/>
+            <Style.Triggers>
+                <Trigger Property="AlternationIndex" Value="1">
+                    <Setter Property="Background" Value="{StaticResource RowAlternateBackground}"/>
+                </Trigger>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource RowHoverBackground}"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource RowSelectedBackground}"/>
+                    <Setter Property="Foreground" Value="{StaticResource RowSelectedForeground}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Style cho Ô (Cell) -->
+        <Style TargetType="DataGridCell">
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        </Style>
+        <!-- 
+        ***********************************
+        *** END: STYLE DATAGRID MỚI     ***
+        ***********************************
+        -->
+
+        <!-- 🔄 Converter -->
+        <local:OrderStatusConverter x:Key="OrderStatusConverter"/>
+        <local:OrderStatusColorConverter x:Key="OrderStatusColorConverter"/>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="20">
+            <TextBlock Text="📊 Admin Dashboard"
+                       FontSize="22"
+                       FontWeight="Bold"
+                       Foreground="#2C3E50"
+                       Margin="0,0,0,20"/>
+
+            <!-- 📦 Cards thống kê -->
+            <UniformGrid Columns="4" Margin="0,0,0,25">
+                <Border Background="#E3F2FD" Padding="20" CornerRadius="10" Margin="5">
+                    <StackPanel>
+                        <TextBlock Text="Total Foods" FontWeight="Bold" FontSize="14"/>
+                        <TextBlock Text="{Binding TotalFoods}" FontSize="24" FontWeight="Bold" Foreground="#1565C0"/>
+                    </StackPanel>
+                </Border>
+                <Border Background="#E8F5E9" Padding="20" CornerRadius="10" Margin="5">
+                    <StackPanel>
+                        <TextBlock Text="Orders Today" FontWeight="Bold" FontSize="14"/>
+                        <TextBlock Text="{Binding OrdersToday}" FontSize="24" FontWeight="Bold" Foreground="#2E7D32"/>
+                    </StackPanel>
+                </Border>
+                <Border Background="#FFF3E0" Padding="20" CornerRadius="10" Margin="5">
+                    <StackPanel>
+                        <TextBlock Text="Active Customers" FontWeight="Bold" FontSize="14"/>
+                        <TextBlock Text="{Binding ActiveCustomers}" FontSize="24" FontWeight="Bold" Foreground="#EF6C00"/>
+                    </StackPanel>
+                </Border>
+                <Border Background="#FCE4EC" Padding="20" CornerRadius="10" Margin="5">
+                    <StackPanel>
+                        <TextBlock Text="Revenue Today" FontWeight="Bold" FontSize="14"/>
+                        <TextBlock Text="{Binding RevenueToday, StringFormat={}{0:N0} đ}"
+                                   FontSize="24" FontWeight="Bold" Foreground="#AD1457"/>
+                    </StackPanel>
+                </Border>
+            </UniformGrid>
+
+            <!-- 
+            Chỗ này tôi đã xóa Grid biểu đồ placeholder để cho DataGrid 
+            hiển thị (vì bạn đã xóa nó trong code bạn gửi) 
+            -->
+
+            <!-- 🧾 Đơn hàng gần đây -->
+            <TextBlock Text="🧾 Đơn hàng gần đây"
+                       FontSize="18"
+                       FontWeight="Bold"
+                       Foreground="{StaticResource TextPrimary}"
+                       Margin="0,0,0,10"/>
+
+            <!-- 
+            DataGrid sẽ tự động áp dụng Style mới.
+            Đã xóa RowHeight="42" để dùng style mới (45).
+            -->
             <DataGrid ItemsSource="{Binding RecentOrders}"
-                      AutoGenerateColumns="False"
                       HeadersVisibility="Column"
-                      CanUserAddRows="False"
-                      IsReadOnly="True">
+                      AlternationCount="2">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Order ID" Binding="{Binding OrderId}" Width="*"/>
-                    <DataGridTextColumn Header="Customer" Binding="{Binding CustomerName}" Width="*"/>
-                    <DataGridTextColumn Header="Table" Binding="{Binding TableName}" Width="*"/>
-                    <DataGridTextColumn Header="Total" Binding="{Binding Total, StringFormat=C}" Width="*"/>
-                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
-                    <DataGridTextColumn Header="Time" Binding="{Binding CreatedAt, StringFormat=HH:mm dd/MM/yyyy}" Width="*"/>
+                    <DataGridTextColumn Header="Mã Đơn" Binding="{Binding OrderId}" Width="80"/>
+                    <DataGridTextColumn Header="Khách hàng" Binding="{Binding CustomerName}" Width="*"/>
+                    <DataGridTextColumn Header="Bàn" Binding="{Binding TableName}" Width="100"/>
+                    <DataGridTextColumn Header="Tổng tiền"
+                                        Binding="{Binding Total, StringFormat={}{0:N0} đ}"
+                                        Width="120"/>
+
+                    <DataGridTemplateColumn Header="Trạng thái" Width="150">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Status, Converter={StaticResource OrderStatusConverter}}"
+                                           Foreground="{Binding Status, Converter={StaticResource OrderStatusColorConverter}}"
+                                           FontWeight="SemiBold"
+                                           FontSize="13"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn Header="Thời gian"
+                                        Binding="{Binding CreatedAt, StringFormat='HH:mm dd/MM/yyyy'}"
+                                        Width="1.5*"/>
                 </DataGrid.Columns>
             </DataGrid>
-        </GroupBox>
-    </Grid>
+        </StackPanel>
+    </ScrollViewer>
 </UserControl>

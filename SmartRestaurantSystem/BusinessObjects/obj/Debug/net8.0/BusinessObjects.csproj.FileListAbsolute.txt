@@ -7,6 +7,7 @@ D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\obj\Debug\net8.0\BusinessObjects.AssemblyInfoInputs.cache
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\obj\Debug\net8.0\BusinessObjects.AssemblyInfo.cs
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\obj\Debug\net8.0\BusinessObjects.csproj.CoreCompileInputs.cache
+D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\obj\Debug\net8.0\BusinessObjects.sourcelink.json
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\obj\Debug\net8.0\BusinessObjects.dll
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\obj\Debug\net8.0\refint\BusinessObjects.dll
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\BusinessObjects\obj\Debug\net8.0\BusinessObjects.pdb

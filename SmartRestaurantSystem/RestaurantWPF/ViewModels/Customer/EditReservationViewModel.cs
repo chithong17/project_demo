@@ -26,9 +26,15 @@ namespace RestaurantWPF.ViewModels.Customer
             NumberOfPeople = reservation.NumberOfPeople;
             Note = reservation.Note;
             TimeString = reservation.StartTime.ToString("HH:mm");
-
+            Phone = reservation.Phone;
             SaveCommand = new RelayCommand(_ => Save());
             CancelCommand = new RelayCommand(_ => CloseWindow());
+        }
+        private string _phone;
+        public string Phone
+        {
+            get => _phone;
+            set { _phone = value; OnPropertyChanged(); }
         }
 
         // Thuộc tính binding

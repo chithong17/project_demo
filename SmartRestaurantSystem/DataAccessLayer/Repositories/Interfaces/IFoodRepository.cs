@@ -14,5 +14,7 @@ namespace DataAccessLayer.Repositories.Interfaces
         void Add(Food food);
         void Update(Food food);
         void Delete(int id);
+        List<Food> GetAllIncludingDeleted();
+        void Restore(int id);
     }
 }

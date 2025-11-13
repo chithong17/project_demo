@@ -19,6 +19,8 @@ namespace RestaurantWPF.ViewModels.Customer
         private readonly IReservationService _reservationService = new ReservationService();
 
         public ObservableCollection<Reservation> Reservations { get; } = new();
+        public DateTime ReservationDate { get; set; } = DateTime.Today;
+        public DateTime ReservationTime { get; set; } = DateTime.Now;
 
         // 🧾 Form fields
         private DateTime _startTime = DateTime.Now.AddHours(1);
@@ -41,6 +43,8 @@ namespace RestaurantWPF.ViewModels.Customer
             get => _note;
             set { _note = value; OnPropertyChanged(); }
         }
+
+        
 
         public ICommand ReserveCommand { get; }
         public ICommand DeleteReservationCommand { get; }
@@ -79,7 +83,7 @@ namespace RestaurantWPF.ViewModels.Customer
                 CustomerId = UserSession.UserId,
                 CustomerName = UserSession.FullName,
                 Phone = UserSession.Phone,
-                StartTime = StartTime,
+                StartTime = ReservationDate.Date + ReservationTime.TimeOfDay,
                 NumberOfPeople = NumberOfPeople,
                 EndTime = StartTime.AddHours(2),
                 Status = 0, // Pending

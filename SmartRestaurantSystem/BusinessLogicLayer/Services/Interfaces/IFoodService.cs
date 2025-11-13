@@ -15,5 +15,7 @@ namespace BusinessLogicLayer.Services.Interfaces
         void Update(Food f);
         void Delete(int id);
         List<Food> GetByCategory(int categoryId);
+        List<Food> GetAllIncludingDeleted();
+        void Restore(int id);
     }
 }

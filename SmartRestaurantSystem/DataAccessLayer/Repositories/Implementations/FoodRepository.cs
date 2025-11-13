@@ -17,8 +17,9 @@ namespace DataAccessLayer.Repositories.Implementations
             using var context = new SmartRestaurantDbContext();
             return context.Foods
                 .Include(f => f.Category)
-                .AsNoTracking() // 🔥 Không tracking khi load danh sách
-                .OrderBy(f => f.Name)
+                .AsNoTracking() 
+                .Where(f => f.IsAvailable == true)
+                .OrderBy(f => f.FoodId)
                 .ToList();
         }
 
@@ -50,10 +51,32 @@ namespace DataAccessLayer.Repositories.Implementations
             var f = context.Foods.Find(id);
             if (f != null)
             {
-                context.Foods.Remove(f);
+                f.IsAvailable = false;                    // ✅ Xóa mềm
                 context.SaveChanges();
             }
         }
+
+        public List<Food> GetAllIncludingDeleted()
+        {
+            using var context = new SmartRestaurantDbContext();
+            return context.Foods
+                .Include(f => f.Category)
+                .AsNoTracking()
+                .OrderBy(f => f.FoodId)
+                .ToList();
+        }
+
+        public void Restore(int id)
+        {
+            using var context = new SmartRestaurantDbContext();
+            var f = context.Foods.Find(id);
+            if (f != null)
+            {
+                f.IsAvailable = true;  // ✅ Bật lại món ăn
+                context.SaveChanges();
+            }
+        }
+
     }
 }
 

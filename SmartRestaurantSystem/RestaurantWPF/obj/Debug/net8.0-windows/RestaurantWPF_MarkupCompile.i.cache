@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 D:\FPTDocuments\Semester_5\PRN212\Project\SmartRestaurantSystem\RestaurantWPF\App.xaml
-24-1364399897
-
-641464654502
-2362135485148
-MainWindow.xaml;Views\Admin\AdminWindow.xaml;Views\Admin\Components\DashboardView.xaml;Views\Admin\Components\FoodManagement.xaml;Views\Admin\Components\OrderManagement.xaml;Views\Admin\Components\TableManagement.xaml;Views\Admin\Components\UserManagement.xaml;Views\Admin\Dialogs\FoodDialog.xaml;Views\Admin\Dialogs\OrderDialog.xaml;Views\Admin\Dialogs\TableDialog.xaml;Views\Admin\Dialogs\UserDialog.xaml;Views\Customer\Components\CartDetailWindow.xaml;Views\Customer\Components\FeedbackView.xaml;Views\Customer\Components\MenuView.xaml;Views\Customer\Components\ProfileView.xaml;Views\Customer\Components\ReservationView.xaml;Views\Customer\CustomerWindow.xaml;Views\Customer\Dialogs\EditReservationWindow.xaml;Views\LoginWindow.xaml;Views\Staff\Components\OrdersView.xaml;Views\Staff\Components\PaymentView.xaml;Views\Staff\Components\ReservationView.xaml;Views\Staff\Components\TablesView.xaml;Views\Staff\StaffWindow.xaml;
+271070360285
+41942229550
+832128854103
+244957892464
+MainWindow.xaml;Views\Admin\AdminWindow.xaml;Views\Admin\Components\DashboardView.xaml;Views\Admin\Components\FeedbackStatisticsView.xaml;Views\Admin\Components\FoodManagement.xaml;Views\Admin\Components\OrderManagement.xaml;Views\Admin\Components\TableManagement.xaml;Views\Admin\Components\UserManagement.xaml;Views\Admin\Dialogs\FoodDialog.xaml;Views\Admin\Dialogs\OrderDialog.xaml;Views\Admin\Dialogs\TableDialog.xaml;Views\Admin\Dialogs\UserDialog.xaml;Views\Customer\Components\CartDetailWindow.xaml;Views\Customer\Components\FeedbackView.xaml;Views\Customer\Components\MenuView.xaml;Views\Customer\Components\ProfileView.xaml;Views\Customer\Components\ReservationView.xaml;Views\Customer\CustomerWindow.xaml;Views\Customer\Dialogs\EditReservationWindow.xaml;Views\LoginWindow.xaml;Views\Staff\Components\OrdersView.xaml;Views\Staff\Components\PaymentView.xaml;Views\Staff\Components\PosView.xaml;Views\Staff\Components\ReservationView.xaml;Views\Staff\Components\TablesView.xaml;Views\Staff\Dialogs\TableSelectionDialog.xaml;Views\Staff\StaffWindow.xaml;
 
 True
 

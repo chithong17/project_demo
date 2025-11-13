@@ -3,160 +3,150 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:vm="clr-namespace:RestaurantWPF.ViewModels.Customer"
         xmlns:cviews="clr-namespace:RestaurantWPF.Views.Customer.Components"
-        Title="Smart Restaurant - Customer Portal"
+        Title="Smart Restaurant"
         WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
-        WindowStyle="SingleBorderWindow"
-        ResizeMode="CanResize"
-        Background="#FFFDE7">
+        Background="#121212"
+        FontFamily="Segoe UI">
 
     <Window.Resources>
-
+        <!-- View templates -->
         <DataTemplate DataType="{x:Type vm:MenuViewModel}">
             <cviews:MenuView/>
         </DataTemplate>
-
         <DataTemplate DataType="{x:Type vm:ReservationViewModel}">
             <cviews:ReservationView/>
         </DataTemplate>
-
         <DataTemplate DataType="{x:Type vm:FeedbackViewModel}">
             <cviews:FeedbackView/>
         </DataTemplate>
-
         <DataTemplate DataType="{x:Type vm:ProfileViewModel}">
             <cviews:ProfileView/>
         </DataTemplate>
 
+        <!-- ⚡ Accent -->
+        <SolidColorBrush x:Key="AccentBrush" Color="#FF7A00"/>
+        <SolidColorBrush x:Key="CardBackground" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="TextPrimary" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextSecondary" Color="#BFBFBF"/>
+
+        <!-- Sidebar button (refined) -->
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Foreground" Value="#E0E0E0"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="16,10"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalContentAlignment" Value="Left"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="#000" BlurRadius="2" ShadowDepth="1" Opacity="0.25"/>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
+                                <Setter TargetName="border" Property="Background" Value="#1F1F1F"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#2A2A2A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
+    <!-- ⚙️ Layout -->
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="270"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
 
-        <!-- 🍽️ Sidebar -->
-        <Border Grid.RowSpan="2">
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                    <GradientStop Color="#FFF9C4" Offset="0"/>
-                    <GradientStop Color="#FFD54F" Offset="1"/>
-                </LinearGradientBrush>
-            </Border.Background>
-
-            <StackPanel Margin="25,60,25,0">
+        <!-- 🍽 Sidebar -->
+        <Border Background="#1E1E1E" Padding="24,40" CornerRadius="0,12,12,0">
+            <StackPanel>
                 <TextBlock Text="Smart Restaurant"
-                           Foreground="#5D4037"
                            FontSize="22"
-                           FontWeight="Bold"
-                           Margin="0,0,0,50"/>
+                           FontWeight="ExtraBold"
+                           Foreground="{StaticResource AccentBrush}"
+                           Margin="0,0,0,35"
+                           TextOptions.TextFormattingMode="Display"/>
 
                 <Button Content="🍴  Menu"
-                        FontSize="16"
-                        Background="Transparent"
-                        Foreground="#5D4037"
-                        FontWeight="SemiBold"
-                        BorderThickness="0"
-                        Margin="0,8"
-                        Cursor="Hand"
                         Command="{Binding MenuCommand}"
-                        HorizontalContentAlignment="Left"/>
-
-                <Button Content="🪑  Reservations"
-                        FontSize="16"
-                        Background="Transparent"
-                        Foreground="#5D4037"
-                        FontWeight="SemiBold"
-                        BorderThickness="0"
-                        Margin="0,8"
-                        Cursor="Hand"
+                        Style="{StaticResource NavButtonStyle}"/>
+                <Button Content="📅  Reservation"
                         Command="{Binding ReservationCommand}"
-                        HorizontalContentAlignment="Left"/>
-
+                        Style="{StaticResource NavButtonStyle}"/>
                 <Button Content="💬  Feedback"
-                        FontSize="16"
-                        Background="Transparent"
-                        Foreground="#5D4037"
-                        FontWeight="SemiBold"
-                        BorderThickness="0"
-                        Margin="0,8"
-                        Cursor="Hand"
                         Command="{Binding FeedbackCommand}"
-                        HorizontalContentAlignment="Left"/>
-
+                        Style="{StaticResource NavButtonStyle}"/>
                 <Button Content="👤  Profile"
-                        FontSize="16"
-                        Background="Transparent"
-                        Foreground="#5D4037"
-                        FontWeight="SemiBold"
-                        BorderThickness="0"
-                        Margin="0,8"
-                        Cursor="Hand"
                         Command="{Binding ProfileCommand}"
-                        HorizontalContentAlignment="Left"/>
+                        Style="{StaticResource NavButtonStyle}"/>
 
-                <!-- 🔘 Logout -->
+                <Separator Margin="0,30,0,20" Background="#333"/>
+
                 <Button Content="🚪  Logout"
-        Command="{Binding LogoutCommand}"
-        Background="#FFA000"
-        Foreground="White"
-        FontSize="15"
-        BorderThickness="0"
-        FontWeight="Bold"
-        Margin="0,60,0,0"
-        Height="40"
-        Cursor="Hand"
-        HorizontalContentAlignment="Center">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border CornerRadius="8" Background="{TemplateBinding Background}">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
+                        Command="{Binding LogoutCommand}"
+                        Foreground="#FF7A00"
+                        FontWeight="Bold"
+                        FontSize="17"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        HorizontalAlignment="Left"
+                        Cursor="Hand"/>
             </StackPanel>
         </Border>
 
-        <!-- 🟡 Header -->
-        <Border Grid.Column="1"
-                Background="White"
-                Height="70"
-                VerticalAlignment="Top"
-                Margin="0,0,0,1"
-                Padding="20,0">
-            <DockPanel LastChildFill="False">
-                <TextBlock Text="{Binding Greeting}"
-               FontSize="24"
-               FontWeight="Bold"
-               Foreground="#4E342E"
-               VerticalAlignment="Center"
-               DockPanel.Dock="Left"/>  
+        <!-- 🌆 Header + Main content -->
+        <Grid Grid.Column="1" Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
+            <!-- Header -->
+            <DockPanel Grid.Row="0" Margin="0,0,0,20">
+                <TextBlock Text="Welcome back,"
+                           Foreground="{StaticResource TextSecondary}"
+                           FontSize="17"
+                           DockPanel.Dock="Left"
+                           VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding CustomerName}"
+                           Foreground="{StaticResource TextPrimary}"
+                           FontSize="21"
+                           FontWeight="Bold"
+                           Margin="6,0,0,0"
+                           DockPanel.Dock="Left"
+                           VerticalAlignment="Center"/>
 
-                <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" VerticalAlignment="Center">
-                    <Ellipse Width="42" Height="42" Fill="#FFB300"/>
-                    <TextBlock Text="{Binding CustomerName}"
-           Margin="12,0,0,0"
-           FontSize="16"
-           VerticalAlignment="Center"
-           Foreground="#4E342E"
-           FontWeight="Medium"/>
-                </StackPanel>
+                <Ellipse Width="44" Height="44"
+                         Fill="{StaticResource AccentBrush}"
+                         DockPanel.Dock="Right"/>
             </DockPanel>
-        </Border>
 
-        <!-- 🧩 Content -->
-        <Border Grid.Column="1" Grid.Row="1" Margin="25"
-        Background="White" CornerRadius="10" Padding="20">
-            <ContentControl Content="{Binding CurrentView}" />
-        </Border>
-
+            <!-- Main Content -->
+            <Border Grid.Row="1"
+                    Background="{StaticResource CardBackground}"
+                    CornerRadius="12"
+                    Padding="20">
+                <ContentControl Content="{Binding CurrentView}" />
+            </Border>
+        </Grid>
     </Grid>
 </Window>

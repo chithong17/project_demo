@@ -18,6 +18,7 @@ namespace RestaurantWPF.ViewModels.Admin
     {
         private readonly IFoodService _foodService;
         public ObservableCollection<Food> Foods { get; set; }
+        private List<Food> _allFoods;
 
         private Food _selectedFood;
         public Food SelectedFood
@@ -31,24 +32,60 @@ namespace RestaurantWPF.ViewModels.Admin
         public ICommand EditCommand { get; }
         public ICommand DeleteCommand { get; }
 
+        public ICommand RestoreCommand { get; } // ✅ Mới
+
+        private bool _showHiddenFoods;
+        public bool ShowHiddenFoods
+        {
+            get => _showHiddenFoods;
+            set { _showHiddenFoods = value; OnPropertyChanged(); LoadFoods(); }
+        }
+
+        private string _searchText;
+        public string SearchText
+        {
+            get => _searchText;
+            set
+            {
+                _searchText = value;
+                OnPropertyChanged();
+                ApplyFilter(); // gọi lọc lại mỗi khi người dùng nhập text
+            }
+        }
+
         public FoodViewModel()
         {
             _foodService = new FoodService();
             Foods = new ObservableCollection<Food>();
-
+            _allFoods = new List<Food>();
             LoadCommand = new RelayCommand(_ => LoadFoods());
             AddCommand = new RelayCommand(_ => AddFood());
-            EditCommand = new RelayCommand(_ => EditFood(), _ => SelectedFood != null);
-            DeleteCommand = new RelayCommand(_ => DeleteFood(), _ => SelectedFood != null);
+            EditCommand = new RelayCommand(_ => EditFood());
+            DeleteCommand = new RelayCommand(_ => DeleteFood());
+            RestoreCommand = new RelayCommand(_ => RestoreFood());
+
 
             LoadFoods();
         }
 
         private void LoadFoods()
         {
+            var list = _foodService.GetAllIncludingDeleted();
+              
+
+            _allFoods = list;
+            ApplyFilter();
+        }
+
+
+        private void ApplyFilter()
+        {
             Foods.Clear();
-            var list = _foodService.GetAll();
-            foreach (var item in list)
+            var filtered = string.IsNullOrWhiteSpace(SearchText)
+                ? _allFoods
+                : _allFoods.Where(f => f.Name.ToLower().Contains(SearchText.ToLower())).ToList();
+
+            foreach (var item in filtered)
                 Foods.Add(item);
         }
 
@@ -65,7 +102,15 @@ namespace RestaurantWPF.ViewModels.Admin
 
         private void EditFood()
         {
-            if (SelectedFood == null) return;
+            if (SelectedFood == null)
+            {
+                MessageBox.Show("Vui lòng chọn một món ăn để chỉnh sửa.",
+                                "Thông báo",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                return;
+            }
+
 
             var dialog = new Views.Admin.Dialogs.FoodDialog(SelectedFood); 
             if (dialog.ShowDialog() == true)
@@ -79,12 +124,48 @@ namespace RestaurantWPF.ViewModels.Admin
 
         private void DeleteFood()
         {
-            if (SelectedFood == null) return;
-
-            if (MessageBox.Show("Delete this food?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (SelectedFood == null)
             {
-                _foodService.Delete(SelectedFood.FoodId);
+                MessageBox.Show("Vui lòng chọn một món ăn để ẩn.",
+                                "Thông báo",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                return;
+            }
+
+            if (MessageBox.Show("Ẩn món ăn này khỏi menu?",
+                                "Xác nhận",
+                                MessageBoxButton.YesNo,
+                                MessageBoxImage.Question)
+                == MessageBoxResult.Yes)
+            {
+                _foodService.Delete(SelectedFood.FoodId); // xóa mềm
                 LoadFoods();
+                MessageBox.Show("Món ăn đã được ẩn thành công.",
+                                "Thành công",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+            }
+        }
+
+
+        private void RestoreFood()
+        {
+            if (SelectedFood == null)
+            {
+                MessageBox.Show("Vui lòng chọn một món ăn để khôi phục.",
+                                "Thông báo",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
+                return;
+            }
+
+            if (MessageBox.Show("Restore this food to the menu?", "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question)
+                == MessageBoxResult.Yes)
+            {
+                _foodService.Restore(SelectedFood.FoodId);
+                LoadFoods();
+                MessageBox.Show("The food has been restored.", "Info", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
     }
