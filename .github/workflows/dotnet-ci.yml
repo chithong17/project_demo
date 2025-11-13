@@ -12,27 +12,29 @@ jobs:
 
     steps:
     - name: Checkout source code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
 
     - name: Setup .NET 8 SDK
-      uses: actions/setup-dotnet@v4
+      uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0.x'
 
+    # ⭐ Restore đúng file solution
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore SmartRestaurantSystem.sln
 
     - name: Build solution
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build SmartRestaurantSystem.sln --configuration Release --no-restore
 
     - name: Run unit tests with NUnit
-      run: dotnet test --configuration Release --no-build --collect:"XPlat Code Coverage"
+      run: dotnet test SmartRestaurantSystem.sln --no-build --verbosity normal
 
+    # ⭐ Publish WPF app (chỉ UI project)
     - name: Publish WPF App
-      run: dotnet publish RestaurantWPF/RestaurantWPF.csproj -c Release -o publish
+      run: dotnet publish RestaurantWPF/RestaurantWPF.csproj -c Release -o published
 
     - name: Upload artifact (exe)
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v3
       with:
-        name: RestaurantWPF-Build
-        path: publish
+        name: wpf-build
+        path: published
