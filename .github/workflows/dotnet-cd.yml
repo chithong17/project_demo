@@ -1,11 +1,14 @@
 name: CD - Publish & Installer
 
 on:
-  push:
-    branches: ["main"]
+  workflow_run:
+    workflows: ["CI - Build & Test"]
+    types:
+      - completed
 
 jobs:
   release:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: windows-latest
 
     steps:
